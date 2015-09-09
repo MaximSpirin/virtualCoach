@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Football drill</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+</head>
+<body>
+
+    <!-- Load jQuery -->
+    <script type="text/javascript" src="js/external/jquery/jquery.js" onload="console.log('jquery loaded')"></script>
+
+    <!------------------------- Load createjs libs --------------------->
+    <script type="text/javascript" src="js/external/createjs/easeljs-0.8.1.combined.js"></script>
+
+    <!-- Load app entry point class -->
+    <script type="text/javascript" src="js/Main.js"></script>
+
+    <!-- events -->
+    <script type="text/javascript" src="js/events/ApplicationEvent.js"></script>
+
+    <!-- utils -->
+    <script type="text/javascript" src="js/utils/InheritanceManager.js"></script>
+    <script type="text/javascript" src="js/utils/StringUtils.js"></script>
+
+    <!-- views -->
+
+    <!-- vo -->
+    <script type="text/javascript" src="js/model/User.js"></script>
+
+    <!-- services -->
+    <script type="text/javascript" src="js/service/PlatformInfoService.js"></script>
+
+    <!-- singletones -->
+    <script type="text/javascript" src="js/service/ServiceLocator.js" onload=""></script>
+    <script type="text/javascript" src="js/model/ApplicationModel.js"></script>
+
+    <!-- app container -->
+    <div id="appContainer">
+        <canvas id="appCanvas" width="960" height="500">
+
+        </canvas>
+
+    </div>
+
+
+</body>
+</html>
