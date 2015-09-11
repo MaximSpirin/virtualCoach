@@ -5,7 +5,8 @@ body{
 }
 
 #appContainer{
-    width: 960px;
-    height: 500px;
     background-color: #FFFFFF;
+    width: 800px;
+    height: 600px;
 }
+

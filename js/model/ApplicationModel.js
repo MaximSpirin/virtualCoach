@@ -6,6 +6,9 @@
     ApplicationModel.prototype.serviceLocator;
     ApplicationModel.prototype.user;
     ApplicationModel.prototype.platformInfo;
+    ApplicationModel.prototype.userID;
+    ApplicationModel.prototype.sessionID;
+    ApplicationModel.prototype.assetsLoaded;
 
     //static variables and constants
     ApplicationModel.VERSION = "0.0.1";
