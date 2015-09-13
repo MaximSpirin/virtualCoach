@@ -5,7 +5,11 @@
 
     MainMenuScreen.prototype.backgroundImage = null;
     MainMenuScreen.prototype.loadQueue = null;
-
+    MainMenuScreen.prototype.topText = null;
+    MainMenuScreen.prototype.mainMenuText = null;
+    MainMenuScreen.prototype.copyrighAndVersionText = null;
+    MainMenuScreen.prototype.newDrillButton = null;
+    MainMenuScreen.prototype.loadDrillButton = null;
 
     //constructor
     function MainMenuScreen(){
@@ -29,23 +33,36 @@
     var p = createjs.extend(MainMenuScreen, AppScreen);
 
     MainMenuScreen.prototype.constructScreen = function(){
-        //this.backgroundImage = new createjs.Bitmap(Main.loadQueue.getResult("main-menu-background"));
-        //this.addChild(this.backgroundImage);
+        //display background
+        this.backgroundImage = new createjs.Bitmap(Main.loadQueue.getResult("main-menu-background"));
+        this.addChild(this.backgroundImage);
 
-        /*//load background image
-        this.loadQueue = new createjs.LoadQueue();
-        this.loadQueue.on("fileload", this.handleBackgroundLoad, this);
-        this.loadQueue.on("error", this.handleBackgroundError, this);
-        this.loadQueue.loadFile({id:"background", src:"img/grassBackground_800_600.jpg", type:createjs.AbstractLoader.IMAGE});*/
+        //create header text
+        this.topText = new createjs.Text("A place for app or corporate logo","35px Arial","#FFFFFF");
+        this.topText.x = ApplicationModel.APP_WIDTH/2 - this.topText.getBounds().width/2;
+        this.topText.y = 10;
+        this.addChild(this.topText);
 
-        /*thisRef.backgroundImage = new createjs.Bitmap("img/grassBackground_800_600.jpg");
-         thisRef.backgroundImage.scaleX=0.5;
-         thisRef.backgroundImage.scaleY=0.5;
+        this.mainMenuText = new createjs.Text("Main menu","30px Arial","#FFFFFF");
+        this.mainMenuText.x = ApplicationModel.APP_WIDTH/2 - this.mainMenuText.getBounds().width/2;
+        this.mainMenuText.y = 260 - 50;
+        this.addChild(this.mainMenuText);
 
-         thisRef.addChild(this.backgroundImage);
-         thisRef.backgroundImage.image.onload = function(){
-         //window.stage.update();
-         };*/
+        this.copyrighAndVersionText = new createjs.Text("Copyright information. Version " + ApplicationModel.VERSION,"14px Arial","#FFFFFF");
+        this.copyrighAndVersionText.x = ApplicationModel.APP_WIDTH - this.copyrighAndVersionText.getBounds().width - 10;
+        this.copyrighAndVersionText.y = ApplicationModel.APP_HEIGHT - 30;
+        this.addChild(this.copyrighAndVersionText);
+
+        //display menu buttons
+        this.newDrillButton = new SimpleTextButton("New drill","25px Arial", "#000000", "#27D100","#00FF00","#0000FF", 150);
+        this.newDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
+        this.newDrillButton.y = 260;
+        this.addChild(this.newDrillButton);
+
+        this.loadDrillButton = new SimpleTextButton("Load drill","25px Arial", "#000000", "#27D100","#00FF00","#0000FF", 150);
+        this.loadDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
+        this.loadDrillButton.y = this.newDrillButton.y + 60;
+        this.addChild(this.loadDrillButton);
 
     };
 

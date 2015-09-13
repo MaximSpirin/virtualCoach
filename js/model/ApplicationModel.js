@@ -14,6 +14,8 @@
     ApplicationModel.VERSION = "0.0.1";
     ApplicationModel.debugVersion = false;
     ApplicationModel.instance = null;
+    ApplicationModel.APP_WIDTH = 800;
+    ApplicationModel.APP_HEIGHT = 600;
 
     //static functions
     ApplicationModel.getInstance = function () {

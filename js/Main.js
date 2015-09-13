@@ -5,7 +5,7 @@
 (function (window){
 
     Main.prototype.currentScreen = null;
-    Main.prototype.stage=null;
+    Main.prototype.stage = null;
 
     function Main(userID, sessionID){
         this.Container_constructor();
@@ -23,6 +23,11 @@
         window.user = new User();
         //init easeljs stage
         window.stage = new createjs.Stage("appCanvas");
+        if(window.applicationModel.platformInfo.mobile == false){
+            window.stage.enableMouseOver() ;
+        }
+
+
         //stage will call update() on every tick ie each 1/30 sec
         createjs.Ticker.addEventListener("tick", this.onTickHandler);
 
@@ -47,8 +52,9 @@
         //get screen init params if available
         var screenClass;
 
-        //TODO 1.  remove prev screen and dispose it
+        // 1. remove prev screen and dispose it
         if(this.currentScreen && this.currentScreen.stage){
+            this.currentScreen.destroy();
             this.removeChild(this.currentScreen);
         }
 
@@ -57,10 +63,9 @@
             case AppScreen.MAIN_MENU:
                 screenClass = MainMenuScreen;
                 break;
-
         }
 
-        //TODO 3. instantiate new screen and add it to display list
+        // 3. instantiate new screen and add it to display list
         this.currentScreen = new screenClass();
         this.addChild(this.currentScreen);
     };
@@ -68,7 +73,7 @@
     Main.prototype.loadExternalAssets = function(){
         //load all external files required by app
         var manifest = [
-            {id:"main-menu-background", src:"img/grassBackground_800_600.jpg", type:createjs.AbstractLoader.IMAGE}
+            {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE}
         ];
 
         Main.loadQueue = new createjs.LoadQueue();
