@@ -7,6 +7,7 @@
 
     //static variable
     AppScreen.MAIN_MENU = "main_menu";
+    AppScreen.EDITOR = "editor";
 
 
     //constructor

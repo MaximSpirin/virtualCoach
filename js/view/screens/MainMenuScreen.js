@@ -15,17 +15,7 @@
     function MainMenuScreen(){
         // call constructor of the superclass
         this.AppScreen_constructor();
-
-        //private variables
-        /*var _privateVar1 = "value1";
-         var _privateVar2 = "value2";*/
-
-        //public getters & setters ie properties
-        /*this.getProp1 = function(){return _privateVar1;};
-         this.getProp2 = function(){return _privateVar2;}*/
-
         console.log("MainMenuScreen constructor fired!");
-
         this.constructScreen();
     }
 
@@ -33,6 +23,7 @@
     var p = createjs.extend(MainMenuScreen, AppScreen);
 
     MainMenuScreen.prototype.constructScreen = function(){
+
         //display background
         this.backgroundImage = new createjs.Bitmap(Main.loadQueue.getResult("main-menu-background"));
         this.addChild(this.backgroundImage);
@@ -54,29 +45,27 @@
         this.addChild(this.copyrighAndVersionText);
 
         //display menu buttons
-        this.newDrillButton = new SimpleTextButton("New drill","25px Arial", "#000000", "#27D100","#00FF00","#0000FF", 150);
+        this.newDrillButton = new SimpleTextButton("New drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150);
         this.newDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
         this.newDrillButton.y = 260;
+        this.newDrillButton.addEventListener("click", this.newDrillClickHandler);
         this.addChild(this.newDrillButton);
 
-        this.loadDrillButton = new SimpleTextButton("Load drill","25px Arial", "#000000", "#27D100","#00FF00","#0000FF", 150);
+        this.loadDrillButton = new SimpleTextButton("Load drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150);
         this.loadDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
         this.loadDrillButton.y = this.newDrillButton.y + 60;
         this.addChild(this.loadDrillButton);
 
     };
 
-   /* MainMenuScreen.prototype.handleBackgroundLoad = function(evt){
-        var item = evt.item;
-        var type = evt.type;
-        console.log('background loaded!');
-        this.backgroundImage = new createjs.Bitmap(this.loadQueue.getResult("background"));
-        this.addChild(this.backgroundImage);
+
+    p.newDrillClickHandler = function(evt){
+        var newPresentation = window.main.createEmptyPresentation();
+        if(newPresentation){
+            window.eventDispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.SHOW_EDITOR, {presentation: newPresentation}));
+        }
     };
 
-    MainMenuScreen.prototype.handleBackgroundError = function(){
-        console.log('error loading background file!');
-    };*/
 
     /**************************** Overridden methods **************************/
     /**
@@ -85,13 +74,16 @@
      */
     p.destroy = function(){
         this.AppScreen_destroy();
+
+        //unsubscribe listeners
+        this.newDrillButton.removeAllEventListeners();
+        this.newDrillButton.destroy();
+
+        this.loadDrillButton.removeAllEventListeners();
+        this.loadDrillButton.destroy();
+
         console.log("MainMenuScreen.destroy()");
     };
-
-    /*p.draw = function(){
-        this.AppScreen_draw();
-    };*/
-
 
 
     window.MainMenuScreen = createjs.promote(MainMenuScreen, "AppScreen");

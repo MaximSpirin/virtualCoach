@@ -5,15 +5,15 @@
 
     // Usage: ApplicationEvent.EVENT_NAME = 'event_name'
     ApplicationEvent.SHOW_SCREEN = "show_screen";
+    ApplicationEvent.SHOW_EDITOR = "show_editor";
 
     //Each instance of this event will have an associated payload object
     ApplicationEvent.prototype.payload = null;
-    ApplicationEvent.prototype.name = null;
+
 
     // constructor
-    function ApplicationEvent(name, payload){
-
-        this.name = name;
+    function ApplicationEvent(type, payload, bubbles, cancelable){
+        this.Event_constructor(type, bubbles, cancelable);
 
         if(payload == null || payload == undefined){
             payload = {};
@@ -22,6 +22,8 @@
 
     }
 
-    window.ApplicationEvent = ApplicationEvent;
+    var p = createjs.extend(ApplicationEvent, createjs.Event);
+
+    window.ApplicationEvent = createjs.promote(ApplicationEvent, "Event");
 
 }(window));

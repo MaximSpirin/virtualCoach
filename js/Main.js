@@ -17,16 +17,21 @@
         window.applicationModel.sessionID = sessionID;
 
         window.serviceLocator = ServiceLocator.getInstance();
-        window.eventDispatcher = $("#appContainer");
+        window.eventDispatcher = Dispatcher.getInstance();
+
+        //subscribe to dispatcher events
+        window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
 
         //create user object that will be stored as a property of window
         window.user = new User();
         //init easeljs stage
         window.stage = new createjs.Stage("appCanvas");
-        if(window.applicationModel.platformInfo.mobile == false){
-            window.stage.enableMouseOver() ;
-        }
+        //if(window.applicationModel.platformInfo.mobile == false){ window.stage.enableMouseOver() ; }
 
+        //proxy touch events(if running on touch device) into mouse events
+        createjs.Touch.enable(window.stage);
+        var supported = createjs.Touch.isSupported();
+        console.log('Touch supported = ',supported);
 
         //stage will call update() on every tick ie each 1/30 sec
         createjs.Ticker.addEventListener("tick", this.onTickHandler);
@@ -35,8 +40,10 @@
 
         this.loadExternalAssets();
 
-        //this.showAppScreen(AppScreen.MAIN_MENU);
+    }
 
+    function showEditorHandler(applicationEvent){
+        this.showAppScreen(AppScreen.EDITOR, applicationEvent.payload.presentation);
     }
 
     var p = createjs.extend(Main, createjs.Container);
@@ -63,9 +70,18 @@
             case AppScreen.MAIN_MENU:
                 screenClass = MainMenuScreen;
                 break;
+
+            case AppScreen.EDITOR:
+                screenClass = Editor;
+                break;
         }
 
         // 3. instantiate new screen and add it to display list
+        if(!screenClass){
+            console.error("Error: cant create a new app screen as screenClass in undefined!");
+            return;
+        }
+
         this.currentScreen = new screenClass();
         this.addChild(this.currentScreen);
     };
@@ -94,6 +110,15 @@
     Main.prototype.onAssetLoadFailure = function(evt){
         window.applicationModel.assetsLoaded = false;
         console.log('Failed to load application assets!');
+    };
+
+    Main.prototype.createEmptyPresentation = function(){
+        var id = createjs.UID.get();
+        var presentation = new Presentation(id);
+
+        console.log("Created a new presentation with id="+id);
+
+        return presentation;
     };
 
     //public static properties
