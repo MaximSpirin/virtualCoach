@@ -10,3 +10,24 @@ body{
     height: 600px;
 }
 
+.globalInputForm{
+    position:absolute;
+    top:0px;
+    left: 0px;
+    width: inherit;
+    height: inherit;
+    background: #99CA3B;
+}
+
+.globalInputFormCenterGroup{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    margin:auto;
+}
+
+.globalInputField{
+    margin-bottom: 10px;
+}
+

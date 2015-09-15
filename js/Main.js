@@ -82,7 +82,8 @@
             return;
         }
 
-        this.currentScreen = new screenClass();
+
+        this.currentScreen = initParams ? new screenClass(initParams) : new screenClass();
         this.addChild(this.currentScreen);
     };
 

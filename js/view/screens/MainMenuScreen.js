@@ -16,13 +16,13 @@
         // call constructor of the superclass
         this.AppScreen_constructor();
         console.log("MainMenuScreen constructor fired!");
-        this.constructScreen();
+        this.constructScreenUI();
     }
 
     //create inheritance
     var p = createjs.extend(MainMenuScreen, AppScreen);
 
-    MainMenuScreen.prototype.constructScreen = function(){
+    MainMenuScreen.prototype.constructScreenUI = function(){
 
         //display background
         this.backgroundImage = new createjs.Bitmap(Main.loadQueue.getResult("main-menu-background"));
