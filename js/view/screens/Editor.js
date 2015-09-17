@@ -7,6 +7,7 @@
     Editor.prototype.backgroundShape;
     Editor.prototype.exitButton;
     Editor.prototype.presentation;
+    Editor.prototype.sizeInputForm;
 
     //static variable
     //Editor.staticVar = "value";
@@ -60,48 +61,34 @@
 
     p.initialize = function(){
         if(!this.presentation.pitchWidth || !this.presentation.pitchHeight){
-            //this.showForm(PitchDimensionsInput,{});
-
-            var formElemBase = jQuery.parseHTML("<div id='pitch_dim_input_form' class='globalInputForm'/>");
-            $("#appContainer").append(formElemBase);
-
-            var headerElem = $("<h3>Please enter pitch dimensions</h3>");
-            $(formElemBase).append(headerElem);
+            this.showForm(PitchSizeInputFormHTML,{});
+            //this.showPitchSizeInputForm();
 
 
-            var centerGroupDiv = jQuery.parseHTML("<div class='globalInputFormCenterGroup'/>");
-            $(formElemBase).append(centerGroupDiv);
-
-
-            var widthInputElem = jQuery.parseHTML("<div id='width_input_field' class='input-group globalInputField'>"+
-            "<input type='text' class='form-control' placeholder='Pitch width'>" +
-            "</div>");
-
-            var heightInputElem = jQuery.parseHTML("<div id='height_input_field' class='input-group globalInputField'>" +
-            "<input type='text' class='form-control' placeholder='Pitch height'>" +
-            "</div>");
-
-            //$("#pitch_dim_input_form").append(widthInputElem,heightInputElem);
-            $(centerGroupDiv).append(widthInputElem,heightInputElem);
-
-           var htmlElem = $(centerGroupDiv).get();
-
-            var domElement = new createjs.DOMElement(htmlElem);
-            this.addChild(domElement);
-
-            console.log(domElement)
 
         }else{
             //TODO: visualize presentation data
         }
+
+        Dispatcher.getInstance().on(ApplicationEvent.NAVIGATE_BACK, this.navigateBackHandler, this);
     };
 
+    p.showPitchSizeInputForm = function(){
+       this.sizeInputForm = new PitchSizeInputFormHTML();
+       this.addChild(this.sizeInputForm);
 
+
+
+    };
 
     function exitClickHandler(evt){
         //TODO: exit properly from the edit mode - possible show an yes/no dialog
         window.main.showAppScreen(AppScreen.MAIN_MENU);
     }
+
+    p.navigateBackHandler = function(){
+
+    };
 
     p.destroy = function(){
         this.AppScreen_destroy();

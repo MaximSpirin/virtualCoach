@@ -11,11 +11,13 @@
     ApplicationModel.prototype.assetsLoaded;
 
     //static variables and constants
-    ApplicationModel.VERSION = "0.0.3";
+    ApplicationModel.VERSION = "0.0.4";
     ApplicationModel.debugVersion = false;
     ApplicationModel.instance = null;
     ApplicationModel.APP_WIDTH = 800;
     ApplicationModel.APP_HEIGHT = 600;
+    ApplicationModel.DEFAULT_PITCH_WIDTH_METERS = 105;
+    ApplicationModel.DEFAULT_PITCH_HEIGHT_METERS = 68;
 
     //static functions
     ApplicationModel.getInstance = function () {

@@ -24,6 +24,8 @@
         /*this.getProp1 = function(){return _privateVar1;};
         this.getProp2 = function(){return _privateVar2;}*/
 
+        this.onHideFormListener = Dispatcher.getInstance().on(ApplicationEvent.HIDE_CURRENT_FORM, hideCurrentFormHandler, this);
+
         console.log("AppScreen constructor fired!");
     }
 
@@ -40,7 +42,10 @@
      * All interactivity & other processes should be disabled here
      */
     AppScreen.prototype.destroy = function () {
+        Dispatcher.getInstance().off(ApplicationEvent.HIDE_CURRENT_FORM, this.onHideFormListener);
+        this.onHideFormListener=null;
         removeCurrentForm(this);
+
     };
 
     AppScreen.prototype.showForm = function (formClass, initParams){
@@ -49,6 +54,11 @@
 
 
     //private functions
+
+    function hideCurrentFormHandler(applicationEvent){
+        removeCurrentForm(this);
+    }
+
     function removeCurrentForm(thisScope) {
         if(thisScope.form){
             thisScope.form.destroy();
@@ -63,9 +73,9 @@
         //1. remove an exitsting form if present
         removeCurrentForm(scope);
         //2.create instance of form object
-        var form = new formClass(initParams);
+        scope.form = new formClass(initParams);
         //3. add new form to the top of DL
-        scope.addChild(form);
+        scope.addChild(scope.form);
     }
 
 
