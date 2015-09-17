@@ -27,6 +27,9 @@
 
     p.destroy = function(){
         //console.log("Form destroy");
+        this.initParams = null;
+        this.positiveCallback = null;
+        this.negativeCallback = null;
       //to be overridden by successors
     };
 

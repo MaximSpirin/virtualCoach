@@ -8,8 +8,8 @@
     PitchSizeInputFormHTML.prototype.formDOMElement;
 
     //constructor
-    function PitchSizeInputFormHTML() {
-        this.Form_constructor();
+    function PitchSizeInputFormHTML(initParams) {
+        this.Form_constructor(initParams);
 
         //this.createFormFromHTMLString();
         //this.DOMElement_constructor(this.formHTMLElement);
@@ -40,12 +40,12 @@
             }
         });
 
-        $("#pitchInputFormProceedButton").click(function(){
-            var pitchW = $("#pitch_width_input").val();
-            var pitchH = $("#pitch_height_input").val();
-
-            if(this.positiveCallback){
-                this.positiveCallback(pitchW, pitchH);
+        $("#pitchInputFormProceedButton").click(this, function(evt){
+            var pitchW = Number($("#pitch_width_input").val());
+            var pitchH = Number($("#pitch_height_input").val());
+            var thisScope = evt.data;
+            if(thisScope.initParams.positiveCallback){
+                thisScope.initParams.positiveCallback.call(thisScope.initParams.callbackScope, pitchW, pitchH);
             }
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
         });
