@@ -52,6 +52,10 @@
         showForm(this, formClass, initParams);
     };
 
+    AppScreen.prototype.removeForm = function(){
+        removeCurrentForm(this);
+    };
+
 
     //private functions
 

@@ -30,6 +30,8 @@
 
         //proxy touch events(if running on touch device) into mouse events
         createjs.Touch.enable(window.stage);
+        window.stage.mouseMoveOutside = true;
+
         var supported = createjs.Touch.isSupported();
         console.log('Touch supported = ',supported);
 
