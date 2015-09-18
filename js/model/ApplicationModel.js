@@ -11,7 +11,7 @@
     ApplicationModel.prototype.assetsLoaded;
 
     //static variables and constants
-    ApplicationModel.VERSION = "0.0.4";
+    ApplicationModel.VERSION = "0.0.5";
     ApplicationModel.debugVersion = false;
     ApplicationModel.instance = null;
     ApplicationModel.APP_WIDTH = 800;
