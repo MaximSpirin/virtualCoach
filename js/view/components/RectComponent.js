@@ -13,11 +13,11 @@
     //constructor
     function RectComponent() {
         this.PresentationComponent_constructor();
-        //this.initialize();
+        this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(RectComponent,BaseShapeRenderer);
+    var p = createjs.extend(RectComponent, BaseShapeRenderer);
 
     p.initialize = function(){
         this.PresentationComponent_initialize();

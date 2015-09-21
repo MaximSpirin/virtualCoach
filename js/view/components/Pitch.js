@@ -79,6 +79,7 @@
 
         this.dispatcher = Dispatcher.getInstance();
         this.dispatcher.on(ApplicationEvent.ADD_COMPONENT, addComponentHandler, this);
+
     }
 
     function render() {
