@@ -28,8 +28,8 @@
 
         this.on("mousedown", function(evt){
            this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
-        });
-
+            setSelection.call(this);
+        },this);
 
         this.on("pressmove", function(evt){
             this.x = evt.stageX + this.offset.x;
@@ -37,10 +37,8 @@
         });
     };
 
-    PresentationComponent.prototype.setSelection = function(){
-        this.selectionOutline.graphics.setStrokeStyle(4).beginStroke("#FF0000").beginFill("#FFFFFF");
-       // this.selectionOutline.graphics.drawRect(-PresentationComponent.SELECTION_STROKE_SIZE/2, -PresentationComponent.SELECTION_STROKE_SIZE/2, this.componentWidth + PresentationComponent.SELECTION_STROKE_SIZE/2, this.componentHeight + PresentationComponent.SELECTION_STROKE_SIZE/2);
-        this.selectionOutline.graphics.drawRect(0, 0, this.componentWidth, this.componentHeight);
+    function setSelection(){
+        DrawingUtils.drawStrictSizeRectangle(this.selectionOutline.graphics, -4, -4, 4*2+this.componentWidth, 4*2+this.componentHeight, 4, "#FF0000");
         this.addChild(this.selectionOutline);
     };
 

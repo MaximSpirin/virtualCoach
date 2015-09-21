@@ -11,7 +11,7 @@
     Editor.prototype.componentsPalleteBounds;
     Editor.prototype.pitchBounds;
     Editor.prototype.pitchOutline;
-    Editor.prototype.pitchShape;
+    Editor.prototype.pitch;
     Editor.prototype.toolsPanel;
     Editor.prototype.componentsPallete;
 
@@ -73,8 +73,8 @@
             ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - ComponentsPallete.PANEL_STD_WIDTH,
             ApplicationModel.APP_HEIGHT - 3*Editor.UI_CONTROLS_MARGIN - ToolsPanel.PANEL_STD_HEIGHT);
 
-        this.pitchShape = new createjs.Shape();
-        this.addChild(this.pitchShape);
+        this.pitch = new Pitch();
+        this.addChild(this.pitch);
 
         //draw pitch outline
         this.pitchOutline = new createjs.Shape();
@@ -140,14 +140,19 @@
             pitchDisplayHeight = pitchDisplayWidth/(prevW/pitchDisplayHeight)
         }
 
-        this.pitchShape.graphics.clear();
+        this.pitch.setSize(pitchDisplayWidth, pitchDisplayHeight);
 
-        this.pitchShape.graphics.setStrokeStyle(2);
-        this.pitchShape.graphics.beginStroke("#FFFFFF");
-        this.pitchShape.graphics.beginFill("#99CA3B");
-        this.pitchShape.graphics.drawRect(0, 0, pitchDisplayWidth, pitchDisplayHeight);
-        this.pitchShape.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;
-        this.pitchShape.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - pitchDisplayHeight/2;
+        this.pitch.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;
+        this.pitch.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - pitchDisplayHeight/2;
+
+        /*this.pitch.graphics.clear();
+        this.pitch.graphics.setStrokeStyle(2);
+        this.pitch.graphics.beginStroke("#FFFFFF");
+        this.pitch.graphics.beginFill("#99CA3B");
+        this.pitch.graphics.drawRect(0, 0, pitchDisplayWidth, pitchDisplayHeight);
+
+        this.pitch.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;
+        this.pitch.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - pitchDisplayHeight/2;*/
 
 
         console.warn("pitch size ratio = " + Number(pitchDisplayWidth/pitchDisplayHeight).toFixed(4));
@@ -201,7 +206,7 @@
             this.addChild(component);
             component.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - componentClass['STD_WIDTH']/2;
             component.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - componentClass['STD_HEIGHT']/2;
-            component.setSelection();
+
         }
     }
 

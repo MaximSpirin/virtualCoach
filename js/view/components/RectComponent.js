@@ -17,19 +17,23 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(RectComponent,PresentationComponent);
+    var p = createjs.extend(RectComponent,BaseShapeRenderer);
 
     p.initialize = function(){
         this.PresentationComponent_initialize();
 
+        this.componentWidth = RectComponent.STD_WIDTH;
+        this.componentHeight = RectComponent.STD_HEIGHT;
+
         this.outlineShape = new createjs.Shape();
-        this.outlineShape.graphics.setStrokeStyle(4).beginStroke("#ffffff");
-        this.outlineShape.graphics.drawRect(0,0,RectComponent.STD_WIDTH, RectComponent.STD_HEIGHT);
+       // this.outlineShape.graphics.setStrokeStyle(4).beginStroke("#ffffff");
+       // this.outlineShape.graphics.drawRect(0,0,RectComponent.STD_WIDTH, RectComponent.STD_HEIGHT);
         this.addChild(this.outlineShape);
+        DrawingUtils.drawStrictSizeRectangle(this.outlineShape.graphics,0,0,RectComponent.STD_WIDTH, RectComponent.STD_HEIGHT,4,"#ffffff");
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.RectComponent = createjs.promote(RectComponent,"PresentationComponent");
+    window.RectComponent = createjs.promote(RectComponent,"BaseShapeRenderer");
 
 
 }(window));
