@@ -36,9 +36,9 @@
         }
 
         if(value){
-            this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED));
+            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
         }else{
-            this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_DESELECTED));
+            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_DESELECTED,{data:this}));
         }
 
         this.selected = value;
@@ -78,7 +78,7 @@
         this._height = value;
     };
 
-    GraphicItemVO.prototype.getWidth = function(){
+    GraphicItemVO.prototype.getHeight = function(){
         return this._height;
     };
 

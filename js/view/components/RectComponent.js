@@ -6,13 +6,11 @@
     //public variables
     RectComponent.prototype.outlineShape;
 
-    //static variable
-    RectComponent.STD_WIDTH = 200;
-    RectComponent.STD_HEIGHT = 100;
+    //static variables
 
     //constructor
     function RectComponent() {
-        this.PresentationComponent_constructor();
+        this.BaseShapeRenderer_constructor();
         this.initialize();
     }
 
@@ -20,16 +18,20 @@
     var p = createjs.extend(RectComponent, BaseShapeRenderer);
 
     p.initialize = function(){
-        this.PresentationComponent_initialize();
+        this.BaseShapeRenderer_initialize();
+        console.log("Rectange created and initialized!");
 
-        this.componentWidth = RectComponent.STD_WIDTH;
-        this.componentHeight = RectComponent.STD_HEIGHT;
+    };
 
-        this.outlineShape = new createjs.Shape();
-       // this.outlineShape.graphics.setStrokeStyle(4).beginStroke("#ffffff");
-       // this.outlineShape.graphics.drawRect(0,0,RectComponent.STD_WIDTH, RectComponent.STD_HEIGHT);
-        this.addChild(this.outlineShape);
-        DrawingUtils.drawStrictSizeRectangle(this.outlineShape.graphics,0,0,RectComponent.STD_WIDTH, RectComponent.STD_HEIGHT,4,"#ffffff");
+    p.render = function(){
+        var renderData = this.getRendererData();
+        var w = renderData.getWidth();
+        var h = renderData.getHeight();
+        DrawingUtils.drawStrictSizeRectangle(this.graphics, 0, 0, renderData.getWidth(), renderData.getHeight(), 4, "#ffffff");
+
+
+        this.x = renderData.getPosition().x;
+        this.y = renderData.getPosition().y;
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName

@@ -18,18 +18,48 @@
     function BaseShapeRenderer() {
         //invoke constructor of superclass
         this.Shape_constructor();
+        this.initialize();
     }
 
     //extend this class from a superclass
     var p = createjs.extend(BaseShapeRenderer,createjs.Shape);
 
     // protected functions
-    BaseShapeRenderer.prototype.render = function () {
+    p.render = function () {
         //to be overridden
     };
 
+    p.initialize = function(){
+        this.mouseDownHandler = this.on("mousedown", function(evt){
 
-    BaseShapeRenderer.setRendererData = function(value){
+            /*this.selected = true;
+            this.showSelection();
+            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this._data}));*/
+
+            this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
+        },this);
+
+        this.pressMoveHandler = this.on("pressmove", function(evt){
+            this.x = evt.stageX + this.offset.x;
+            this.y = evt.stageY + this.offset.y;
+        });
+    };
+
+    p.showSelection = function(){
+
+    };
+
+    p.removeSelection = function(){
+
+    };
+
+
+    p.destroy = function(){
+        this.off(this.mouseDownHandler);
+        this.off(this.pressMoveHandler);
+    };
+
+    p.setRendererData = function(value){
         if(this._data == value){
             return;
         }
@@ -48,20 +78,26 @@
 
     };
 
-    BaseShapeRenderer.invalidateGraphic = function(){
+    p.getRendererData = function(){
+        return this._data;
+    };
+
+    p.invalidateGraphic = function(){
+        this.needRender = true;
+        this.render();
+    };
+
+    p.onPositionChanged = function(event){
 
     };
 
-    BaseShapeRenderer.onPositionChanged = function(event){
+    p.removeData = function(){
 
     };
 
-    BaseShapeRenderer.removeData = function(){
-
-    };
-
-    BaseShapeRenderer.addData = function(){
+    p.addData = function(){
         //add listeners to the updated rendererData
+
     };
 
 

@@ -78,11 +78,11 @@
 
 
     function rectButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ADD_COMPONENT,{type:"rect"}));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_RECTANGLE_CLICK));
     }
 
     function boxButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ADD_COMPONENT,{type:"box"}));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_SQUARE_CLICK));
     }
 
     function attackerButtonClickHandler(evt){

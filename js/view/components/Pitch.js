@@ -70,15 +70,17 @@
 
         //pitch mask
         this.backgroundShapeMask = new createjs.Shape();
-        this.backgroundShape.mask = this.backgroundShapeMask;
+
 
         //container for all elements
         this.elementsLayer = new createjs.Container();
+        this.elementsLayer.mask = this.backgroundShapeMask;
         this.addChild(this.elementsLayer);
 
 
         this.dispatcher = Dispatcher.getInstance();
-        this.dispatcher.on(ApplicationEvent.ADD_COMPONENT, addComponentHandler, this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_RECTANGLE_CLICK, createRectangleClickHandler , this);
+       // this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
 
     }
 
@@ -109,7 +111,8 @@
     p.addItemByModel = function(itemModel, addedByUser) {
         var elementRenderer = createElementRenderer(itemModel);
         var elementContainer = new createjs.Container();
-        elementContainer.add(elementRenderer);
+        elementContainer.addChild(elementRenderer);
+
 
         if(addedByUser){
             this.elementsLayer.addChild(elementContainer);
@@ -121,7 +124,10 @@
     };
 
 
+
     /************************************** event handlers *******************************************/
+
+
 
     function addComponentHandler(evt){
        var componentType = evt.payload.type;
@@ -129,7 +135,37 @@
        var componentY = evt.payload.y!=undefined ? evt.payload.y : ;*/
     }
 
+    function elementSelectedHandler(evt){
+        /*var selectedElementData = evt.payload.data;
+        var graphicElement;
+        var graphicElementData;
+       for(var i=0;i<this.elements.length;i++){
+           graphicElement = this.elements[i];
+           graphicElementData = graphicElement.getRendererData();
 
+           if(graphicElementData == selectedElementData){
+                console.log("Found selected item!:" + selectedElementData.id);
+           } else {
+               graphicElement.selected = false;
+               graphicElement.removeSelection();
+           }
+       }*/
+    }
+
+
+    function createRectangleClickHandler(presentationViewEvent){
+        var defaultRectangleWidth = 200;
+        var defaultRectangleHeight = 100;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultRectangleWidth, defaultRectangleHeight);
+        var elementRendererData = new RectVO(elemId, elemPosition, defaultRectangleWidth, defaultRectangleHeight);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function getElementDefaultPosition(width, height){
+        var result = new createjs.Point(this.componentWidth/2 - width/2, this.componentHeight/2 - height/2);
+        return result;
+    }
 
     function createElementRenderer(elementVO){
         var result;
@@ -186,8 +222,9 @@
 
         }
 
-        result.rendererData = elementVO;
+        result.setRendererData(elementVO);
 
+        return result;
     }
 
 
