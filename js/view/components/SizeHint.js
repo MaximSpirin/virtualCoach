@@ -19,6 +19,7 @@
         this.Container_constructor();
         this.componentWidth = width;
         this.componentHeight = height;
+        this.text = text;
         this.initialize();
 
     }
@@ -30,7 +31,7 @@
         this.strokeShape = new createjs.Shape();
         this.addChild(this.strokeShape);
 
-        this.label = new createjs.Text("Hello World", "12px Arial", "#000000");
+        this.label = new createjs.Text(this.text, "12px Arial", "#000000");
         this.addChild(this.label);
 
         this.strokeMask = new createjs.Shape();
@@ -55,6 +56,9 @@
         var lineWidth = this.componentWidth - 2*arrowW;
 
         this.strokeShape.graphics.clear();
+        this.strokeShape.graphics.beginFill("rgba(0,255,0,0.3)");
+        this.strokeShape.graphics.drawRect(0,0,this.componentWidth, this.componentHeight);
+        
         this.strokeShape.graphics.beginFill("#FF0000");
         this.strokeShape.graphics.moveTo(0, this.componentHeight/2);
         this.strokeShape.graphics.lineTo(arrowW, this.componentHeight/2 - arrowH/2);
@@ -80,6 +84,9 @@
         this.strokeMask.graphics.clear();
         this.strokeMask.graphics.beginFill("#000000");
         this.strokeMask.graphics.drawRect(0,0,this.label.x - 2,this.componentHeight);
+        this.strokeMask.graphics.drawRect(this.label.x + textBounds.width + 2, 0, 
+                                          this.componentWidth - (this.label.x + textBounds.width + 2),
+                                         this.componentHeight);
     };
 
     //private functions
