@@ -33,7 +33,7 @@
         window.stage.mouseMoveOutside = true;
 
         var supported = createjs.Touch.isSupported();
-        console.log('Touch supported = ',supported);
+        //console.log('Touch supported = ',supported);
 
         //stage will call update() on every tick ie each 1/30 sec
         createjs.Ticker.addEventListener("tick", this.onTickHandler);

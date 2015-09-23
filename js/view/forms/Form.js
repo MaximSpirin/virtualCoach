@@ -34,7 +34,7 @@
     };
 
     p.constructForm = function () {
-        console.log("Form constructForm");
+        //console.log("Form constructForm");
         //to be overridden by successors
     };
 

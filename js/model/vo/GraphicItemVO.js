@@ -82,6 +82,12 @@
         return this._height;
     };
 
+    GraphicItemVO.prototype.resize = function(w, h){
+        this._width = w;
+        this._height = h;
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_RESIZE));
+    };
+
     //private functions
     //function privateFunction(param) { }
 

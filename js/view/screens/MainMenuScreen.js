@@ -15,7 +15,7 @@
     function MainMenuScreen(){
         // call constructor of the superclass
         this.AppScreen_constructor();
-        console.log("MainMenuScreen constructor fired!");
+        //console.log("MainMenuScreen constructor fired!");
         this.constructScreenUI();
     }
 

@@ -11,18 +11,19 @@
     BaseShapeRenderer.prototype._y;
 
 
+
     //static variable
     //BaseShapeRenderer.staticVar = "value";
 
     //constructor
     function BaseShapeRenderer() {
         //invoke constructor of superclass
-        this.Shape_constructor();
+        this.Container_constructor();
         this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(BaseShapeRenderer,createjs.Shape);
+    var p = createjs.extend(BaseShapeRenderer,createjs.Container);
 
     // protected functions
     p.render = function () {
@@ -31,17 +32,17 @@
 
     p.initialize = function(){
         this.mouseDownHandler = this.on("mousedown", function(evt){
-
-            /*this.selected = true;
-            this.showSelection();
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this._data}));*/
-
+            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
         },this);
 
         this.pressMoveHandler = this.on("pressmove", function(evt){
             this.x = evt.stageX + this.offset.x;
             this.y = evt.stageY + this.offset.y;
+
+            this._data.position.setValues(this.x, this.y);
+
+            this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
         });
     };
 
@@ -51,6 +52,10 @@
 
     p.removeSelection = function(){
 
+    };
+
+    p.getMinimalSize = function(){
+        //to be overridden
     };
 
 
@@ -97,7 +102,7 @@
 
     p.addData = function(){
         //add listeners to the updated rendererData
-
+        this._data.on(ApplicationEvent.ELEMENT_RESIZE, this.render, this);
     };
 
 
@@ -110,6 +115,6 @@
     //BaseShapeRenderer.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.BaseShapeRenderer = createjs.promote(BaseShapeRenderer,"Shape");
+    window.BaseShapeRenderer = createjs.promote(BaseShapeRenderer,"Container");
 
 }(window));

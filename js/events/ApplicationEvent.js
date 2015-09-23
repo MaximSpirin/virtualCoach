@@ -12,6 +12,8 @@
     ApplicationEvent.ELEMENT_SELECTED = "element_selected";
     ApplicationEvent.ELEMENT_DESELECTED = "element_deselected";
     ApplicationEvent.ELEMENT_POSITION_CHANGED = "element_position_changed";
+    ApplicationEvent.ELEMENT_MOVE = "element_move";
+    ApplicationEvent.ELEMENT_RESIZE = "element_resize";
 
 
     //Each instance of this event will have an associated payload object

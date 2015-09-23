@@ -26,7 +26,7 @@
 
         this.onHideFormListener = Dispatcher.getInstance().on(ApplicationEvent.HIDE_CURRENT_FORM, hideCurrentFormHandler, this);
 
-        console.log("AppScreen constructor fired!");
+        //console.log("AppScreen constructor fired!");
     }
 
     var p = createjs.extend(AppScreen, createjs.Container);

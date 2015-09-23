@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dash line demo</title>
+</head>
+<body onload="init()">
+    <script type="text/javascript" src="js/external/createjs/easeljs-0.8.1.combined.js"></script>
+    <script src="js/view/components/SizeHint.js"></script>
+
+    <script>
+        function init(){
+            //init easeljs stage
+            window.stage = new createjs.Stage("appCanvas");
+
+            createjs.Graphics.prototype.dashedLineTo = function( x1 , y1 , x2 , y2 , dashLen ){
+                this.moveTo( x1 , y1 );
+
+                var dX = x2 - x1;
+                var dY = y2 - y1;
+                var dashes = Math.floor(Math.sqrt( dX * dX + dY * dY ) / dashLen );
+                var dashX = dX / dashes;
+                var dashY = dY / dashes;
+
+                var q = 0;
+                while( q++ < dashes ){
+                    x1 += dashX;
+                    y1 += dashY;
+                    this[q % 2 == 0 ? 'moveTo' : 'lineTo'](x1, y1);
+                }
+                this[q % 2 == 0 ? 'moveTo' : 'lineTo'](x2, y2);
+                return this;
+            };
+
+            /*var dashLine1 = new createjs.Shape();
+            dashLine1.graphics.beginStroke("#FF0000");
+            dashLine1.graphics.setStrokeStyle(3);
+            dashLine1.graphics.dashedLineTo(0,0,183,0,4);
+            
+            window.stage.addChild(dashLine1);
+
+            dashLine1.graphics.setStrokeStyle(2);
+            dashLine1.graphics.setStrokeDash([5,2],0);
+            dashLine1.graphics.moveTo(0,100);
+            dashLine1.graphics.lineTo(395,100);*/
+
+            var sizeHint = new SizeHint(200,16);
+            window.stage.addChild(sizeHint);
+
+            window.stage.update();
+        }
+
+
+
+    </script>
+
+    <!-- app container -->
+    <div id="appContainer">
+        <canvas id="appCanvas" width="800" height="600">
+
+        </canvas>
+    </div>
+</body>
+</html>

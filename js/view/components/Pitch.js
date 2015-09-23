@@ -12,7 +12,9 @@
     Pitch.prototype.update;
     Pitch.prototype.dispatcher;
     Pitch.prototype.elementsLayer;
+    Pitch.prototype.transformToolLayer;
     Pitch.prototype.elements;
+    Pitch.prototype.transformTool;
 
     //************************************** static variables ************************************//
     //Pitch.staticVar = "value";
@@ -63,6 +65,7 @@
 
         //pitch shape
         this.backgroundShape = new createjs.Shape();
+        this.backgroundShape.on("mousedown",canvasMouseDownHandler,this);
         this.addChild(this.backgroundShape);
 
         this.backgroundOutline = new createjs.Shape();
@@ -71,16 +74,17 @@
         //pitch mask
         this.backgroundShapeMask = new createjs.Shape();
 
-
         //container for all elements
         this.elementsLayer = new createjs.Container();
         this.elementsLayer.mask = this.backgroundShapeMask;
         this.addChild(this.elementsLayer);
 
+        this.transformTool = new TransformTool();
+        this.elementsLayer.addChild(this.transformTool);
 
         this.dispatcher = Dispatcher.getInstance();
         this.dispatcher.on(PresentationViewEvent.CREATE_RECTANGLE_CLICK, createRectangleClickHandler , this);
-       // this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
+        this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
 
     }
 
@@ -110,24 +114,27 @@
     /************************************* public functions *******************************************/
     p.addItemByModel = function(itemModel, addedByUser) {
         var elementRenderer = createElementRenderer(itemModel);
-        var elementContainer = new createjs.Container();
-        elementContainer.addChild(elementRenderer);
-
+        /*var elementContainer = new createjs.Container();
+        elementContainer.addChild(elementRenderer);*/
 
         if(addedByUser){
-            this.elementsLayer.addChild(elementContainer);
+            this.elementsLayer.addChild(elementRenderer);
             itemModel.depth = this.elementsLayer.numChildren - 1;
-        }else{
+            this.transformTool.setTarget(elementRenderer);
+        } else {
             var depth = Math.min(model.depth, this.elementsLayer.numChildren);
         }
-        this.elements.push(elementContainer);
+        this.elements.push(elementRenderer);
+        this.elementsLayer.addChild(this.transformTool);
     };
 
 
 
     /************************************** event handlers *******************************************/
 
-
+    function canvasMouseDownHandler(evt){
+        this.transformTool.setTarget(null);
+    }
 
     function addComponentHandler(evt){
        var componentType = evt.payload.type;
@@ -136,20 +143,9 @@
     }
 
     function elementSelectedHandler(evt){
-        /*var selectedElementData = evt.payload.data;
-        var graphicElement;
-        var graphicElementData;
-       for(var i=0;i<this.elements.length;i++){
-           graphicElement = this.elements[i];
-           graphicElementData = graphicElement.getRendererData();
+        var selectedElement = evt.payload.data;
+        this.transformTool.setTarget(selectedElement);
 
-           if(graphicElementData == selectedElementData){
-                console.log("Found selected item!:" + selectedElementData.id);
-           } else {
-               graphicElement.selected = false;
-               graphicElement.removeSelection();
-           }
-       }*/
     }
 
 
