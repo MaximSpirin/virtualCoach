@@ -219,7 +219,7 @@
     }
 
     function createDribblingClickHandler(presentationViewEvent) {
-
+                   
     }
 
     function createPlayerPathClickHandler(presentationViewEvent) {

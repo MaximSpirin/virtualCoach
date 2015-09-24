@@ -14,6 +14,7 @@
     ComponentsPallete.prototype.extraTeamButton;
     ComponentsPallete.prototype.neutralPlayerButton;
     ComponentsPallete.prototype.coneButton;
+    ComponentsPallete.prototype.dribblingButton;
 
 
     //static variable
@@ -80,6 +81,12 @@
         this.coneButton.y = this.neutralPlayerButton.y + this.neutralPlayerButton.getBounds().height*2 + 10;
         this.coneButton.on("click", coneButtonClickHandler, this);
         this.addChild(this.coneButton);
+        
+        this.dribblingButton = new SimpleTextButton("Dribbling", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.dribblingButton.x = 5;
+        this.dribblingButton.y = this.coneButton.y + this.coneButton.getBounds().height*2 + 10;
+        this.dribblingButton.on("click", dribblingButtonClickHandler,this);
+        this.addChild(this.dribblingButton);
 
     };
 
@@ -110,6 +117,10 @@
 
     function coneButtonClickHandler(evt){
         Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_CONE_CLICK));
+    }
+    
+    function dribblingButtonClickHandler(evt){
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_DRIBBLING_CLICK));
     }
 
 
