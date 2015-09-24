@@ -3,35 +3,54 @@
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
-    //public variables
-    AttackerComponent.prototype.shape;
+    /**************************************************** public variables *********************************************/
+    AttackerComponent.prototype.outlineShape;
 
-    //static variable
-    AttackerComponent.CIRCLE_RADIUS = 15;
-    AttackerComponent.STD_WIDTH = 30;
-    AttackerComponent.STD_HEIGHT = 30;
+    /**************************************************** static variables ********************************************/
+    AttackerComponent.STD_RADIUS = 20;
+    AttackerComponent.MIN_SIZE = 20;
+    AttackerComponent.FILL_COLOR = "#382CBF";
 
 
-    //constructor
+    /**************************************************** constructor **************************************************/
+
     function AttackerComponent() {
-        //invoke constructor of superclass
-        this.PresentationComponent_constructor();
-        this.drawView();
+        this.BaseShapeRenderer_constructor();
+        this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(AttackerComponent,PresentationComponent);
+    var p = createjs.extend(AttackerComponent,BaseShapeRenderer);
 
-    p.drawView = function(){
-        this.shape = new createjs.Shape();
-        this.shape.graphics.beginFill("#382CBF");
-        this.shape.graphics.drawCircle(AttackerComponent.CIRCLE_RADIUS,AttackerComponent.CIRCLE_RADIUS,AttackerComponent.CIRCLE_RADIUS);
-        this.addChild(this.shape);
+    /************************************************* overridden methods ***********************************************/
+
+
+    p.initialize = function(){
+        this.BaseShapeRenderer_initialize();
+        this.outlineShape = new createjs.Shape();
+        this.addChild(this.outlineShape);
     };
 
+    p.render = function(){
+        var renderData = this.getRendererData();
+        var w = renderData.getWidth();
+        var h = renderData.getHeight();
+
+        this.x = renderData.getPosition().x;
+        this.y = renderData.getPosition().y;
+
+        this.outlineShape.graphics.clear();
+        this.outlineShape.graphics.beginFill(AttackerComponent.FILL_COLOR);
+        this.outlineShape.graphics.drawCircle(w/2, h/2, w/2);
+
+    };
+
+    p.getMinimalSize = function(){
+        return new createjs.Point(AttackerComponent.MIN_SIZE, AttackerComponent.MIN_SIZE);
+    };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.AttackerComponent = createjs.promote(AttackerComponent, "PresentationComponent");
+    window.AttackerComponent = createjs.promote(AttackerComponent, "BaseShapeRenderer");
 
 
 }(window));

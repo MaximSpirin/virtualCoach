@@ -84,6 +84,18 @@
 
         this.dispatcher = Dispatcher.getInstance();
         this.dispatcher.on(PresentationViewEvent.CREATE_RECTANGLE_CLICK, createRectangleClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_SQUARE_CLICK, createSquareClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_ATTACKER_CLICK, createAttackerClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_DEFENDER_CLICK, createDefenderClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_EXTRA_TEAM_CLICK, createExtraClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_NEUTRAL_PLAYER_CLICK, createNeutralPlayerClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_CONE_CLICK, createConeClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_DRIBBLING_CLICK, createDribblingClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_PLAYER_PATH_CLICK, createPlayerPathClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_BALL_PATH_CLICK, createBallPathClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_BALL_CLICK, createBallClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK, createBallsSupplyClickHandler , this);
+
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
 
     }
@@ -114,8 +126,6 @@
     /************************************* public functions *******************************************/
     p.addItemByModel = function(itemModel, addedByUser) {
         var elementRenderer = createElementRenderer(itemModel);
-        /*var elementContainer = new createjs.Container();
-        elementContainer.addChild(elementRenderer);*/
 
         if(addedByUser){
             this.elementsLayer.addChild(elementRenderer);
@@ -158,6 +168,76 @@
         this.addItemByModel(elementRendererData, true);
     }
 
+    function createSquareClickHandler(presentationViewEvent){
+        var defaultSquareWidth = 150;
+        var defaultSquareHeight = 150;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultSquareWidth, defaultSquareHeight);
+        var elementRendererData = new SquareVO(elemId, elemPosition, defaultSquareWidth, defaultSquareHeight);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function createAttackerClickHandler(presentationViewEvent) {
+        var defaultRadius = 20;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
+        var elementRendererData = new AttackerVO(elemId, elemPosition, defaultRadius);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function createDefenderClickHandler(presentationViewEvent) {
+        var defaultRadius = 20;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
+        var elementRendererData = new DefenderVO(elemId, elemPosition, defaultRadius);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function createExtraClickHandler(presentationViewEvent) {
+        var defaultRadius = 20;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
+        var elementRendererData = new ExtraTeamVO(elemId, elemPosition, defaultRadius);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function createNeutralPlayerClickHandler(presentationViewEvent) {
+        var defaultRadius = 20;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
+        var elementRendererData = new NeutralVO(elemId, elemPosition, defaultRadius);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function createConeClickHandler(presentationViewEvent) {
+        var defaultTriangleWidth = 30;
+        var defaultTriangleHeight = 35;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, defaultTriangleWidth, defaultTriangleHeight);
+        var elementRendererData = new ConeVO(elemId, elemPosition, defaultTriangleWidth, defaultTriangleHeight);
+        this.addItemByModel(elementRendererData, true);
+    }
+
+    function createDribblingClickHandler(presentationViewEvent) {
+
+    }
+
+    function createPlayerPathClickHandler(presentationViewEvent) {
+
+    }
+
+    function createBallPathClickHandler(presentationViewEvent) {
+
+    }
+
+    function createBallClickHandler(presentationViewEvent) {
+
+    }
+
+    function createBallsSupplyClickHandler(presentationViewEvent) {
+
+    }
+
     function getElementDefaultPosition(width, height){
         var result = new createjs.Point(this.componentWidth/2 - width/2, this.componentHeight/2 - height/2);
         return result;
@@ -187,8 +267,8 @@
                 result = new ExtraTeamComponent();
                 break;
 
-            case GraphicElementType.NEUTRAL:
-
+            case GraphicElementType.NEUTRAL_PLAYER:
+                    result = new NeutralPlayerComponent();
                 break;
 
             case GraphicElementType.CONE:
@@ -222,7 +302,6 @@
 
         return result;
     }
-
 
 
 

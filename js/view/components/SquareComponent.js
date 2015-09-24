@@ -3,33 +3,28 @@
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
-    //public variables
-    SquareComponent.prototype.outlineShape;
+    /**************************************************** public variables *********************************************/
+    //static variables
+    SquareComponent.MIN_WIDTH = 75;
+    SquareComponent.MIN_HEIGHT = 75;
 
-    //static variable
-    SquareComponent.STD_WIDTH = 200;
-    SquareComponent.STD_HEIGHT = 200;
+    /**************************************************** constructor **************************************************/
 
-    //constructor
     function SquareComponent() {
-        this.PresentationComponent_constructor();
+        this.BaseShapeRenderer_constructor();
         //this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(SquareComponent,PresentationComponent);
+    var p = createjs.extend(SquareComponent,RectComponent);
 
-    p.initialize = function(){
-        this.PresentationComponent_initialize();
+    /************************************************* overridden methods ***********************************************/
 
-        this.outlineShape = new createjs.Shape();
-        this.outlineShape.graphics.setStrokeStyle(4).beginStroke("#ffffff");
-        this.outlineShape.graphics.drawRect(0,0,SquareComponent.STD_WIDTH, SquareComponent.STD_HEIGHT);
-        this.addChild(this.outlineShape);
+    p.getMinimalSize = function(){
+        return new createjs.Point(SquareComponent.MIN_WIDTH, SquareComponent.MIN_HEIGHT);
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.SquareComponent = createjs.promote(SquareComponent,"PresentationComponent");
-
+    window.SquareComponent = createjs.promote(SquareComponent,"RectComponent");
 
 }(window));

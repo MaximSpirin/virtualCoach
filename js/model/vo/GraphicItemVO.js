@@ -88,11 +88,6 @@
         this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_RESIZE));
     };
 
-    //private functions
-    //function privateFunction(param) { }
-
-    //public static method
-    //GraphicItemVO.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.GraphicItemVO = createjs.promote(GraphicItemVO,"EventDispatcher");

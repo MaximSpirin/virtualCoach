@@ -26,7 +26,7 @@
     var p = createjs.extend(BaseShapeRenderer,createjs.Container);
 
     // protected functions
-    p.render = function () {
+    p.f = function () {
         //to be overridden
     };
 
@@ -46,18 +46,17 @@
         });
     };
 
-    p.showSelection = function(){
-
-    };
-
-    p.removeSelection = function(){
-
-    };
-
+    /*
+    Returns minimal size of this component in pixels
+     */
     p.getMinimalSize = function(){
         //to be overridden
     };
 
+    p.getBounds = function(){
+        var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data._width, this._data._height);
+        return result;
+    };
 
     p.destroy = function(){
         this.off(this.mouseDownHandler);

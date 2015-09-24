@@ -13,22 +13,11 @@
             //init easeljs stage
             window.stage = new createjs.Stage("appCanvas");
 
-           
 
-            /*var dashLine1 = new createjs.Shape();
-            dashLine1.graphics.beginStroke("#FF0000");
-            dashLine1.graphics.setStrokeStyle(3);
-            dashLine1.graphics.dashedLineTo(0,0,183,0,4);
-            
-            window.stage.addChild(dashLine1);
 
-            dashLine1.graphics.setStrokeStyle(2);
-            dashLine1.graphics.setStrokeDash([5,2],0);
-            dashLine1.graphics.moveTo(0,100);
-            dashLine1.graphics.lineTo(395,100);*/
-
-            var sizeHint = new SizeHint(200,16,"10 m");
+            var sizeHint = new SizeHint();
             window.stage.addChild(sizeHint);
+            sizeHint.update(300,14,"Bomond!");
 
             window.stage.update();
         }

@@ -11,7 +11,8 @@
     SizeHint.prototype.label;
 
     //static variable
-    //SizeHint.staticVar = "value";
+    SizeHint.TEXT_COLOR = "#FFFFFF";
+    SizeHint.STROKE_COLOR = "#FFFFFF";
 
     //constructor
     function SizeHint(width, height, text) {
@@ -19,9 +20,8 @@
         this.Container_constructor();
         this.componentWidth = width;
         this.componentHeight = height;
-        this.text = text;
+        this.text = text ? text : "";
         this.initialize();
-
     }
 
     //extend this class from a superclass
@@ -31,11 +31,11 @@
         this.strokeShape = new createjs.Shape();
         this.addChild(this.strokeShape);
 
-        this.label = new createjs.Text(this.text, "12px Arial", "#000000");
+        this.label = new createjs.Text(this.text, "12px Arial", SizeHint.TEXT_COLOR);
         this.addChild(this.label);
 
         this.strokeMask = new createjs.Shape();
-        this.strokeShape.mask = this.strokeMask;
+        //this.strokeShape.mask = this.strokeMask;
 
         if(this.componentWidth && this.componentHeight){
             this.render();
@@ -43,10 +43,14 @@
     };
 
     // public functions
-    p.setSize = function (width, height) {
+    p.update = function (width, height, text) {
         this.componentWidth = width;
         this.componentHeight = height;
-        this.render();
+        this.text = text ? text : "";
+        this.label.text = this.text;
+        if(this.componentWidth && this.componentHeight){
+            this.render();
+        }
     };
 
     p.render = function(){
@@ -56,16 +60,16 @@
         var lineWidth = this.componentWidth - 2*arrowW;
 
         this.strokeShape.graphics.clear();
-        this.strokeShape.graphics.beginFill("rgba(0,255,0,0.3)");
+        this.strokeShape.graphics.beginFill("rgba(0,255,0,0.01)");
         this.strokeShape.graphics.drawRect(0,0,this.componentWidth, this.componentHeight);
         
-        this.strokeShape.graphics.beginFill("#FF0000");
+        this.strokeShape.graphics.beginFill(SizeHint.STROKE_COLOR);
         this.strokeShape.graphics.moveTo(0, this.componentHeight/2);
         this.strokeShape.graphics.lineTo(arrowW, this.componentHeight/2 - arrowH/2);
         this.strokeShape.graphics.lineTo(arrowW, this.componentHeight/2 + arrowH/2);
         this.strokeShape.graphics.lineTo(0, this.componentHeight/2);
 
-        this.strokeShape.graphics.beginStroke("#FF0000");
+        this.strokeShape.graphics.beginStroke(SizeHint.STROKE_COLOR);
         this.strokeShape.graphics.setStrokeStyle(1.25);
         this.strokeShape.graphics.setStrokeDash([5,2],0);
         this.strokeShape.graphics.moveTo(arrowW, this.componentHeight/2);
@@ -78,15 +82,19 @@
         this.strokeShape.graphics.lineTo(this.componentWidth - arrowW, this.componentHeight/2 - arrowH/2);
 
         var textBounds = this.label.getBounds();
-        this.label.x = this.componentWidth/2 - textBounds.width / 2;
-        this.label.y = this.componentHeight/2 - textBounds.height / 2;
+        if(this.text && this.text.length>0){
+            this.label.x = this.componentWidth/2 - textBounds.width / 2;
+            this.label.y = this.componentHeight/2 - textBounds.height / 2;
+            this.strokeMask.graphics.clear();
+            this.strokeMask.graphics.beginFill("#000000");
+            this.strokeMask.graphics.drawRect(0,0,this.label.x - 4,this.componentHeight);
+            this.strokeMask.graphics.drawRect(this.label.x + textBounds.width + 4, 0,
+                                                this.componentWidth - (this.label.x + textBounds.width + 4), this.componentHeight);
+            this.strokeShape.mask = this.strokeMask;
+        }else{
+            this.strokeShape.mask=null;
+        }
 
-        this.strokeMask.graphics.clear();
-        this.strokeMask.graphics.beginFill("#000000");
-        this.strokeMask.graphics.drawRect(0,0,this.label.x - 2,this.componentHeight);
-        this.strokeMask.graphics.drawRect(this.label.x + textBounds.width + 2, 0, 
-                                          this.componentWidth - (this.label.x + textBounds.width + 2),
-                                         this.componentHeight);
     };
 
     //private functions

@@ -10,7 +10,7 @@
     GraphicElementType.ATTACKER = 3;
     GraphicElementType.DEFENDER = 4;
     GraphicElementType.EXTRA_TEAM = 5;
-    GraphicElementType.NEUTRAL = 6;
+    GraphicElementType.NEUTRAL_PLAYER = 6;
     GraphicElementType.CONE = 7;
     GraphicElementType.DRIBBLING_PLAYER = 8;
     GraphicElementType.PLAYER_MOVEMENT = 9;

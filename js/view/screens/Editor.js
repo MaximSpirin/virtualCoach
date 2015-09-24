@@ -140,6 +140,8 @@
             pitchDisplayHeight = pitchDisplayWidth/(prevW/pitchDisplayHeight)
         }
 
+        ApplicationModel.getInstance().mpp = this.presentation.pitchWidth/pitchDisplayWidth;
+
         this.pitch.setSize(pitchDisplayWidth, pitchDisplayHeight);
 
         this.pitch.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;

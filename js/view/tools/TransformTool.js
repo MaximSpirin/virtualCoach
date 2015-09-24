@@ -7,6 +7,7 @@
     TransformTool.prototype.target;
     TransformTool.prototype.outline;
     TransformTool.prototype.scaleControl;
+    TransformTool.prototype.scalePropotionally;
 
     //static variable
     TransformTool.OUTLINE_STROKE_SIZE = 2;
@@ -45,12 +46,18 @@
             var pointOnTool = this.globalToLocal(evt.stageX, evt.stageY);
             var minAllowedSize = this.target.getMinimalSize();
             var newW = pointOnTool.x - this.scaleControlOffsetX + TransformTool.SCALE_CONTROL_SIZE/2;
+            var newH = pointOnTool.y - this.scaleControlOffsetY + TransformTool.SCALE_CONTROL_SIZE/2;
 
+            //w=h if its a square
+            if(this.scalePropotionally){
+                newW = Math.min(newW, newH);
+                newH = newW;
+            }
+
+            //prevent going under min size
             if(newW < minAllowedSize.x){
                 newW =  minAllowedSize.x;
             }
-
-            var newH = pointOnTool.y - this.scaleControlOffsetY + TransformTool.SCALE_CONTROL_SIZE/2;
 
             if(newH < minAllowedSize.y){
                 newH = minAllowedSize.y;
@@ -58,7 +65,7 @@
 
             this.target.getRendererData().resize(newW, newH);
             this.redraw();
-            console.log("Stage point=",evt.stageX, evt.stageY,"Tool point=",pointOnTool.x, pointOnTool.y);
+            //console.log("Stage point=",evt.stageX, evt.stageY,"Tool point=",pointOnTool.x, pointOnTool.y);
         },this);
 
 
@@ -80,9 +87,21 @@
 
         if(this.target){
 
-            if(this.target.getRendererData().type == GraphicElementType.RECTANGLE){
+
+            switch (this.target.getRendererData().type){
+
+                case GraphicElementType.RECTANGLE:
                     this.scaleControl.visible = true;
+
+                    break;
+
+                case GraphicElementType.SQUARE:
+                    this.scaleControl.visible = true;
+                    this.scalePropotionally = true;
+                    break;
+
             }
+
 
             this.elementMoveHandler = this.target.on(ApplicationEvent.ELEMENT_MOVE, this.redraw, this);
             this.redraw();
@@ -94,6 +113,7 @@
         //clear controls
         this.outline.graphics.clear();
         this.scaleControl.visible=false;
+        this.scalePropotionally = false;
     };
 
     p.redraw = function(){

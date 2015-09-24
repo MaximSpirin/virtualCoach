@@ -12,6 +12,7 @@
     ComponentsPallete.prototype.attackerButton;
     ComponentsPallete.prototype.defenderButton;
     ComponentsPallete.prototype.extraTeamButton;
+    ComponentsPallete.prototype.neutralPlayerButton;
     ComponentsPallete.prototype.coneButton;
 
 
@@ -44,7 +45,7 @@
         this.rectButton.on("click", rectButtonClickHandler, this);
         this.addChild(this.rectButton);
 
-        this.boxButton = new SimpleTextButton("Box", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.boxButton = new SimpleTextButton("Square", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
         this.boxButton.x = 5;
         this.boxButton.y = this.rectButton.y + this.rectButton.getBounds().height*2 + 10;
         this.boxButton.on("click", boxButtonClickHandler, this);
@@ -68,9 +69,15 @@
         this.extraTeamButton.on("click", extraTeamButtonClickHandler, this);
         this.addChild(this.extraTeamButton);
 
+        this.neutralPlayerButton = new SimpleTextButton("Neutral", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.neutralPlayerButton.x = 5;
+        this.neutralPlayerButton.y = this.extraTeamButton.y + this.extraTeamButton.getBounds().height*2 + 10;
+        this.neutralPlayerButton.on("click", neutralButtonClickHandler, this);
+        this.addChild(this.neutralPlayerButton);
+
         this.coneButton = new SimpleTextButton("Cone", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
         this.coneButton.x = 5;
-        this.coneButton.y = this.extraTeamButton.y + this.extraTeamButton.getBounds().height*2 + 10;
+        this.coneButton.y = this.neutralPlayerButton.y + this.neutralPlayerButton.getBounds().height*2 + 10;
         this.coneButton.on("click", coneButtonClickHandler, this);
         this.addChild(this.coneButton);
 
@@ -86,20 +93,26 @@
     }
 
     function attackerButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ADD_COMPONENT,{type:"attacker"}));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_ATTACKER_CLICK));
     }
 
     function defenderButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ADD_COMPONENT,{type:"defender"}));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_DEFENDER_CLICK));
     }
 
     function extraTeamButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ADD_COMPONENT,{type:"extra_team"}));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_EXTRA_TEAM_CLICK));
+    }
+
+    function neutralButtonClickHandler(evt) {
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_NEUTRAL_PLAYER_CLICK));
     }
 
     function coneButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ADD_COMPONENT,{type:"cone"}));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_CONE_CLICK));
     }
+
+
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.ComponentsPallete = createjs.promote(ComponentsPallete,"Container");

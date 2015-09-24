@@ -3,37 +3,54 @@
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
-    //public variables
-    ConeComponent.prototype.shape;
+    /**************************************************** public variables *********************************************/
+    ConeComponent.prototype.outlineShape;
 
-    //static variable
-    ConeComponent.STD_WIDTH = 30;
-    ConeComponent.STD_HEIGHT = 30;
+    //static variables
+    ConeComponent.FILL_COLOR = "#FFEA04";
 
-
-    //constructor
+    /**************************************************** constructor **************************************************/
     function ConeComponent() {
-        //invoke constructor of superclass
-        this.PresentationComponent_constructor();
-        this.drawView();
+        this.BaseShapeRenderer_constructor();
+        this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(ConeComponent,PresentationComponent);
+    var p = createjs.extend(ConeComponent, BaseShapeRenderer);
 
-    p.drawView = function(){
-        this.shape = new createjs.Shape();
-        this.shape.graphics.beginFill("#FFFF4C");
-        this.shape.graphics.moveTo(ConeComponent.STD_WIDTH/2, 0);
-        this.shape.graphics.lineTo(ConeComponent.STD_WIDTH, ConeComponent.STD_HEIGHT);
-        this.shape.graphics.lineTo(0, ConeComponent.STD_HEIGHT);
-        this.shape.graphics.lineTo(ConeComponent.STD_WIDTH/2, 0);
-        this.addChild(this.shape);
+    /************************************************* overridden methods ***********************************************/
+
+    p.initialize = function(){
+        this.BaseShapeRenderer_initialize();
+        this.outlineShape = new createjs.Shape();
+        this.addChild(this.outlineShape);
+
     };
 
+    p.render = function(){
+
+        var renderData = this.getRendererData();
+
+        this.x = renderData.getPosition().x;
+        this.y = renderData.getPosition().y;
+
+        var w = renderData.getWidth();
+        var h = renderData.getHeight();
+
+        this.outlineShape.graphics.beginFill(ConeComponent.FILL_COLOR);
+        this.outlineShape.graphics.lineTo(0, h);
+        this.outlineShape.graphics.lineTo(w, h);
+        this.outlineShape.graphics.lineTo(w/2,0);
+        this.outlineShape.graphics.lineTo(w/2, 0);
+
+    };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.ConeComponent = createjs.promote(ConeComponent, "PresentationComponent");
+    window.ConeComponent = createjs.promote(ConeComponent,"BaseShapeRenderer");
+
+    p.getMinimalSize = function(){
+      //  return new createjs.Point(ConeComponent.MIN_WIDTH, ConeComponent.MIN_HEIGH);
+    };
 
 
 }(window));
