@@ -14,13 +14,16 @@
     ArchedArrowVO.STROKE_COLOR = "#000000";
 
     //constructor
-    function ArchedArrowVO() {
+    function ArchedArrowVO(elemId, elemPosition, arrowDirection, rotation) {
+        this.arrowDirection = arrowDirection;
+        this.rotation = rotation;
+
         //invoke constructor of superclass
-        //this.SuperClass_constructor();
+        this.GraphicItemVO_constructor(elemId, GraphicElementType.ARC, elemPosition);
     }
 
     //extend this class from a superclass
-    //var p = createjs.extend(ArcVO,SuperClass);
+    var p = createjs.extend(ArchedArrowVO, GraphicItemVO);
 
     // public functions
     //ArcVO.prototype.publicFunction = function (param1) { };
@@ -32,8 +35,6 @@
     //ArcVO.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    //window.ArcVO = createjs.promote(ArcVO,"SuperClass");
-
-    window.ArcVO = ArchedArrowVO;
+    window.ArchedArrowVO = createjs.promote(ArchedArrowVO, "GraphicItemVO");
 
 }(window));

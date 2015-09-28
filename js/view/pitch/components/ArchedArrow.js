@@ -7,13 +7,13 @@
     //ArchedArrow.prototype.publicVar = "value";
 
     /************************************************* static variables ***********************************************/
-    //ArchedArrow.staticVar = "value";
+    ArchedArrow.STD_WIDTH = 60;
+    ArchedArrow.STD_HEIGHT = 20;
 
     /************************************************** constructor ***************************************************/
     function ArchedArrow() {
         //invoke constructor of superclass
         this.BaseShapeRenderer_constructor();
-        this.initialize();
     }
 
     //extend this class from a superclass
@@ -21,10 +21,13 @@
 
     /*********************************************** overridden methods ***********************************************/
     p.initialize = function(){
-        
+        this.BaseShapeRenderer_initialize();
+        console.log("ArchedArrow.initialize()");
     };
 
+    p.render = function(){
 
+    };
 
     /************************************************* public methods *************************************************/
 

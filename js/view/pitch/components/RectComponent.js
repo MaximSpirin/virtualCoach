@@ -1,23 +1,22 @@
 /**
- * Class DribblingLine
+ * Class RectComponent
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
     /**************************************************** public variables *********************************************/
-    DribblingLine.prototype.outlineShape;
+    RectComponent.prototype.outlineShape;
 
     //static variables
-    DribblingLine.MIN_WIDTH = 75;
-    DribblingLine.MIN_HEIGH = 50;
+    RectComponent.MIN_WIDTH = 75;
+    RectComponent.MIN_HEIGH = 50;
 
     /**************************************************** constructor **************************************************/
-    function DribblingLine() {
+    function RectComponent() {
         this.BaseShapeRenderer_constructor();
-        this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(DribblingLine, BaseShapeRenderer);
+    var p = createjs.extend(RectComponent, BaseShapeRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
@@ -26,8 +25,16 @@
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
 
-     
+        this.widthRuler = new SizeHint();
+        this.widthRuler.y = -14 - 3;
+        this.addChild(this.widthRuler);
 
+        this.heightRuler = new SizeHint();
+        this.heightRuler.x = -14 - 3;
+        this.heightRuler.rotation = -90;
+        this.addChild(this.heightRuler);
+
+        console.log("RectComponent.initialize()");
     };
 
     p.getBounds = function(){
@@ -50,10 +57,10 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.DribblingLine = createjs.promote(DribblingLine,"BaseShapeRenderer");
+    window.RectComponent = createjs.promote(RectComponent,"BaseShapeRenderer");
 
     p.getMinimalSize = function(){
-        return new createjs.Point(DribblingLine.MIN_WIDTH, DribblingLine.MIN_HEIGH);
+        return new createjs.Point(RectComponent.MIN_WIDTH, RectComponent.MIN_HEIGH);
     };
 
 

@@ -1,26 +1,25 @@
 /**
- * Class DefenderComponent
+ * Class AttackerComponent
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
     /**************************************************** public variables *********************************************/
-    DefenderComponent.prototype.outlineShape;
+    AttackerComponent.prototype.outlineShape;
 
     /**************************************************** static variables ********************************************/
-    DefenderComponent.STD_RADIUS = 20;
-    DefenderComponent.MIN_SIZE = 20;
-    DefenderComponent.FILL_COLOR = "#F21818";
+    AttackerComponent.STD_RADIUS = 20;
+    AttackerComponent.MIN_SIZE = 20;
+    AttackerComponent.FILL_COLOR = "#382CBF";
 
 
     /**************************************************** constructor **************************************************/
 
-    function DefenderComponent() {
+    function AttackerComponent() {
         this.BaseShapeRenderer_constructor();
-        this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(DefenderComponent,BaseShapeRenderer);
+    var p = createjs.extend(AttackerComponent,BaseShapeRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
@@ -29,6 +28,7 @@
         this.BaseShapeRenderer_initialize();
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
+        console.log("AttackerComponent.initialize()");
     };
 
     p.render = function(){
@@ -40,17 +40,17 @@
         this.y = renderData.getPosition().y;
 
         this.outlineShape.graphics.clear();
-        this.outlineShape.graphics.beginFill(DefenderComponent.FILL_COLOR);
+        this.outlineShape.graphics.beginFill(AttackerComponent.FILL_COLOR);
         this.outlineShape.graphics.drawCircle(w/2, h/2, w/2);
 
     };
 
     p.getMinimalSize = function(){
-        return new createjs.Point(DefenderComponent.MIN_SIZE, DefenderComponent.MIN_SIZE);
+        return new createjs.Point(AttackerComponent.MIN_SIZE, AttackerComponent.MIN_SIZE);
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.DefenderComponent = createjs.promote(DefenderComponent, "BaseShapeRenderer");
+    window.AttackerComponent = createjs.promote(AttackerComponent, "BaseShapeRenderer");
 
 
 }(window));

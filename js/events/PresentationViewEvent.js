@@ -15,6 +15,7 @@
     PresentationViewEvent.CREATE_BALL_PATH_CLICK = "create_ball_path_click";
     PresentationViewEvent.CREATE_BALL_CLICK = "create_ball_click";
     PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK = "create_balls_supply_click";
+    PresentationViewEvent.CREATE_ARC_CLICK = "create_arc_click";
 
 
     //Each instance of this event will have an associated payload object

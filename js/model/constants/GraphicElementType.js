@@ -17,6 +17,7 @@
     GraphicElementType.BALL_MOVEMENT = 10;
     GraphicElementType.BALL = 11;
     GraphicElementType.BALLS_SUPPLY = 12;
+    GraphicElementType.ARC = 13;
 
     //constructor
     function GraphicElementType() {

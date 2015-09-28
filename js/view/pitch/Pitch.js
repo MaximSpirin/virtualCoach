@@ -95,6 +95,7 @@
         this.dispatcher.on(PresentationViewEvent.CREATE_BALL_PATH_CLICK, createBallPathClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_BALL_CLICK, createBallClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK, createBallsSupplyClickHandler , this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_ARC_CLICK, createArcClickHandler, this);
 
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
 
@@ -238,6 +239,16 @@
 
     }
 
+    function createArcClickHandler(presentationViewEvent){
+        var defaultArrowDirection = "left";
+        var defaultArcRotation = 0;
+        var elemId = createjs.UID.get();
+        var elemPosition = getElementDefaultPosition.call(this, ArchedArrow.STD_WIDTH, ArchedArrow.STD_HEIGHT);
+        var elementRendererData = new ArchedArrowVO(elemId, elemPosition, defaultArrowDirection, defaultArcRotation);
+        this.addItemByModel(elementRendererData, true);
+
+    }
+
     function getElementDefaultPosition(width, height){
         var result = new createjs.Point(this.componentWidth/2 - width/2, this.componentHeight/2 - height/2);
         return result;
@@ -294,6 +305,11 @@
             case GraphicElementType.BALLS_SUPPLY:
 
                 break;
+
+            case GraphicElementType.ARC:
+                result = new ArchedArrow();
+            break;
+
 
 
         }

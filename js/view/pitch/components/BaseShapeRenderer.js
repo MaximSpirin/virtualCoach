@@ -44,6 +44,8 @@
 
             this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
         });
+
+        console.log("BaseShapeRenderer.initialize()");
     };
 
     /*
