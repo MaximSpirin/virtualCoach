@@ -87,7 +87,6 @@
 
         if(this.target){
 
-
             switch (this.target.getRendererData().type){
 
                 case GraphicElementType.RECTANGLE:
@@ -100,8 +99,10 @@
                     this.scalePropotionally = true;
                     break;
 
+                default :
+                    this.scaleControl.visible = false;
+                    break;
             }
-
 
             this.elementMoveHandler = this.target.on(ApplicationEvent.ELEMENT_MOVE, this.redraw, this);
             this.redraw();
