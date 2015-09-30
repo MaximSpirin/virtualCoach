@@ -7,13 +7,41 @@
 <body onload="init()">
     <script type="text/javascript" src="js/external/createjs/easeljs-0.8.1.combined.js"></script>
     <script src="js/view/pitch/SizeHint.js"></script>
+    <script src="js/view/tools/RotationTool.js"></script>
 
     <script>
         function init(){
             //init easeljs stage
             window.stage = new createjs.Stage("appCanvas");
+            createjs.Ticker.on("tick", handleTick, this);
+            function handleTick(event) {
+                stage.update();
+            }
 
-            var startPoint = new createjs.Point(30, 100);
+            var rotationTarget = new createjs.Shape();
+            rotationTarget.x = 200;
+            rotationTarget.y = 200;
+            rotationTarget.graphics.beginFill("#00FF00").drawRect(-25,-25,50,50);
+            rotationTarget.setBounds(0,0,50,50);
+            window.stage.addChild(rotationTarget);
+
+
+            var handler = new createjs.Shape();
+            handler.setBounds(0,0,30,30);
+            handler.graphics.beginFill("#FF0000");
+            handler.cursor = "pointer";
+            handler.graphics.drawCircle(0,0,15);
+
+            var rotationTool = new RotationTool(rotationTarget.getBounds().width/2 + 5,rotationTarget.getBounds().width/2+5,handler,0);
+            rotationTool.x = rotationTarget.x;
+            rotationTool.y = rotationTarget.y;
+            rotationTool.on("change", function(event){
+                rotationTarget.rotation = rotationTool.angle;
+                //console.log("Rotate to:"+rotationTool.angle);
+            }, this);
+            window.stage.addChild(rotationTool);
+
+            /*var startPoint = new createjs.Point(30, 100);
             var controlPoint1 = new createjs.Point(40, 120);
             var controlPoint2 = new createjs.Point(80, 120);
             var endPoint = new createjs.Point(90, 100);
@@ -40,11 +68,7 @@
                     endPoint.x, endPoint.y);
 
 
-            createjs.Ticker.on("tick", handleTick, this);
-            function handleTick(event) {
 
-                stage.update();
-            }
 
             function drawArrow(radian, x, y) {
                 var arrow = new createjs.Shape();
@@ -58,7 +82,7 @@
                 arrow.rotation = degree;
 
                 stage.addChild(arrow);
-            }
+            }*/
         }
 
 

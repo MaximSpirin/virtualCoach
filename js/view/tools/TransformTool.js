@@ -7,6 +7,8 @@
     TransformTool.prototype.target;
     TransformTool.prototype.outline;
     TransformTool.prototype.scaleControl;
+    TransformTool.prototype.rotationControl;
+    TransformTool.prototype.rotationTool;
     TransformTool.prototype.scalePropotionally;
 
     //static variable
@@ -29,8 +31,17 @@
         this.outline = new createjs.Shape();
         this.addChild(this.outline);
 
+        this.rotationControl = new createjs.Shape();
+        this.rotationControl.graphics.beginFill("rgba(255, 0, 0, 0.5)");
+        this.rotationControl.graphics.drawCircle(0,0,15);
+        this.rotationControl.setBounds(0,0,30,30);
 
-        var scz = 20;
+
+        this.rotationTool = new RotationTool(0,0, this.rotationControl,0);
+        this.rotationTool.visible = false;
+        this.addChild(this.rotationTool);
+
+
         this.scaleControl = new createjs.Shape();
         this.scaleControl.graphics.beginFill("#FF0000");
         this.scaleControl.graphics.drawRect(0, 0, TransformTool.SCALE_CONTROL_SIZE, TransformTool.SCALE_CONTROL_SIZE);
@@ -38,7 +49,6 @@
             this.scaleControlOffsetX = evt.localX;
             this.scaleControlOffsetY = evt.localY;
         }, this);
-
 
         this.scaleControl.pressMoveHandler = this.scaleControl.on("pressmove", function(evt){
             this.scaleControl.visible = true;
@@ -68,7 +78,6 @@
             //console.log("Stage point=",evt.stageX, evt.stageY,"Tool point=",pointOnTool.x, pointOnTool.y);
         },this);
 
-
         this.scaleControl.visible = false;
         this.addChild(this.scaleControl);
 
@@ -91,7 +100,6 @@
 
                 case GraphicElementType.RECTANGLE:
                     this.scaleControl.visible = true;
-
                     break;
 
                 case GraphicElementType.SQUARE:
@@ -99,9 +107,12 @@
                     this.scalePropotionally = true;
                     break;
 
-                default :
-                    this.scaleControl.visible = false;
+                case GraphicElementType.ARC:
+                    this.rotationTool.visible = true;
+
+                    //TODO: read target's rotation and update rotation tool
                     break;
+
             }
 
             this.elementMoveHandler = this.target.on(ApplicationEvent.ELEMENT_MOVE, this.redraw, this);
@@ -113,12 +124,14 @@
         this.target.off(ApplicationEvent.ELEMENT_MOVE, this.elementMoveHandler);
         //clear controls
         this.outline.graphics.clear();
-        this.scaleControl.visible=false;
+        this.scaleControl.visible = false;
         this.scalePropotionally = false;
+        this.rotationTool.visible = false;
     };
 
     p.redraw = function(){
-        this.x = this.target.x;
+
+        /*this.x = this.target.x;
         this.y = this.target.y;
 
         var bounds = this.target.getBounds();
@@ -134,13 +147,33 @@
         if(this.scaleControl.visible){
             this.scaleControl.x = bounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
             this.scaleControl.y = bounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
+        }*/
+
+
+        //var pitchBounds = this.target.getPitchBounds();
+        var localBounds = this.target._bounds;
+
+        this.x = this.target.x ;
+        this.y = this.target.y ;
+
+        DrawingUtils.drawStrictSizeRectangle(this.outline.graphics,
+            -TransformTool.OUTLINE_STROKE_SIZE,
+            -TransformTool.OUTLINE_STROKE_SIZE,
+            TransformTool.OUTLINE_STROKE_SIZE*2 + localBounds.width,
+            TransformTool.OUTLINE_STROKE_SIZE*2 + localBounds.height,
+            TransformTool.OUTLINE_STROKE_SIZE,
+            TransformTool.OUTLINE_STROKE_COLOR);
+
+        if(this.scaleControl.visible){
+            this.scaleControl.x = localBounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
+            this.scaleControl.y = localBounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
+        }
+
+
+        if(this.rotationTool.visible){
+            this.rotationTool.setRadius(localBounds.width/2 + 10, localBounds.width/2 + 10);
         }
     };
-
-
-
-
-
 
 
     // public functions
