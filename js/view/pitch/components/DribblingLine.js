@@ -12,16 +12,16 @@
 
     /**************************************************** constructor **************************************************/
     function DribblingLine() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(DribblingLine, BaseShapeRenderer);
+    var p = createjs.extend(DribblingLine, BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
     p.initialize = function(){
-        this.BaseShapeRenderer_initialize();
+        this.BaseComponentRenderer_initialize();
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
 
@@ -30,7 +30,7 @@
     };
 
     p.getBounds = function(){
-        var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data._width, this._data._height);
+        var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data.width, this._data.height);
         return result;
     };
 
@@ -49,7 +49,7 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.DribblingLine = createjs.promote(DribblingLine,"BaseShapeRenderer");
+    window.DribblingLine = createjs.promote(DribblingLine,"BaseComponentRenderer");
 
     p.getMinimalSize = function(){
         return new createjs.Point(DribblingLine.MIN_WIDTH, DribblingLine.MIN_HEIGH);

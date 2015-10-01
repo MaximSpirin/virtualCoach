@@ -92,7 +92,8 @@
     Main.prototype.loadExternalAssets = function(){
         //load all external files required by app
         var manifest = [
-            {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE}
+            {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE},
+            {id:"rotation-icon", src:"img/rotating22.png", type:createjs.AbstractLoader.IMAGE}
         ];
 
         Main.loadQueue = new createjs.LoadQueue(false,"",true);

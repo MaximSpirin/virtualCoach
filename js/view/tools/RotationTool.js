@@ -10,7 +10,7 @@
     RotationTool.prototype.direction;
     RotationTool.prototype.mouseAngle;
     RotationTool.prototype.handlerWidth;
-    RotationTool.prototype.angle;
+    RotationTool.prototype.angle = 0;
 
     //static variable
     //RotationTool.staticVar = "value";
@@ -25,10 +25,13 @@
         this.handlerWidth = this.handler.getBounds().width;
         this.addChild(this.handler);
         this.setHandlerListeners();
+        this.angle = startAngle;
 
-        //
-        this.setRadius(radiusX, radiusY);
-        this.updatePositionFromDegree(startAngle);
+        if(radiusX && radiusY){
+            this.setRadius(radiusX, radiusY);
+            this.updatePositionFromDegree(this.angle);
+        }
+
     }
 
     //extend this class from a superclass
@@ -42,7 +45,9 @@
         this.handler.x = handlerPos.x;
         this.handler.y = handlerPos.y;
 
-        this.updatePosition();
+
+
+        //this.updatePosition();
     };
 
     p.updatePosition = function(){

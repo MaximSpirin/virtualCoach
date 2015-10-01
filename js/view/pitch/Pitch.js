@@ -127,7 +127,8 @@
     /************************************* public functions *******************************************/
     p.addItemByModel = function(itemModel, addedByUser) {
         var elementRenderer = createElementRenderer(itemModel);
-
+        elementRenderer.x = itemModel.position.x;
+        elementRenderer.y = itemModel.position.y;
         if(addedByUser){
             this.elementsLayer.addChild(elementRenderer);
             itemModel.depth = this.elementsLayer.numChildren - 1;
@@ -179,10 +180,11 @@
     }
 
     function createAttackerClickHandler(presentationViewEvent) {
-        var defaultRadius = 20;
+        var defaultRadius = PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS;
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new AttackerVO(elemId, elemPosition, defaultRadius);
+        elementRendererData.fillColor = "#382CBF";
         this.addItemByModel(elementRendererData, true);
     }
 
@@ -191,6 +193,7 @@
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new DefenderVO(elemId, elemPosition, defaultRadius);
+        elementRendererData.fillColor = "#F21818";
         this.addItemByModel(elementRendererData, true);
     }
 
@@ -199,6 +202,7 @@
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new ExtraTeamVO(elemId, elemPosition, defaultRadius);
+        elementRendererData.fillColor = "#373060";
         this.addItemByModel(elementRendererData, true);
     }
 
@@ -207,6 +211,7 @@
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new NeutralVO(elemId, elemPosition, defaultRadius);
+        elementRendererData.fillColor = "#085429";
         this.addItemByModel(elementRendererData, true);
     }
 
@@ -216,6 +221,7 @@
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultTriangleWidth, defaultTriangleHeight);
         var elementRendererData = new ConeVO(elemId, elemPosition, defaultTriangleWidth, defaultTriangleHeight);
+        elementRendererData.fillColor = "#FFEA04";
         this.addItemByModel(elementRendererData, true);
     }
 
@@ -243,8 +249,10 @@
         var defaultArrowDirection = "left";
         var defaultArcRotation = 0;
         var elemId = createjs.UID.get();
+        var elementWidth =  ArchedArrow.STD_WIDTH;
+        var elementHeight =  ArchedArrow.STD_HEIGHT;
         var elemPosition = getElementDefaultPosition.call(this, ArchedArrow.STD_WIDTH, ArchedArrow.STD_HEIGHT);
-        var elementRendererData = new ArchedArrowVO(elemId, elemPosition, defaultArrowDirection, defaultArcRotation);
+        var elementRendererData = new ArchedArrowVO(elemId, elemPosition, elementWidth, elementHeight, defaultArrowDirection, defaultArcRotation);
         this.addItemByModel(elementRendererData, true);
 
     }
@@ -267,23 +275,28 @@
                 break;
 
             case GraphicElementType.ATTACKER:
-                result = new AttackerComponent();
+                //result = new AttackerComponent();
+                result = new PrimitiveShapeRenderer();
                 break;
 
             case GraphicElementType.DEFENDER:
-                result = new DefenderComponent();
+                //result = new DefenderComponent();
+                result = new PrimitiveShapeRenderer();
                 break;
 
             case GraphicElementType.EXTRA_TEAM:
-                result = new ExtraTeamComponent();
+                //result = new ExtraTeamComponent();
+                result = new PrimitiveShapeRenderer();
                 break;
 
             case GraphicElementType.NEUTRAL_PLAYER:
-                    result = new NeutralPlayerComponent();
+                //result = new NeutralPlayerComponent();
+                result = new PrimitiveShapeRenderer();
                 break;
 
             case GraphicElementType.CONE:
-                result = new ConeComponent();
+                //result = new ConeComponent();
+                result = new PrimitiveShapeRenderer();
                 break;
 
             case GraphicElementType.DRIBBLING_PLAYER:

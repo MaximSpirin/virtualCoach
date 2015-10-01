@@ -14,6 +14,7 @@
     ApplicationEvent.ELEMENT_POSITION_CHANGED = "element_position_changed";
     ApplicationEvent.ELEMENT_MOVE = "element_move";
     ApplicationEvent.ELEMENT_RESIZE = "element_resize";
+    ApplicationEvent.ELEMENT_ROTATION_CHANGED = "element_rotation_changed";
 
 
     //Each instance of this event will have an associated payload object

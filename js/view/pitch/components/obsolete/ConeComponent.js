@@ -11,16 +11,16 @@
 
     /**************************************************** constructor **************************************************/
     function ConeComponent() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(ConeComponent, BaseShapeRenderer);
+    var p = createjs.extend(ConeComponent, BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
     p.initialize = function(){
-        this.BaseShapeRenderer_initialize();
+        this.BaseComponentRenderer_initialize();
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
         console.log("ConeComponent.initialize()");
@@ -45,7 +45,7 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.ConeComponent = createjs.promote(ConeComponent,"BaseShapeRenderer");
+    window.ConeComponent = createjs.promote(ConeComponent,"BaseComponentRenderer");
 
     p.getMinimalSize = function(){
       //  return new createjs.Point(ConeComponent.MIN_WIDTH, ConeComponent.MIN_HEIGH);

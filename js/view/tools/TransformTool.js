@@ -31,14 +31,19 @@
         this.outline = new createjs.Shape();
         this.addChild(this.outline);
 
-        this.rotationControl = new createjs.Shape();
-        this.rotationControl.graphics.beginFill("rgba(255, 0, 0, 0.5)");
-        this.rotationControl.graphics.drawCircle(0,0,15);
-        this.rotationControl.setBounds(0,0,30,30);
+        //this.rotationControl = new createjs.Shape();
+        var rotationIcon = new createjs.Bitmap(Main.loadQueue.getResult("rotation-icon"));
+        rotationIcon.x = -16;
+        rotationIcon.y = -16;
+        this.rotationControl = new createjs.Container();
+        this.rotationControl.addChild(rotationIcon);
+        this.rotationControl.setBounds(-16,-16,32,32);
+        this.rotationControl.snapToPixel = true;
 
 
         this.rotationTool = new RotationTool(0,0, this.rotationControl,0);
         this.rotationTool.visible = false;
+        this.rotationTool.on("change",rotationChangeHandler, this);
         this.addChild(this.rotationTool);
 
 
@@ -53,10 +58,14 @@
         this.scaleControl.pressMoveHandler = this.scaleControl.on("pressmove", function(evt){
             this.scaleControl.visible = true;
 
+            var targetBounds = this.target.getContentBounds();
+
             var pointOnTool = this.globalToLocal(evt.stageX, evt.stageY);
             var minAllowedSize = this.target.getMinimalSize();
-            var newW = pointOnTool.x - this.scaleControlOffsetX + TransformTool.SCALE_CONTROL_SIZE/2;
-            var newH = pointOnTool.y - this.scaleControlOffsetY + TransformTool.SCALE_CONTROL_SIZE/2;
+            var newW = pointOnTool.x - this.scaleControlOffsetX + TransformTool.SCALE_CONTROL_SIZE/2 - targetBounds.x;
+            //var newH = pointOnTool.y - this.scaleControlOffsetY + TransformTool.SCALE_CONTROL_SIZE/2 - targetBounds.y;
+            //var newH = pointOnTool.y - this.scaleControlOffsetY + TransformTool.SCALE_CONTROL_SIZE/2 - (targetBounds.y+targetBounds.height);
+            var newH = pointOnTool.y - targetBounds.y - this.scaleControlOffsetY + TransformTool.SCALE_CONTROL_SIZE / 2;
 
             //w=h if its a square
             if(this.scalePropotionally){
@@ -73,7 +82,7 @@
                 newH = minAllowedSize.y;
             }
 
-            this.target.getRendererData().resize(newW, newH);
+            this.target.rendererData.resize(newW, newH);
             this.redraw();
             //console.log("Stage point=",evt.stageX, evt.stageY,"Tool point=",pointOnTool.x, pointOnTool.y);
         },this);
@@ -110,12 +119,15 @@
                 case GraphicElementType.ARC:
                     this.rotationTool.visible = true;
 
-                    //TODO: read target's rotation and update rotation tool
                     break;
 
+                default:
+                    //this.rotationTool.visible = true;
+                    break;
             }
 
             this.elementMoveHandler = this.target.on(ApplicationEvent.ELEMENT_MOVE, this.redraw, this);
+            this.elementRotateHandler = this.target.rendererData.on(ApplicationEvent.ELEMENT_ROTATION_CHANGED, elementRotationChangedHandler, this);
             this.redraw();
         }
     };
@@ -131,30 +143,14 @@
 
     p.redraw = function(){
 
-        /*this.x = this.target.x;
-        this.y = this.target.y;
+        var localBounds = this.target.getContentBounds();
 
-        var bounds = this.target.getBounds();
-        var strokeSize = 2;
-        DrawingUtils.drawStrictSizeRectangle(this.outline.graphics,
-                                            -TransformTool.OUTLINE_STROKE_SIZE,
-                                            -TransformTool.OUTLINE_STROKE_SIZE,
-                                            TransformTool.OUTLINE_STROKE_SIZE*2 + bounds.width,
-                                            TransformTool.OUTLINE_STROKE_SIZE*2 + bounds.height,
-                                            TransformTool.OUTLINE_STROKE_SIZE,
-                                            TransformTool.OUTLINE_STROKE_COLOR);
+        this.outline.x = localBounds.x + localBounds.width/2;
+        this.outline.y = localBounds.y + localBounds.height/2;
 
-        if(this.scaleControl.visible){
-            this.scaleControl.x = bounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
-            this.scaleControl.y = bounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
-        }*/
-
-
-        //var pitchBounds = this.target.getPitchBounds();
-        var localBounds = this.target._bounds;
-
-        this.x = this.target.x ;
-        this.y = this.target.y ;
+        this.outline.regX = localBounds.width/2;
+        this.outline.regY = localBounds.height/2;
+        this.outline.rotation = this.target.rendererData.rotation;
 
         DrawingUtils.drawStrictSizeRectangle(this.outline.graphics,
             -TransformTool.OUTLINE_STROKE_SIZE,
@@ -165,27 +161,33 @@
             TransformTool.OUTLINE_STROKE_COLOR);
 
         if(this.scaleControl.visible){
-            this.scaleControl.x = localBounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
-            this.scaleControl.y = localBounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
+            this.scaleControl.x = localBounds.x + localBounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
+            this.scaleControl.y = localBounds.y + localBounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
         }
 
-
         if(this.rotationTool.visible){
+            this.rotationTool.x = this.target.x;
+            this.rotationTool.y = this.target.y;
             this.rotationTool.setRadius(localBounds.width/2 + 10, localBounds.width/2 + 10);
+            //read target's rotation and pass it to the rotationTool
+            var itemRotation = this.target.rendererData.rotation;
+            this.rotationTool.updatePositionFromDegree(itemRotation);
         }
     };
 
+    /*************************************************** event handlers **********************************************/
+    function rotationChangeHandler(event){
+        this.target.container.rotation = this.rotationTool.angle;
+        this.target.rendererData.setRotation(this.rotationTool.angle, true);
 
-    // public functions
-    //TransformTool.prototype.publicFunction = function (param1) { };
+       // console.log("rotating component to: " + this.rotationTool.angle);
+    }
 
-    //private functions
-    //function privateFunction(param) { }
+    function elementRotationChangedHandler(event){
+        this.outline.rotation = this.target.rendererData.rotation;
+    }
 
-    //public static method
-    //TransformTool.staticFunctionName = function(param1){ //method body };
 
-    //Make aliases for all superclass methods: SuperClass_methodName
     window.TransformTool = createjs.promote(TransformTool,"Container");
 
 }(window));

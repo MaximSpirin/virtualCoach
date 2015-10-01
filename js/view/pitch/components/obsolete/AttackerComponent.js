@@ -6,6 +6,7 @@
     /**************************************************** public variables *********************************************/
     AttackerComponent.prototype.outlineShape;
 
+
     /**************************************************** static variables ********************************************/
     AttackerComponent.STD_RADIUS = 20;
     AttackerComponent.MIN_SIZE = 20;
@@ -15,19 +16,25 @@
     /**************************************************** constructor **************************************************/
 
     function AttackerComponent() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(AttackerComponent,BaseShapeRenderer);
+    var p = createjs.extend(AttackerComponent,BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
 
     p.initialize = function(){
-        this.BaseShapeRenderer_initialize();
+        this.BaseComponentRenderer_initialize();
+
+        /*var zeroPoint = new createjs.Shape();
+        zeroPoint.graphics.beginFill("#00FF00").drawCircle(0,0,3);
+        this.addChild(zeroPoint);*/
+
         this.outlineShape = new createjs.Shape();
-        this.addChild(this.outlineShape);
+        this.container.addChild(this.outlineShape);
+
         console.log("AttackerComponent.initialize()");
     };
 
@@ -41,16 +48,24 @@
 
         this.outlineShape.graphics.clear();
         this.outlineShape.graphics.beginFill(AttackerComponent.FILL_COLOR);
-        this.outlineShape.graphics.drawCircle(w/2, h/2, w/2);
+        this.outlineShape.graphics.drawCircle(0, 0, w/2);
+        this.outlineShape.setBounds(-w/2, -h/2, w, h);
 
     };
+
+    p.getContentBounds = function(){
+        var contentPosInParentCS = this.localToLocal(this.outlineShape._bounds.x, this.outlineShape._bounds.y, this.parent);
+        var result = new createjs.Rectangle(contentPosInParentCS.x, contentPosInParentCS.y, this.outlineShape._bounds.width, this.outlineShape._bounds.height);
+        return result;
+    };
+
 
     p.getMinimalSize = function(){
         return new createjs.Point(AttackerComponent.MIN_SIZE, AttackerComponent.MIN_SIZE);
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.AttackerComponent = createjs.promote(AttackerComponent, "BaseShapeRenderer");
+    window.AttackerComponent = createjs.promote(AttackerComponent, "BaseComponentRenderer");
 
 
 }(window));

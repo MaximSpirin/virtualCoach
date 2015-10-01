@@ -8,9 +8,10 @@
     GraphicItemVO.prototype.selected;
     GraphicItemVO.prototype.id;
     GraphicItemVO.prototype.depth;
-    GraphicItemVO.prototype._width;
-    GraphicItemVO.prototype._height;
+    GraphicItemVO.prototype.width;
+    GraphicItemVO.prototype.height;
     GraphicItemVO.prototype.selected;
+    GraphicItemVO.prototype.rotation;
 
 
     //static variable
@@ -23,7 +24,7 @@
         this.id = (id!=undefined && id!=null) ? id : "" ;
         this.type = (type!=undefined && type!=null) ? type : 0;
         this.position = (position!=undefined && position!=null) ? position : null;
-
+        this.rotation = 0;
     }
 
     //extend this class from a superclass
@@ -59,35 +60,39 @@
 
 
     GraphicItemVO.prototype.setWidth = function(value){
-        if(this._width == value){
+        if(this.width == value){
             return;
         }
 
-        this._width = value;
+        this.width = value;
     };
 
     GraphicItemVO.prototype.getWidth = function(){
-        return this._width;
+        return this.width;
     };
 
     GraphicItemVO.prototype.setHeight = function(value){
-        if(this._height == value){
+        if(this.height == value){
             return;
         }
 
-        this._height = value;
+        this.height = value;
     };
 
     GraphicItemVO.prototype.getHeight = function(){
-        return this._height;
+        return this.height;
     };
 
     GraphicItemVO.prototype.resize = function(w, h){
-        this._width = w;
-        this._height = h;
+        this.width = w;
+        this.height = h;
         this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_RESIZE));
     };
 
+    GraphicItemVO.prototype.setRotation = function(value, changedByUser){
+        this.rotation = value;
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_ROTATION_CHANGED));
+    };
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.GraphicItemVO = createjs.promote(GraphicItemVO,"EventDispatcher");

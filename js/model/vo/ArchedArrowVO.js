@@ -14,16 +14,19 @@
     ArchedArrowVO.STROKE_COLOR = "#000000";
 
     //constructor
-    function ArchedArrowVO(elemId, elemPosition, arrowDirection, rotation) {
+    function ArchedArrowVO(elemId, elemPosition, elementWidth, elementHeight, arrowDirection, rotation) {
         this.arrowDirection = arrowDirection;
         this.rotation = rotation;
-
+        this.setWidth(elementWidth);
+        this.setHeight(elementHeight);
         //invoke constructor of superclass
         this.GraphicItemVO_constructor(elemId, GraphicElementType.ARC, elemPosition);
     }
 
     //extend this class from a superclass
     var p = createjs.extend(ArchedArrowVO, GraphicItemVO);
+
+
 
     // public functions
     //ArcVO.prototype.publicFunction = function (param1) { };

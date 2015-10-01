@@ -16,17 +16,17 @@
     /**************************************************** constructor **************************************************/
 
     function NeutralPlayerComponent() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(NeutralPlayerComponent,BaseShapeRenderer);
+    var p = createjs.extend(NeutralPlayerComponent,BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
 
     p.initialize = function(){
-        this.BaseShapeRenderer_initialize();
+        this.BaseComponentRenderer_initialize();
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
 
@@ -64,7 +64,7 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.NeutralPlayerComponent = createjs.promote(NeutralPlayerComponent, "BaseShapeRenderer");
+    window.NeutralPlayerComponent = createjs.promote(NeutralPlayerComponent, "BaseComponentRenderer");
 
 
 }(window));

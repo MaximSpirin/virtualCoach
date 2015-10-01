@@ -15,19 +15,19 @@
     /**************************************************** constructor **************************************************/
 
     function DefenderComponent() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(DefenderComponent,BaseShapeRenderer);
+    var p = createjs.extend(DefenderComponent,BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
 
     p.initialize = function(){
-        this.BaseShapeRenderer_initialize();
+        this.BaseComponentRenderer_initialize();
         this.outlineShape = new createjs.Shape();
-        this.addChild(this.outlineShape);
+        this.container.addChild(this.outlineShape);
         console.log("DefenderComponent.initialize()");
     };
 
@@ -41,8 +41,14 @@
 
         this.outlineShape.graphics.clear();
         this.outlineShape.graphics.beginFill(DefenderComponent.FILL_COLOR);
-        this.outlineShape.graphics.drawCircle(w/2, h/2, w/2);
+        this.outlineShape.graphics.drawCircle(0, 0, w/2);
+        this.outlineShape.setBounds(-w/2,-h/2,w,h);
+    };
 
+    p.getContentBounds = function(){
+        var contentPosInParentCS = this.localToLocal(this.outlineShape._bounds.x, this.outlineShape._bounds.y, this.parent);
+        var result = new createjs.Rectangle(contentPosInParentCS.x, contentPosInParentCS.y, this.outlineShape._bounds.width, this.outlineShape._bounds.height);
+        return result;
     };
 
     p.getMinimalSize = function(){
@@ -50,7 +56,7 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.DefenderComponent = createjs.promote(DefenderComponent, "BaseShapeRenderer");
+    window.DefenderComponent = createjs.promote(DefenderComponent, "BaseComponentRenderer");
 
 
 }(window));

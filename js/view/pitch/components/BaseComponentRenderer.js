@@ -4,26 +4,28 @@
  */
 (function (window) {
     //public variables
-    BaseShapeRenderer.prototype._data;
-    BaseShapeRenderer.prototype.needRender;
-    BaseShapeRenderer.prototype.positionChanged;
-    BaseShapeRenderer.prototype._x;
-    BaseShapeRenderer.prototype._y;
+    BaseComponentRenderer.prototype._data;
+    BaseComponentRenderer.prototype.needRender;
+    BaseComponentRenderer.prototype.positionChanged;
+    BaseComponentRenderer.prototype._x;
+    BaseComponentRenderer.prototype._y;
+    BaseComponentRenderer.rendererData;
+    BaseComponentRenderer.container;
 
 
 
     //static variable
-    //BaseShapeRenderer.staticVar = "value";
+    //BaseComponentRenderer.staticVar = "value";
 
     //constructor
-    function BaseShapeRenderer() {
+    function BaseComponentRenderer() {
         //invoke constructor of superclass
         this.Container_constructor();
         this.initialize();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(BaseShapeRenderer,createjs.Container);
+    var p = createjs.extend(BaseComponentRenderer,createjs.Container);
 
     // protected functions
     p.f = function () {
@@ -31,6 +33,10 @@
     };
 
     p.initialize = function(){
+
+        this.container = new createjs.Container();
+        this.addChild(this.container);
+
         this.mouseDownHandler = this.on("mousedown", function(evt){
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
@@ -45,7 +51,7 @@
             this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
         });
 
-        console.log("BaseShapeRenderer.initialize()");
+        console.log("BaseComponentRenderer.initialize()");
     };
 
     /*
@@ -56,7 +62,7 @@
     };
 
     p.getBounds = function(){
-        var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data._width, this._data._height);
+        var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data.width, this._data.height);
         return result;
     };
 
@@ -75,6 +81,7 @@
         }
 
         this._data = value;
+        this.rendererData = value;
 
         if(this._data){
             this.addData();
@@ -113,9 +120,9 @@
     //function privateFunction(param) { }
 
     //public static method
-    //BaseShapeRenderer.staticFunctionName = function(param1){ //method body };
+    //BaseComponentRenderer.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.BaseShapeRenderer = createjs.promote(BaseShapeRenderer,"Container");
+    window.BaseComponentRenderer = createjs.promote(BaseComponentRenderer,"Container");
 
 }(window));

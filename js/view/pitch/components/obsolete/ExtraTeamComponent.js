@@ -15,17 +15,17 @@
     /**************************************************** constructor **************************************************/
 
     function ExtraTeamComponent() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(ExtraTeamComponent,BaseShapeRenderer);
+    var p = createjs.extend(ExtraTeamComponent,BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
 
     p.initialize = function(){
-        this.BaseShapeRenderer_initialize();
+        this.BaseComponentRenderer_initialize();
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
         console.log("ExtraTeamComponent.initialize()");
@@ -50,7 +50,7 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.ExtraTeamComponent = createjs.promote(ExtraTeamComponent, "BaseShapeRenderer");
+    window.ExtraTeamComponent = createjs.promote(ExtraTeamComponent, "BaseComponentRenderer");
 
 
 }(window));

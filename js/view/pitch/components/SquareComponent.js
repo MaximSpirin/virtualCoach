@@ -11,7 +11,7 @@
     /**************************************************** constructor *************************************************/
 
     function SquareComponent() {
-        this.BaseShapeRenderer_constructor();
+        this.BaseComponentRenderer_constructor();
     }
 
     //extend this class from a superclass
