@@ -4,17 +4,17 @@
  */
 (function (window) {
     //************************************** public variables ***********************************//
-    Pitch.prototype.componentWidth;
-    Pitch.prototype.componentHeight;
-    Pitch.prototype.backgroundShape;
-    Pitch.prototype.backgroundShapeMask;
-    Pitch.prototype.backgroundOutline;
-    Pitch.prototype.update;
-    Pitch.prototype.dispatcher;
-    Pitch.prototype.elementsLayer;
-    Pitch.prototype.transformToolLayer;
-    Pitch.prototype.elements;
-    Pitch.prototype.transformTool;
+    Pitch.prototype.componentWidth = null;
+    Pitch.prototype.componentHeight = null;
+    Pitch.prototype.backgroundShape = null;
+    Pitch.prototype.backgroundShapeMask = null;
+    Pitch.prototype.backgroundOutline = null;
+    Pitch.prototype.update = false;
+    Pitch.prototype.dispatcher = null;
+    Pitch.prototype.elementsLayer = null;
+    Pitch.prototype.elements = null;
+    Pitch.prototype.transformTool = null;
+    Pitch.prototype.selectedElement = null;
 
     //************************************** static variables ************************************//
     //Pitch.staticVar = "value";
@@ -97,7 +97,12 @@
         this.dispatcher.on(PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK, createBallsSupplyClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_ARC_CLICK, createArcClickHandler, this);
 
+        this.dispatcher.on(PresentationViewEvent.COPY_ELEMENT_BUTTON_CLICK, copyElementClickHandler, this);
+        this.dispatcher.on(PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK, pasteElementClickHandler, this);
+
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
+        this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, elementDeletedHandler, this);
+        this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler,true);
 
     }
 
@@ -132,7 +137,8 @@
         if(addedByUser){
             this.elementsLayer.addChild(elementRenderer);
             itemModel.depth = this.elementsLayer.numChildren - 1;
-            this.transformTool.setTarget(elementRenderer);
+            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:elementRenderer}));
+
         } else {
             var depth = Math.min(model.depth, this.elementsLayer.numChildren);
         }
@@ -145,7 +151,8 @@
     /************************************** event handlers *******************************************/
 
     function canvasMouseDownHandler(evt){
-        this.transformTool.setTarget(null);
+        //this.transformTool.setTarget(null);
+        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
     }
 
     function addComponentHandler(evt){
@@ -155,11 +162,24 @@
     }
 
     function elementSelectedHandler(evt){
-        var selectedElement = evt.payload.data;
-        this.transformTool.setTarget(selectedElement);
+       this.selectedElement = evt.payload.data;
+        //this.transformTool.setTarget(selectedElement);
 
     }
 
+    function elementDeletedHandler(evt){
+       if(this.selectedElement){
+
+           //2. remove it from screen and from elements array
+           if(this.selectedElement.stage){
+               this.elementsLayer.removeChild(this.selectedElement);
+               var elementIndex = this.elements.indexOf(this.selectedElement);
+               this.elements.splice(elementIndex,1);
+           }
+           //1. deselect element
+           Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
+       }
+    }
 
     function createRectangleClickHandler(presentationViewEvent){
         var defaultRectangleWidth = 200;
@@ -263,8 +283,6 @@
     }
 
     function createElementRenderer(elementVO){
-        var result;
-
         switch (elementVO.type){
             case GraphicElementType.RECTANGLE:
                 result = new RectComponent();
@@ -275,27 +293,10 @@
                 break;
 
             case GraphicElementType.ATTACKER:
-                //result = new AttackerComponent();
-                result = new PrimitiveShapeRenderer();
-                break;
-
             case GraphicElementType.DEFENDER:
-                //result = new DefenderComponent();
-                result = new PrimitiveShapeRenderer();
-                break;
-
             case GraphicElementType.EXTRA_TEAM:
-                //result = new ExtraTeamComponent();
-                result = new PrimitiveShapeRenderer();
-                break;
-
             case GraphicElementType.NEUTRAL_PLAYER:
-                //result = new NeutralPlayerComponent();
-                result = new PrimitiveShapeRenderer();
-                break;
-
             case GraphicElementType.CONE:
-                //result = new ConeComponent();
                 result = new PrimitiveShapeRenderer();
                 break;
 
@@ -321,11 +322,11 @@
 
             case GraphicElementType.ARC:
                 result = new ArchedArrow();
-            break;
-
-
+                break;
 
         }
+
+        var result;
 
         result.setRendererData(elementVO);
 
@@ -333,6 +334,89 @@
     }
 
 
+    function copyElementClickHandler(event){
+        var clonedSourceData = this.cloneElementData(this.selectedElement.rendererData);
+        Clipboard.data = clonedSourceData;
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.ELEMENT_COPIED_TO_CLIPBOARD,{data:clonedSourceData}));
+    }
+
+    function pasteElementClickHandler(event){
+       if(Clipboard.data){
+           var clonedElementData = this.cloneElementData(Clipboard.data);
+           this.addItemByModel(clonedElementData, true);
+       }
+    }
+    
+    function swapDirectionsClickHandler(event){
+       //TODO implement
+        if(this.selectedElement){
+            this.selectedElement.swapArrowDirections();
+        }
+    }
+
+    p.cloneElementData = function(sourceElementData){
+
+        var clonedElementData;
+        var newId = createjs.UID.get();
+        var clonedWidth =  sourceElementData.width;
+        var clonedHeight =  sourceElementData.height;
+        var clonedPosition = new createjs.Point(sourceElementData.position.x, sourceElementData.position.y);
+        //TODO: optimize this
+        clonedPosition.x+=10;
+        clonedPosition.y+=10;
+
+
+        var clonedRotation = sourceElementData.rotation;
+
+        switch (sourceElementData.type){
+
+
+            case GraphicElementType.RECTANGLE:
+                    clonedElementData = new RectVO(newId, clonedPosition,clonedWidth, clonedHeight);
+                break;
+
+            case GraphicElementType.SQUARE:
+                    clonedElementData = SquareVO(newId, clonedPosition,clonedWidth, clonedHeight);
+                break;
+
+
+            case GraphicElementType.ATTACKER:
+                    clonedElementData = new AttackerVO(newId, clonedPosition, sourceElementData.radius);
+                    clonedElementData.fillColor = sourceElementData.fillColor;
+                break;
+
+            case GraphicElementType.DEFENDER:
+                    clonedElementData = new DefenderVO(newId, clonedPosition, sourceElementData.radius);
+                    clonedElementData.fillColor = sourceElementData.fillColor;
+                break;
+
+            case GraphicElementType.EXTRA_TEAM:
+                    clonedElementData = new ExtraTeamVO(newId, clonedPosition, sourceElementData.radius);
+                    clonedElementData.fillColor = sourceElementData.fillColor;
+                break;
+
+            case GraphicElementType.NEUTRAL_PLAYER:
+                    clonedElementData = new NeutralVO(newId, clonedPosition, sourceElementData.radius);
+                    clonedElementData.fillColor = sourceElementData.fillColor;
+                break;
+
+            case GraphicElementType.CONE:
+                    clonedElementData = new ConeVO(newId, clonedPosition, clonedWidth, clonedHeight);
+                    clonedElementData.fillColor = sourceElementData.fillColor;
+            break;
+
+            case GraphicElementType.ARC:
+                    clonedElementData = new ArchedArrowVO(newId, clonedPosition,
+                        clonedWidth, clonedHeight,
+                        sourceElementData.arrowDirection, clonedRotation);
+                break;
+
+
+        }
+
+
+        return clonedElementData
+    };
 
     //************************************ static methods ********************************************/
     //Pitch.staticFunctionName = function(param1){ //method body };

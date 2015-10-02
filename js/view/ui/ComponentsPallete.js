@@ -82,7 +82,7 @@
         this.coneButton.on("click", coneButtonClickHandler, this);
         this.addChild(this.coneButton);
         
-        this.arcButton = new SimpleTextButton("Arched arrow", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.arcButton = new SimpleTextButton("Arcuate mvm", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
         this.arcButton.x = 5;
         this.arcButton.y = this.coneButton.y + this.coneButton.getBounds().height*2 + 10;
         this.arcButton.on("click", arcButtonClickHandler,this);

@@ -16,6 +16,11 @@
     PresentationViewEvent.CREATE_BALL_CLICK = "create_ball_click";
     PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK = "create_balls_supply_click";
     PresentationViewEvent.CREATE_ARC_CLICK = "create_arc_click";
+    PresentationViewEvent.COPY_ELEMENT_BUTTON_CLICK = "copy_element_button_click";
+    PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK = "paste_element_button_click";
+    PresentationViewEvent.ELEMENT_COPIED_TO_CLIPBOARD = "element_copied_to_clipboard";
+    PresentationViewEvent.DELETE_ELEMENT = "delete_element";
+    PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK = "swap_directions_button_click";
 
 
     //Each instance of this event will have an associated payload object

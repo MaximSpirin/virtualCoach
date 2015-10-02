@@ -72,6 +72,8 @@
 
         this.setBounds(-ArchedArrow.STD_WIDTH / 2,-ArchedArrow.STD_HEIGHT / 2, ArchedArrow.STD_WIDTH, ArchedArrow.STD_HEIGHT);
 
+
+
         console.log("ArchedArrow.initialize()");
 
     };
@@ -84,6 +86,7 @@
         this.x = renderData.getPosition().x;
         this.y = renderData.getPosition().y;
 
+        this.container.rotation = this.getRendererData().rotation;
     };
 
     p.drawArrow = function(radian){

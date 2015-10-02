@@ -5,7 +5,6 @@
 (function (window) {
     //public variables
     ArchedArrowVO.prototype.arrowDirection = "left";
-    ArchedArrowVO.prototype.rotation = 0;
     ArchedArrowVO.prototype.startPointPosition = null;
     ArchedArrowVO.prototype.endPointPosition = null;
 

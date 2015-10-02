@@ -27,12 +27,21 @@
 
 
 
+    PresentationController.prototype.copyElementToClipboard = function(sourceElement){
+        //make a copy of source element's rendererData
+        var clonedSourceData = this.cloneElementData(sourceElement);
+        this.clipboardData = clonedSourceData;
+    };
 
 
 
 
     //public static method
-    //PresentationController.staticFunctionName = function(param1){ //method body };
+    PresentationController.prototype.cloneElementData = function(sourceElement){
+        var sourceElementData = sourceElement.rendererData;
+        var clonedElementData = jQuery.extend(true, {}, sourceElementData);
+        return clonedElementData
+    };
 
     //Make aliases for all superclass methods: SuperClass_methodName
     //window.PresentationController = createjs.promote(PresentationController,"SuperClass");

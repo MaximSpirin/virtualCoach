@@ -90,6 +90,8 @@
         this.scaleControl.visible = false;
         this.addChild(this.scaleControl);
 
+        Dispatcher.getInstance().on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
+
     };
 
     p.setTarget = function(newTarget){
@@ -105,7 +107,7 @@
 
         if(this.target){
 
-            switch (this.target.getRendererData().type){
+            switch (this.target.rendererData.type){
 
                 case GraphicElementType.RECTANGLE:
                     this.scaleControl.visible = true;
@@ -185,6 +187,10 @@
 
     function elementRotationChangedHandler(event){
         this.outline.rotation = this.target.rendererData.rotation;
+    }
+
+    function elementSelectedHandler(event){
+       this.setTarget(event.payload.data);
     }
 
 

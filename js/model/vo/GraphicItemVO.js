@@ -24,7 +24,7 @@
         this.id = (id!=undefined && id!=null) ? id : "" ;
         this.type = (type!=undefined && type!=null) ? type : 0;
         this.position = (position!=undefined && position!=null) ? position : null;
-        this.rotation = 0;
+        //this.rotation = 0;
     }
 
     //extend this class from a superclass
