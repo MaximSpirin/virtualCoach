@@ -25,7 +25,14 @@
     //extend this class from a superclass
     var p = createjs.extend(ArchedArrowVO, GraphicItemVO);
 
-
+    p.invertArrowDirection = function(){
+        if(this.arrowDirection == "left"){
+            this.arrowDirection = "right"
+        }else{
+            this.arrowDirection = "left";
+        }
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"arrowDirection"}));
+    };
 
     // public functions
     //ArcVO.prototype.publicFunction = function (param1) { };

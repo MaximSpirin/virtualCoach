@@ -64,13 +64,13 @@
                                                                                                                         controlPoint2.y,
                                                                                                                         endPoint.x,
                                                                                                                         endPoint.y);
-            drawArrow(Math.atan2((endPoint.y - controlPoint2.y),(endPoint.x - controlPoint2.x)),
+            updateArrowPositionAndRotation(Math.atan2((endPoint.y - controlPoint2.y),(endPoint.x - controlPoint2.x)),
                     endPoint.x, endPoint.y);
 
 
 
 
-            function drawArrow(radian, x, y) {
+            function updateArrowPositionAndRotation(radian, x, y) {
                 var arrow = new createjs.Shape();
                 arrow.graphics.beginStroke("#000000").moveTo(-5, +5).lineTo(0, 0).lineTo(-5, -5);
 

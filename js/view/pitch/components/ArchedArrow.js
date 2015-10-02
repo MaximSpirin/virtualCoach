@@ -8,6 +8,7 @@
     ArchedArrow.prototype.arrowShape = null;
     ArchedArrow.prototype.container = null;
     ArchedArrow.prototype.opaqueBackground = null;
+    ArchedArrow.prototype.arrowAnchorPoint = null;
 
     /************************************************* static variables ***********************************************/
     ArchedArrow.STD_WIDTH = 60;
@@ -61,7 +62,7 @@
         this.arrowShape.graphics.beginFill("#ffffff").moveTo(-6,7).lineTo(1,0).lineTo(-6, -7);
         this.container.addChild(this.arrowShape);
 
-        this.drawArrow(Math.atan2((this.endPoint.y - this.cp2.y),(this.endPoint.x - this.cp2.x)));
+        //this.updateArrowPositionAndRotation(Math.atan2((this.endPoint.y - this.cp2.y),(this.endPoint.x - this.cp2.x)));
 
         /*var demoShape = new createjs.Shape();
         demoShape.graphics.beginFill("#00FF00").drawCircle(0,0,5);
@@ -87,14 +88,11 @@
         this.y = renderData.getPosition().y;
 
         this.container.rotation = this.getRendererData().rotation;
+
+        this.updateArrowPositionAndRotation();
     };
 
-    p.drawArrow = function(radian){
-        var degree = (radian/ Math.PI * 180) + 10;
-        this.arrowShape.x = this.endPoint.x;
-        this.arrowShape.y = this.endPoint.y;
-        this.arrowShape.rotation = degree;
-    };
+
 
     p.getContentBounds = function(){
         var contentPosInParentCS = this.localToLocal(- ArchedArrow.STD_WIDTH/2, - ArchedArrow.STD_HEIGHT/2, this.parent);
@@ -102,15 +100,34 @@
         return result;
     };
 
+
+    p.addData = function(){
+        this.BaseComponentRenderer_addData();
+        this.rendererData.on(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, graphicPropertyChangeHandler, this);
+    };
     /************************************************* public methods *************************************************/
+    p.updateArrowPositionAndRotation = function(){
 
-
-
+        this.arrowAnchorPoint = this.rendererData.arrowDirection=="left" ? this.endPoint : this.startPoint;
+        var radian = Math.atan2((this.arrowAnchorPoint.y - this.cp2.y),(this.arrowAnchorPoint.x - this.cp2.x));
+        var degree = (radian/ Math.PI * 180) + (this.rendererData.arrowDirection=="left" ? 8 : 27);
+        this.arrowShape.x = this.arrowAnchorPoint.x;
+        this.arrowShape.y = this.arrowAnchorPoint.y;
+        this.arrowShape.rotation = degree;
+    };
 
     /************************************************** event handlers ************************************************/
+    function graphicPropertyChangeHandler(evt){
+        var propertyName = evt.payload.name;
 
+        switch (propertyName){
+            case "arrowDirection":
+                   this.updateArrowPositionAndRotation();
+                break;
 
+        }
 
+    }
 
     /************************************************** static methods ************************************************/
 

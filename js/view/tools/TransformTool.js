@@ -38,6 +38,7 @@
         this.rotationControl = new createjs.Container();
         this.rotationControl.addChild(rotationIcon);
         this.rotationControl.setBounds(-16,-16,32,32);
+        this.rotationControl.cursor = "pointer";
         this.rotationControl.snapToPixel = true;
 
 

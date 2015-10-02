@@ -102,7 +102,7 @@
 
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
         this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, elementDeletedHandler, this);
-        this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler,true);
+        this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler,this);
 
     }
 
@@ -350,7 +350,7 @@
     function swapDirectionsClickHandler(event){
        //TODO implement
         if(this.selectedElement){
-            this.selectedElement.swapArrowDirections();
+            this.selectedElement.rendererData.invertArrowDirection();
         }
     }
 
