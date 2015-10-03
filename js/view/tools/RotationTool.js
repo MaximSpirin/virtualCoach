@@ -11,6 +11,7 @@
     RotationTool.prototype.mouseAngle;
     RotationTool.prototype.handlerWidth;
     RotationTool.prototype.angle = 0;
+    RotationTool.prototype.controlLine;
 
     //static variable
     //RotationTool.staticVar = "value";
@@ -20,10 +21,19 @@
         //invoke constructor of superclass
         this.Container_constructor();
 
+        // draw red control line from the center of the handler to the outline of the selected item
+        this.controlLine = new createjs.Shape();
+        this.controlLine.graphics.setStrokeStyle(2);
+        this.controlLine.graphics.beginStroke("#FF0000");
+        this.controlLine.graphics.moveTo(-26,0);
+        this.controlLine.graphics.lineTo(0,0);
+
         //add handler
         this.handler = handler;
         this.handlerWidth = this.handler.getBounds().width;
         this.addChild(this.handler);
+        this.handler.addChildAt(this.controlLine, 0);
+
         this.setHandlerListeners();
         this.angle = startAngle;
 
@@ -71,6 +81,7 @@
                                                 this.radiusY + this.handlerWidth/2);
         this.handler.x = handlerPosition.x;
         this.handler.y = handlerPosition.y;
+        this.handler.rotation = this.angle;
     };
 
     p.getSectorPoint = function(degree, radiusX, radiusY){

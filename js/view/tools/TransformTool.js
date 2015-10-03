@@ -35,12 +35,12 @@
         var rotationIcon = new createjs.Bitmap(Main.loadQueue.getResult("rotation-icon"));
         rotationIcon.x = -16;
         rotationIcon.y = -16;
+
         this.rotationControl = new createjs.Container();
         this.rotationControl.addChild(rotationIcon);
         this.rotationControl.setBounds(-16,-16,32,32);
         this.rotationControl.cursor = "pointer";
         this.rotationControl.snapToPixel = true;
-
 
         this.rotationTool = new RotationTool(0,0, this.rotationControl,0);
         this.rotationTool.visible = false;
