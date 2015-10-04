@@ -12,13 +12,14 @@
     <script>
         function init(){
             //init easeljs stage
-            window.stage = new createjs.Stage("appCanvas");
+            var stage = new createjs.Stage("appCanvas");
+            window.stage = stage;
             createjs.Ticker.on("tick", handleTick, this);
             function handleTick(event) {
                 stage.update();
             }
 
-            var rotationTarget = new createjs.Shape();
+            /*var rotationTarget = new createjs.Shape();
             rotationTarget.x = 200;
             rotationTarget.y = 200;
             rotationTarget.graphics.beginFill("#00FF00").drawRect(-25,-25,50,50);
@@ -39,53 +40,51 @@
                 rotationTarget.rotation = rotationTool.angle;
                 //console.log("Rotate to:"+rotationTool.angle);
             }, this);
-            window.stage.addChild(rotationTool);
+            window.stage.addChild(rotationTool);*/
 
-            /*var startPoint = new createjs.Point(30, 100);
-            var controlPoint1 = new createjs.Point(40, 120);
-            var controlPoint2 = new createjs.Point(80, 120);
-            var endPoint = new createjs.Point(90, 100);
-                
-            var shape = new createjs.Shape();
-            window.shape = shape;
-            window.stage.addChild(shape);
+            //draw arrow
+            this.arrowShape = new createjs.Shape();
+            this.arrowShape.graphics.beginFill("#ff0000").moveTo(-6,7).lineTo(1,0).lineTo(-6, -7);
 
-            shape.graphics.beginFill("#ff0000");
-            shape.graphics.drawCircle(startPoint.x, startPoint.y, 5);
-            shape.graphics.endFill();
+            this.arrowShape.rotation = -180;
+            this.arrowShape.x=1;
+            this.arrowShape.y=150-3;
+            stage.addChild(this.arrowShape);
 
-            shape.graphics.beginFill("#00ff00");
-            shape.graphics.drawCircle(endPoint.x, endPoint.y, 5);
-            shape.graphics.endFill();
+            var sineShape = new createjs.Shape();
+            sineShape.graphics.setStrokeStyle(2);
+            sineShape.graphics.beginStroke("#FF0000");
 
-            shape.graphics.setStrokeStyle(3).beginStroke("#000000").moveTo(startPoint.x, startPoint.y).bezierCurveTo(controlPoint1.x,
-                                                                                                                        controlPoint1.y,
-                                                                                                                        controlPoint2.x,
-                                                                                                                        controlPoint2.y,
-                                                                                                                        endPoint.x,
-                                                                                                                        endPoint.y);
-            updateArrowPositionAndRotation(Math.atan2((endPoint.y - controlPoint2.y),(endPoint.x - controlPoint2.x)),
-                    endPoint.x, endPoint.y);
+            //start first line segment at position (0, f(0))
+            sineShape.graphics.moveTo(5, f(0));
+            //keep on drawing line segments to (i, f(i) as i moves across the width of the canvas)
+            for(var i=5; i<47; i++){
+                var lineY = f(i);
+                //console.log("x=", i, "y=", lineY);
+                sineShape.graphics.lineTo(i, lineY);
+            }
 
 
 
 
-            function updateArrowPositionAndRotation(radian, x, y) {
-                var arrow = new createjs.Shape();
-                arrow.graphics.beginStroke("#000000").moveTo(-5, +5).lineTo(0, 0).lineTo(-5, -5);
+            //add curve to stage
+            stage.addChild(sineShape);
 
-               // arrow.graphics.beginFill("#0000FF").drawCircle(0,0,5);
 
-                var degree = radian / Math.PI * 180;
-                arrow.x = x ;
-                arrow.y = y ;
-                arrow.rotation = degree;
 
-                stage.addChild(arrow);
-            }*/
+
+
+
+            /*
+             * defines the the shape of curve the ball will be bouncing off of.
+             * Try playing around with the values inside this function!
+             */
+            function f(x) {
+                //return 100*Math.sin((2*x)*3.14/180)+300;
+                return -4*Math.sin((x*8)*3.14/180)+150;
+            }
+
         }
-
-
 
     </script>
 
