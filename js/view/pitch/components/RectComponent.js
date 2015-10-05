@@ -48,10 +48,8 @@
         var w = renderData.getWidth();
         var h = renderData.getHeight();
         DrawingUtils.drawStrictSizeRectangle(this.outlineShape.graphics, 0, 0, renderData.getWidth(), renderData.getHeight(), 4, "#ffffff");
-        /*this.x = renderData.getPosition().x;
-        this.y = renderData.getPosition().y;*/
-        this.widthRuler.update(w, 14, Math.round(w * ApplicationModel.getInstance().mpp) + " m");
 
+        this.widthRuler.update(w, 14, Math.round(w * ApplicationModel.getInstance().mpp) + " m");
         this.heightRuler.update(h, 14, Math.round(h * ApplicationModel.getInstance().mpp) + " m");
         this.heightRuler.y = h;
     };

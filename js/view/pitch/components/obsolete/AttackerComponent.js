@@ -50,7 +50,6 @@
         this.outlineShape.graphics.beginFill(AttackerComponent.FILL_COLOR);
         this.outlineShape.graphics.drawCircle(0, 0, w/2);
         this.outlineShape.setBounds(-w/2, -h/2, w, h);
-
     };
 
     p.getContentBounds = function(){

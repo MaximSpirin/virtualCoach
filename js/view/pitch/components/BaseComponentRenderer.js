@@ -13,7 +13,6 @@
     BaseComponentRenderer.container;
 
 
-
     //static variable
     //BaseComponentRenderer.staticVar = "value";
 

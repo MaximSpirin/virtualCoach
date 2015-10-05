@@ -3,18 +3,6 @@
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
-    //public variables
-    ComponentsPallete.prototype.panelWidth;
-    ComponentsPallete.prototype.panelHeight;
-    ComponentsPallete.prototype.background;
-    ComponentsPallete.prototype.rectButton;
-    ComponentsPallete.prototype.boxButton;
-    ComponentsPallete.prototype.attackerButton;
-    ComponentsPallete.prototype.defenderButton;
-    ComponentsPallete.prototype.extraTeamButton;
-    ComponentsPallete.prototype.neutralPlayerButton;
-    ComponentsPallete.prototype.coneButton;
-    ComponentsPallete.prototype.arcButton;
 
 
     //static variable
@@ -35,6 +23,8 @@
     var p = createjs.extend(ComponentsPallete,createjs.Container);
 
     p.initialize = function(){
+        this.dispatcher = Dispatcher.getInstance();
+
         this.background = new createjs.Shape();
         this.background.graphics.beginFill(ComponentsPallete.BACKGROUND_COLOR).drawRect(0, 0, this.panelWidth, this.panelHeight);
         this.addChild(this.background);
@@ -88,41 +78,51 @@
         this.arcButton.on("click", arcButtonClickHandler,this);
         this.addChild(this.arcButton);
 
+        this.dribblingButton = new SimpleTextButton("Dribbling", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.dribblingButton.x = 5;
+        this.dribblingButton.y = this.arcButton.y + this.arcButton.getBounds().height*2 + 10;
+        this.dribblingButton.on("click", dribblingButtonClickHandler,this);
+        this.addChild(this.dribblingButton);
+
+
     };
 
 
     function rectButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_RECTANGLE_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_RECTANGLE_CLICK));
     }
 
     function boxButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_SQUARE_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_SQUARE_CLICK));
     }
 
     function attackerButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_ATTACKER_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_ATTACKER_CLICK));
     }
 
     function defenderButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_DEFENDER_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_DEFENDER_CLICK));
     }
 
     function extraTeamButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_EXTRA_TEAM_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_EXTRA_TEAM_CLICK));
     }
 
     function neutralButtonClickHandler(evt) {
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_NEUTRAL_PLAYER_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_NEUTRAL_PLAYER_CLICK));
     }
 
     function coneButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_CONE_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_CONE_CLICK));
     }
     
     function arcButtonClickHandler(evt){
-        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_ARC_CLICK));
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_ARC_CLICK));
     }
 
+    function dribblingButtonClickHandler(evt){
+       this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_DRIBBLING_CLICK));
+    }
 
 
     //Make aliases for all superclass methods: SuperClass_methodName

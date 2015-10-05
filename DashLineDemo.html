@@ -4,45 +4,110 @@
     <meta charset="UTF-8">
     <title>Dash line demo</title>
 </head>
-<body onload="init()">
-    <script type="text/javascript" src="js/external/createjs/easeljs-0.8.1.combined.js"></script>
-    <script src="js/view/pitch/SizeHint.js"></script>
+<body onload="init()" style="margin: 0px">
+    <!-- Load jQuery -->
+    <script  src="js/external/jquery/jquery.js" onload="console.log('jquery loaded')"></script>
+
+    <!-- Load bootstrap -->
+    <script src="js/external/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+    <!------------------------- Load createjs libs --------------------->
+    <script  src="js/external/createjs/easeljs-0.8.1.combined.js"></script>
+    <script  src="js/external/createjs/preloadjs-0.6.1.combined.js"></script>
+
+    <!-- Load app entry point class -->
+    <script  src="js/Main.js"></script>
+
+    <!-- events -->
+    <script  src="js/events/ApplicationEvent.js"></script>
+    <script  src="js/events/PresentationViewEvent.js"></script>
+
+    <!-- utils -->
+    <script  src="js/utils/InheritanceManager.js"></script>
+    <script  src="js/utils/StringUtils.js"></script>
+    <script  src="js/utils/DrawingUtils.js"></script>
+    <script src="js/utils/Clipboard.js"></script>
+
+    <!-- views -->
+    <script  src="js/view/screens/AppScreen.js"></script>
+    <script  src="js/view/screens/MainMenuScreen.js"></script>
+    <script  src="js/view/screens/Editor.js"></script>
+    <script  src="js/view/ui/SimpleTextButton.js"></script>
+    <script  src="js/view/forms/Form.js"></script>
+    <script  src="js/view/forms/PitchDimensionsInput.js"></script>
+    <script  src="js/view/forms/PitchSizeInputFormHTML.js"></script>
+    <script  src="js/view/ui/ToolsPanel.js"></script>
+    <script src="js/view/tools/TransformTool.js"></script>
     <script src="js/view/tools/RotationTool.js"></script>
+    <script src="js/view/ui/ComponentsPallete.js"></script>
+    <script src="js/view/ui/PresentationComponent.js"></script>
+    <script src="js/view/pitch/Pitch.js"></script>
+    <script src="js/view/pitch/components/BaseComponentRenderer.js"></script>
+    <script src="js/view/pitch/components/RectComponent.js"></script>
+    <script src="js/view/pitch/components/SquareComponent.js"></script>
+    <script src="js/view/pitch/components/obsolete/AttackerComponent.js"></script>
+    <script src="js/view/pitch/components/obsolete/DefenderComponent.js"></script>
+    <script src="js/view/pitch/components/obsolete/ExtraTeamComponent.js"></script>
+    <script src="js/view/pitch/components/obsolete/ConeComponent.js"></script>
+    <script src="js/view/pitch/components/obsolete/NeutralPlayerComponent.js"></script>
+    <script src="js/view/pitch/SizeHint.js"></script>
+    <script src="js/view/pitch/components/ArchedArrow.js"></script>
+    <script src="js/view/pitch/components/PrimitiveShapeRenderer.js"></script>
+    <script src="js/view/pitch/components/DribblingLine.js"></script>
+    <script src="js/view/pitch/components/DribblingLineSegment.js"></script>
+
+
+
+    <!-- vo -->
+    <script  src="js/model/User.js"></script>
+    <script  src="js/model/vo/Presentation.js"></script>
+    <script  src="js/model/vo/GraphicItemVO.js"></script>
+    <script  src="js/model/vo/RectVO.js"></script>
+    <script  src="js/model/constants/GraphicElementType.js"></script>
+    <script src="js/model/vo/SquareVO.js"></script>
+    <script src="js/model/vo/AttackerVO.js"></script>
+    <script src="js/model/vo/DefenderVO.js"></script>
+    <script src="js/model/vo/ExtraTeamVO.js"></script>
+    <script src="js/model/vo/NeutralVO.js"></script>
+    <script src="js/model/vo/ConeVO.js"></script>
+    <script src="js/model/vo/ArchedArrowVO.js"></script>
+    <script src="js/model/vo/DribblingLineVO.js"></script>
+
+    <!-- services -->
+    <script  src="js/service/PlatformInfoService.js"></script>
+
+    <!-- singletones -->
+    <script  src="js/dispatcher/Dispatcher.js"></script>
+    <script  src="js/service/ServiceLocator.js"></script>
+    <script  src="js/model/ApplicationModel.js"></script>
 
     <script>
+        "use strict";
+
+
         function init(){
             //init easeljs stage
             var stage = new createjs.Stage("appCanvas");
             window.stage = stage;
             createjs.Ticker.on("tick", handleTick, this);
+
             function handleTick(event) {
                 stage.update();
             }
 
-            /*var rotationTarget = new createjs.Shape();
-            rotationTarget.x = 200;
-            rotationTarget.y = 200;
-            rotationTarget.graphics.beginFill("#00FF00").drawRect(-25,-25,50,50);
-            rotationTarget.setBounds(0,0,50,50);
-            window.stage.addChild(rotationTarget);
+            var startPoint = new createjs.Point(0, 0);
+            var endPoint = new createjs.Point(50, 0);
+            var dLineVO = new DribblingLineVO(23123, new createjs.Point(0,0), startPoint, endPoint);
 
 
-            var handler = new createjs.Shape();
-            handler.setBounds(0,0,30,30);
-            handler.graphics.beginFill("#FF0000");
-            handler.cursor = "pointer";
-            handler.graphics.drawCircle(0,0,15);
+            var dLine = new DribblingLine();
 
-            var rotationTool = new RotationTool(rotationTarget.getBounds().width/2 + 5,rotationTarget.getBounds().width/2+5,handler,0);
-            rotationTool.x = rotationTarget.x;
-            rotationTool.y = rotationTarget.y;
-            rotationTool.on("change", function(event){
-                rotationTarget.rotation = rotationTool.angle;
-                //console.log("Rotate to:"+rotationTool.angle);
-            }, this);
-            window.stage.addChild(rotationTool);*/
+            dLine.x = 0;
+            dLine.y = 0;
+            dLine.setRendererData(dLineVO);
+            stage.addChild(dLine);
 
-            //draw arrow
+            /*//draw arrow
             this.arrowShape = new createjs.Shape();
             this.arrowShape.graphics.beginFill("#ff0000").moveTo(-6,7).lineTo(1,0).lineTo(-6, -7);
 
@@ -56,7 +121,7 @@
             sineShape.graphics.beginStroke("#FF0000");
 
             //start first line segment at position (0, f(0))
-            sineShape.graphics.moveTo(5, f(0));
+            sineShape.graphics.moveTo(5, f(5));
             //keep on drawing line segments to (i, f(i) as i moves across the width of the canvas)
             for(var i=5; i<47; i++){
                 var lineY = f(i);
@@ -64,26 +129,13 @@
                 sineShape.graphics.lineTo(i, lineY);
             }
 
-
-
-
             //add curve to stage
             stage.addChild(sineShape);
 
-
-
-
-
-
-            /*
-             * defines the the shape of curve the ball will be bouncing off of.
-             * Try playing around with the values inside this function!
-             */
             function f(x) {
                 //return 100*Math.sin((2*x)*3.14/180)+300;
                 return -4*Math.sin((x*8)*3.14/180)+150;
-            }
-
+            }*/
         }
 
     </script>

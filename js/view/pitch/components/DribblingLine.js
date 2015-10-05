@@ -4,11 +4,9 @@
  */
 (function (window) {
     /**************************************************** public variables *********************************************/
-    DribblingLine.prototype.outlineShape;
 
     //static variables
-    DribblingLine.MIN_WIDTH = 75;
-    DribblingLine.MIN_HEIGH = 50;
+
 
     /**************************************************** constructor **************************************************/
     function DribblingLine() {
@@ -22,8 +20,6 @@
 
     p.initialize = function(){
         this.BaseComponentRenderer_initialize();
-        this.outlineShape = new createjs.Shape();
-        this.addChild(this.outlineShape);
 
         console.log("DribblingLine.initialize()");
 
@@ -34,25 +30,44 @@
         return result;
     };
 
-    p.render = function(){
-        var renderData = this.getRendererData();
-        var w = renderData.getWidth();
-        var h = renderData.getHeight();
-        DrawingUtils.drawStrictSizeRectangle(this.outlineShape.graphics, 0, 0, renderData.getWidth(), renderData.getHeight(), 4, "#ffffff");
-        this.x = renderData.getPosition().x;
-        this.y = renderData.getPosition().y;
-        this.widthRuler.update(w, 14, Math.round(w * ApplicationModel.getInstance().mpp) + " m");
+    p.initialize = function(){
+        this.container = new createjs.Container();
+        this.addChild(this.container);
 
-        this.heightRuler.update(h, 14, Math.round(h * ApplicationModel.getInstance().mpp) + " m");
-        this.heightRuler.y = h;
+
+        //TODO implement move by dragging container
+    };
+
+    p.render = function(){
+
+        //1. take VO width and calculate segment count
+        var numSegments = Math.floor(this.rendererData.lineWidth/(DribblingLineSegment.STD_WIDTH+2));
+        var initX = 0;
+        for(var i=0; i<numSegments; i++){
+            var segment = new DribblingLineSegment("#FFFFFF");
+            segment.x = initX;
+            segment.setBounds(0, 0, DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
+            this.container.addChild(segment);
+            initX+=DribblingLineSegment.STD_WIDTH + 2;
+        }
+
+        this.container.rotation = this.rendererData.angle;
+        this.container.setBounds(0,0,numSegments * (DribblingLineSegment.STD_WIDTH + 2),DribblingLineSegment.STD_HEIGHT);
 
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.DribblingLine = createjs.promote(DribblingLine,"BaseComponentRenderer");
 
+    p.getContentBounds = function(){
+        var contentPosInParentCS = this.localToLocal(this.container._bounds.x, this.container._bounds.y, this.parent);
+        var result = new createjs.Rectangle(contentPosInParentCS.x, contentPosInParentCS.y, this.container._bounds.width, this.container._bounds.height);
+        return result;
+    };
+
+
     p.getMinimalSize = function(){
-        return new createjs.Point(DribblingLine.MIN_WIDTH, DribblingLine.MIN_HEIGH);
+        return new createjs.Point(DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
     };
 
 

@@ -96,6 +96,7 @@
         this.dispatcher.on(PresentationViewEvent.CREATE_BALL_CLICK, createBallClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK, createBallsSupplyClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_ARC_CLICK, createArcClickHandler, this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_DRIBBLING_CLICK, createDribblingClickHandler, this);
 
         this.dispatcher.on(PresentationViewEvent.COPY_ELEMENT_BUTTON_CLICK, copyElementClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK, pasteElementClickHandler, this);
@@ -277,6 +278,15 @@
 
     }
 
+    function createDribblingClickHandler(evt){
+        var elemId = createjs.UID.get();
+        var startPoint = new createjs.Point(0, 0);
+        var endPoint = new createjs.Point(50, 0);
+        var elementPosition = getElementDefaultPosition.call(this,DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
+        var elementRendererData = new DribblingLineVO(elemId, elementPosition, startPoint, endPoint);
+        this.addItemByModel(elementRendererData, true);
+    }
+
     function getElementDefaultPosition(width, height){
         var result = new createjs.Point(this.componentWidth/2 - width/2, this.componentHeight/2 - height/2);
         return result;
@@ -301,7 +311,7 @@
                 break;
 
             case GraphicElementType.DRIBBLING_PLAYER:
-
+                result = new DribblingLine();
                 break;
 
             case GraphicElementType.PLAYER_MOVEMENT:
