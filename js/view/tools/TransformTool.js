@@ -170,6 +170,7 @@
     p.redraw = function(){
 
         var localBounds = this.target.getContentBounds();
+        var targetData = this.target.rendererData;
 
         this.outline.x = localBounds.x + localBounds.width/2;
         this.outline.y = localBounds.y + localBounds.height/2;
@@ -187,18 +188,22 @@
             TransformTool.OUTLINE_STROKE_COLOR);
 
         if(this.scaleControl.visible){
+
+
             this.scaleControl.x = localBounds.x + localBounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
             this.scaleControl.y = localBounds.y + localBounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
         }
 
         if(this.lineDragControl1.visible){
-            this.lineDragControl1.x = localBounds.x - TransformTool.LINE_CONTROL_SIZE - TransformTool.OUTLINE_STROKE_SIZE;
-            this.lineDragControl1.y = localBounds.y;
-        }
+            var extremePoints = this.target.getPointsInStageCS();
+            var startPointLocal = this.globalToLocal(extremePoints.startPoint.x, extremePoints.startPoint.y);
+            var endPointLocal = this.globalToLocal(extremePoints.endPoint.x, extremePoints.endPoint.y);
+            
+            this.lineDragControl1.x = startPointLocal.x - TransformTool.LINE_CONTROL_SIZE - TransformTool.OUTLINE_STROKE_SIZE;
+            this.lineDragControl1.y = startPointLocal.y;
 
-        if(this.lineDragControl2.visible){
-            this.lineDragControl2.x = localBounds.x + localBounds.width + TransformTool.OUTLINE_STROKE_SIZE;
-            this.lineDragControl2.y = localBounds.y;
+            this.lineDragControl2.x = endPointLocal.x + TransformTool.OUTLINE_STROKE_SIZE;
+            this.lineDragControl2.y = endPointLocal.y;
         }
 
         if(this.rotationTool.visible){

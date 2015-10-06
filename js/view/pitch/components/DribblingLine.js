@@ -78,6 +78,10 @@
         return result;
     };
 
+    p.getPointsInStageCS = function(){
+        var result = {startPoint:this.localToGlobal(this.rendererData.startPoint.x, this.rendererData.startPoint.y),
+            endPoint: this.localToGlobal(this.rendererData.endPoint.x, this.rendererData.endPoint.y)}
+    };
 
     p.getMinimalSize = function(){
         return new createjs.Point(DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
