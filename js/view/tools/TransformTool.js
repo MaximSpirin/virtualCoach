@@ -10,11 +10,15 @@
     TransformTool.prototype.rotationControl;
     TransformTool.prototype.rotationTool;
     TransformTool.prototype.scalePropotionally;
+    TransformTool.prototype.lineDragControl1;
+    TransformTool.prototype.lineDragControl2;
+
 
     //static variable
     TransformTool.OUTLINE_STROKE_SIZE = 2;
     TransformTool.OUTLINE_STROKE_COLOR = "#FF0000";
     TransformTool.SCALE_CONTROL_SIZE = 20;
+    TransformTool.LINE_CONTROL_SIZE = 15;
 
     //constructor
     function TransformTool() {
@@ -91,6 +95,18 @@
         this.scaleControl.visible = false;
         this.addChild(this.scaleControl);
 
+        this.lineDragControl1 = new createjs.Shape();
+        this.lineDragControl1.graphics.beginFill("#FF0000").drawRect(0,0,15,15);
+        this.lineDragControl1.visible = false;
+        this.addChild(this.lineDragControl1);
+
+        this.lineDragControl2 = new createjs.Shape();
+        this.lineDragControl2.graphics.beginFill("#FF0000").drawRect(0,0,15,15);
+        this.lineDragControl2.visible = false;
+        this.addChild(this.lineDragControl2);
+
+
+
         Dispatcher.getInstance().on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
 
     };
@@ -124,6 +140,11 @@
 
                     break;
 
+                case GraphicElementType.DRIBBLING_PLAYER:
+                    this.lineDragControl1.visible = true;
+                    this.lineDragControl2.visible = true;
+                    break;
+
                 default:
                     //this.rotationTool.visible = true;
                     break;
@@ -142,6 +163,8 @@
         this.scaleControl.visible = false;
         this.scalePropotionally = false;
         this.rotationTool.visible = false;
+        this.lineDragControl1.visible = false;
+        this.lineDragControl2.visible = false;
     };
 
     p.redraw = function(){
@@ -166,6 +189,16 @@
         if(this.scaleControl.visible){
             this.scaleControl.x = localBounds.x + localBounds.width + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
             this.scaleControl.y = localBounds.y + localBounds.height + TransformTool.OUTLINE_STROKE_SIZE - 20/2 - 1;
+        }
+
+        if(this.lineDragControl1.visible){
+            this.lineDragControl1.x = localBounds.x - TransformTool.LINE_CONTROL_SIZE - TransformTool.OUTLINE_STROKE_SIZE;
+            this.lineDragControl1.y = localBounds.y;
+        }
+
+        if(this.lineDragControl2.visible){
+            this.lineDragControl2.x = localBounds.x + localBounds.width + TransformTool.OUTLINE_STROKE_SIZE;
+            this.lineDragControl2.y = localBounds.y;
         }
 
         if(this.rotationTool.visible){

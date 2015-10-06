@@ -90,7 +90,6 @@
         this.dispatcher.on(PresentationViewEvent.CREATE_EXTRA_TEAM_CLICK, createExtraClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_NEUTRAL_PLAYER_CLICK, createNeutralPlayerClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_CONE_CLICK, createConeClickHandler , this);
-        this.dispatcher.on(PresentationViewEvent.CREATE_DRIBBLING_CLICK, createDribblingClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_PLAYER_PATH_CLICK, createPlayerPathClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_BALL_PATH_CLICK, createBallPathClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_BALL_CLICK, createBallClickHandler , this);
@@ -282,7 +281,7 @@
         var elemId = createjs.UID.get();
         var startPoint = new createjs.Point(0, 0);
         var endPoint = new createjs.Point(50, 0);
-        var elementPosition = getElementDefaultPosition.call(this,DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
+        var elementPosition = getElementDefaultPosition.call(this,DribblingLineSegment.STD_WIDTH*2, DribblingLineSegment.STD_HEIGHT);
         var elementRendererData = new DribblingLineVO(elemId, elementPosition, startPoint, endPoint);
         this.addItemByModel(elementRendererData, true);
     }
