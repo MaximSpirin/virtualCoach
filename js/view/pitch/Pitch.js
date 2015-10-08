@@ -245,9 +245,6 @@
         this.addItemByModel(elementRendererData, true);
     }
 
-    function createDribblingClickHandler(presentationViewEvent) {
-                   
-    }
 
     function createPlayerPathClickHandler(presentationViewEvent) {
 
@@ -279,10 +276,17 @@
 
     function createDribblingClickHandler(evt){
         var elemId = createjs.UID.get();
-        var startPoint = new createjs.Point(0, 0);
-        var endPoint = new createjs.Point(50, 0);
-        var elementPosition = getElementDefaultPosition.call(this,DribblingLineSegment.STD_WIDTH*2, DribblingLineSegment.STD_HEIGHT);
-        var elementRendererData = new DribblingLineVO(elemId, elementPosition, startPoint, endPoint);
+        var defaultStripWidth = DribblingLineSegment.STD_WIDTH;
+        var defaultStripHeight = DribblingLineSegment.STD_HEIGHT;
+
+        var elementPosition = getElementDefaultPosition.call(this, defaultStripWidth, defaultStripHeight);
+        elementPosition.y+=DribblingLineSegment.STD_HEIGHT/2;
+
+        var startPoint = new createjs.Point(elementPosition.x, elementPosition.y);
+        var endPoint = new createjs.Point(elementPosition.x + defaultStripWidth,  elementPosition.y);
+
+        // var elementRendererData = new DribblingLineVO(elemId, elementPosition, startPoint, endPoint);
+        var elementRendererData = new DribblingLineVO(elemId, startPoint, endPoint);
         this.addItemByModel(elementRendererData, true);
     }
 

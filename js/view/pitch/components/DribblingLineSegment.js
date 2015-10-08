@@ -37,7 +37,7 @@
         this.addChild(this.opaqueShape);
 
         this.curveShape = new createjs.Shape();
-        this.curveShape.graphics.setStrokeStyle(2);
+        this.curveShape.graphics.setStrokeStyle(3);
         this.curveShape.graphics.beginStroke(this.color);
         this.curveShape.graphics.moveTo(3, f(3));
 
