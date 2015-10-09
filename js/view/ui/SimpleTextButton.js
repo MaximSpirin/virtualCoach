@@ -110,16 +110,16 @@
 
     SimpleTextButton.prototype.setState = function(newState){
         //console.log("button went to state:" + newState);
-        var bgColor;
-      switch (newState){
-          case "down":
-                bgColor = this.downColor;
-              break;
+        // var bgColor;
+          switch (newState){
+              case "down":
+                    bgColor = this.downColor;
+                  break;
 
-          case "up":
-              bgColor = this.upColor;
-              break;
-      }
+              case "up":
+                  bgColor = this.upColor;
+                  break;
+          }
 
         if(bgColor){
             this.background.graphics.clear();

@@ -84,6 +84,31 @@
         this.dribblingButton.on("click", dribblingButtonClickHandler,this);
         this.addChild(this.dribblingButton);
 
+        this.playerMvmButton = new SimpleTextButton("Player path", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.playerMvmButton.x = 5;
+        this.playerMvmButton.y = this.dribblingButton.y + this.playerMvmButton.getBounds().height*2 + 10;
+        this.playerMvmButton.on("click", playerMovementButtonClick, this);
+        this.addChild(this.playerMvmButton);
+
+        this.ballMvmButton = new SimpleTextButton("Ball path", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.ballMvmButton.x = 5;
+        this.ballMvmButton.y = this.playerMvmButton.y + this.ballMvmButton.getBounds().height*2 + 10;
+        this.ballMvmButton.on("click", ballMovementButtonClick, this);
+        this.addChild(this.ballMvmButton);
+
+        this.ballButton = new SimpleTextButton("Ball", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.ballButton.x = 5;
+        this.ballButton.y = this.ballMvmButton.y + this.ballButton.getBounds().height*2 + 10;
+        this.ballButton.on("click", ballButtonClick, this);
+        this.addChild(this.ballButton);
+
+        this.ballSupplyButton = new SimpleTextButton("Ball supply", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.ballSupplyButton.x = 5;
+        this.ballSupplyButton.y = this.ballButton.y + this.ballSupplyButton.getBounds().height*2 + 10;
+        this.ballSupplyButton.on("click", ballSupplyButtonClick, this);
+        this.addChild(this.ballSupplyButton);
+
+
 
     };
 
@@ -124,6 +149,21 @@
        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_DRIBBLING_CLICK));
     }
 
+    function playerMovementButtonClick(evt){
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_PLAYER_PATH_CLICK));
+    }
+
+    function ballMovementButtonClick(evt){
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_BALL_PATH_CLICK));
+    }
+
+    function ballButtonClick(evt){
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_BALL_CLICK));
+    }
+
+    function ballSupplyButtonClick(evt){
+        this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK));
+    }
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.ComponentsPallete = createjs.promote(ComponentsPallete,"Container");

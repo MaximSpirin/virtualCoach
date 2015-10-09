@@ -87,6 +87,9 @@
 
             switch(selectedElementData.type){
                 case GraphicElementType.ARC:
+                case GraphicElementType.DRIBBLING_PLAYER:
+                case GraphicElementType.PLAYER_MOVEMENT:
+                case GraphicElementType.BALL_MOVEMENT:
                     this.dynamicButtons.push(this.swapDirectionsButton);
                     break;
 

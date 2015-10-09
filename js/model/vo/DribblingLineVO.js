@@ -8,7 +8,7 @@
     DribblingLineVO.prototype.endPoint = null;
     DribblingLineVO.prototype.lineWidth = null;
     DribblingLineVO.prototype.angle = null;
-    DribblingLineVO.prototype.direction;
+    DribblingLineVO.prototype.direction = null;
 
     //constructor
     function DribblingLineVO(id, startPoint, endPoint, direction) {
@@ -17,7 +17,7 @@
 
         this.startPoint = startPoint;
         this.endPoint = endPoint;
-        this.direction = direction ? direction : "rtl";
+        this.direction = (direction==undefined || direction == null) ? "rtl" : direction;
         updateLineWidth.call(this);
         updateAngle.call(this);
     }
@@ -39,6 +39,15 @@
         updateLineWidth.call(this);
         updateAngle.call(this);
         this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"endPoint"}));
+    };
+
+    p.invertArrowDirection = function(){
+        if(this.direction == "ltr"){
+            this.direction = "rtl"
+        }else{
+            this.direction = "ltr";
+        }
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"direction"}));
     };
 
     /***************************************** private function **************************************/

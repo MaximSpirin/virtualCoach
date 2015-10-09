@@ -1,25 +1,26 @@
 /**
- * Class DribblingLine
+ * Class BallMovementLine
  * Created by maxim_000 on 9/18/2015.
  */
 (function (window) {
     /**************************************************** public variables ********************************************/
-    DribblingLine.prototype.demoShape = null;
-    DribblingLine.prototype.lineContainer = null;
-    DribblingLine.prototype.lineContainerMask = null;
-    DribblingLine.prototype.direction = null;
+    BallMovementLine.prototype.demoShape = null;
+    BallMovementLine.prototype.lineContainer = null;
+    BallMovementLine.prototype.lineContainerMask = null;
+    BallMovementLine.prototype.direction = null;
 
     //static variables
-    DribblingLine.INTERVAL = 3;
+    BallMovementLine.INTERVAL = 3;
+    BallMovementLine.STD_HEIGHT = 16;
 
     /**************************************************** constructor *************************************************/
-    function DribblingLine() {
+    function BallMovementLine() {
         this.BaseComponentRenderer_constructor();
         initialize.call(this);
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(DribblingLine, BaseComponentRenderer);
+    var p = createjs.extend(BallMovementLine, BaseComponentRenderer);
 
     /************************************************ private functions ***********************************************/
     function initialize() {
@@ -65,17 +66,17 @@
             var endPointOffsetY = pitchCordinates.y - this.rendererData.endPoint.y;
 
             this.offset = {
-                            x: this.container.x - evt.stageX,
-                            y: this.container.y - evt.stageY,
-                            startPointOffsetX: startPointOffsetX,
-                            startPointOffsetY: startPointOffsetY,
-                            endPointOffsetX : endPointOffsetX,
-                            endPointOffsetY : endPointOffsetY
+                x: this.container.x - evt.stageX,
+                y: this.container.y - evt.stageY,
+                startPointOffsetX: startPointOffsetX,
+                startPointOffsetY: startPointOffsetY,
+                endPointOffsetX : endPointOffsetX,
+                endPointOffsetY : endPointOffsetY
             };
 
 
 
-           // console.log("Offset x=",this.offset.x,"y=",this.offset.y);
+            // console.log("Offset x=",this.offset.x,"y=",this.offset.y);
         }, this);
 
         //move by dragging container
@@ -98,16 +99,24 @@
     p.render = function(){
 
         if(this.lineContainer.numChildren == 0){
-            //insert 30 arrows
-            var numSegments = 30;
-            var initX = 0;
-            for(var i=0; i<numSegments; i++){
-                var segment = new DribblingLineSegment("#FFFFFF");
-                segment.x = initX;
-                this.lineContainer.addChild(segment);
-                initX += DribblingLineSegment.STD_WIDTH + DribblingLine.INTERVAL;
-            }
-            this.lineContainer.setBounds(0, 0, numSegments*(DribblingLineSegment.STD_WIDTH) + (numSegments-1)*DribblingLine.INTERVAL, DribblingLineSegment.STD_HEIGHT);
+            //draw a triangle and a long line
+
+            var arrowShape = new createjs.Shape();
+            arrowShape.graphics.beginFill("#FFFFFF").moveTo(6, 0).lineTo(6,14).lineTo(0,7).lineTo(6,0);
+
+            var lineShape = new createjs.Shape();
+            lineShape.graphics.beginStroke("#FFFFFF");
+            lineShape.graphics.setStrokeStyle(3);
+            lineShape.graphics.setStrokeDash([5,2], 0);
+            //lineShape.graphics.drawCircle(0,0,15);
+            //lineShape.graphics.endStroke();
+           // lineShape.y = 7;
+            lineShape.graphics.moveTo(5,7).lineTo(1000,7);
+
+            this.lineContainer.addChild(arrowShape);
+            this.lineContainer.addChild(lineShape);
+
+            this.lineContainer.setBounds(0, 0, 1006 , BallMovementLine.STD_HEIGHT);
         }
 
         if(this.rendererData.direction == "rtl"){
@@ -115,31 +124,30 @@
             this.lineContainer.x = 0;
         } else if(this.rendererData.direction == "ltr"){
             this.lineContainer.scaleX = -1;
-            //this.lineContainer.x = this.lineContainer._bounds.width;
             this.lineContainer.x = this.rendererData.lineWidth;
         }
 
         this.demoShape.graphics.clear();
         this.demoShape.graphics.beginFill("rgba(0,255,0,0.01)");
-        this.demoShape.graphics.drawRect(0, 0, this.rendererData.lineWidth, DribblingLineSegment.STD_HEIGHT);
+        this.demoShape.graphics.drawRect(0, 0, this.rendererData.lineWidth, BallMovementLine.STD_HEIGHT);
 
         this.lineContainerMask.graphics.clear();
-        this.lineContainerMask.graphics.beginFill("#000000").drawRect(0,0,this.rendererData.lineWidth, DribblingLineSegment.STD_HEIGHT);
+        this.lineContainerMask.graphics.beginFill("#000000").drawRect(0,0,this.rendererData.lineWidth, BallMovementLine.STD_HEIGHT);
 
         var containerPosition = this.contentRegPoint == "endPoint" ? this.rendererData.endPoint : this.rendererData.startPoint;
         this.container.x = containerPosition.x;
         this.container.y = containerPosition.y;
-        this.container.regY = DribblingLineSegment.STD_HEIGHT / 2;
+        this.container.regY = BallMovementLine.STD_HEIGHT / 2;
         this.container.regX = this.contentRegPoint == "endPoint" ? this.rendererData.lineWidth : 0;
 
 
         this.container.rotation = this.rendererData.angle;
         //console.log("Container rotation = ",this.container.rotation);
-        this.container.setBounds(0, 0, this.rendererData.lineWidth, DribblingLineSegment.STD_HEIGHT);
+        this.container.setBounds(0, 0, this.rendererData.lineWidth, BallMovementLine.STD_HEIGHT);
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.DribblingLine = createjs.promote(DribblingLine,"BaseComponentRenderer");
+    window.BallMovementLine = createjs.promote(BallMovementLine,"BaseComponentRenderer");
 
     p.getContentBounds = function(){
         var containerBounds = this.container.getBounds();
@@ -154,7 +162,7 @@
     };
 
     p.getMinimalSize = function(){
-        return new createjs.Point(DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
+        return new createjs.Point(DribblingLineSegment.STD_WIDTH, BallMovementLine.STD_HEIGHT);
     };
 
     p.isInteractiveLine = true;
@@ -174,7 +182,6 @@
             case "direction":
                 this.render();
                 break;
-
 
         }
     }

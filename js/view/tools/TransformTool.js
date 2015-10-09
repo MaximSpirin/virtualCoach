@@ -93,7 +93,7 @@
         this.addChild(this.scaleControl);
 
         this.lineDragControl1 = new createjs.Shape();
-        this.lineDragControl1.graphics.beginFill("rgba(255,0,0,1)").drawCircle(0, 0, TransformTool.LINE_CONTROL_SIZE/2, TransformTool.LINE_CONTROL_SIZE/2);
+        this.lineDragControl1.graphics.beginFill("rgba(255,0,0,0.5)").drawCircle(0, 0, TransformTool.LINE_CONTROL_SIZE/2, TransformTool.LINE_CONTROL_SIZE/2);
         this.lineDragControl1.visible = false;
 
         this.lineDragControl1.on("mousedown", function(evt){
@@ -114,7 +114,7 @@
         this.addChild(this.lineDragControl1);
 
         this.lineDragControl2 = new createjs.Shape();
-        this.lineDragControl2.graphics.beginFill("rgba(255,0,0,1)").drawCircle(0, 0, TransformTool.LINE_CONTROL_SIZE/2, TransformTool.LINE_CONTROL_SIZE/2);
+        this.lineDragControl2.graphics.beginFill("rgba(255,0,0,0.5)").drawCircle(0, 0, TransformTool.LINE_CONTROL_SIZE/2, TransformTool.LINE_CONTROL_SIZE/2);
         this.lineDragControl2.visible = false;
         this.addChild(this.lineDragControl2);
 
@@ -165,6 +165,8 @@
                     break;
 
                 case GraphicElementType.DRIBBLING_PLAYER:
+                case GraphicElementType.PLAYER_MOVEMENT:
+                case GraphicElementType.BALL_MOVEMENT:
                     this.lineDragControl1.visible = true;
                     this.lineDragControl2.visible = true;
                     break;
