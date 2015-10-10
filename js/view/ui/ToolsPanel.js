@@ -35,35 +35,35 @@
         //init dynamic buttons array
         this.dynamicButtons = [];
 
-        this.saveButton = new SimpleTextButton("Save", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
+        this.saveButton = new SimpleTextButton("Save", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
         this.saveButton.x = ToolsPanel.BUTTON_INTERVAL;
         this.saveButton.setBounds(0,0,50,20);
         this.saveButton.y = 5;
         this.addChild(this.saveButton);
 
-        this.backButton = new SimpleTextButton("Back", "18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
+        this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
         this.backButton.setBounds(0,0,50,20);
         this.backButton.x = this.saveButton.x + this.saveButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
         this.backButton.y = 5;
         this.backButton.on("click",backClickListener,this);
         this.addChild(this.backButton);
 
-        this.swapDirectionsButton = new SimpleTextButton("Swap directions","18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 140);
+        this.swapDirectionsButton = new SimpleTextButton("Swap directions","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 140);
         this.swapDirectionsButton.setBounds(0,0,140,20);
         this.swapDirectionsButton.y = 5;
         this.swapDirectionsButton.on("click", swapDirectionsButtonClickHandler, this);
 
-        this.copyButton = new SimpleTextButton("Copy","18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
+        this.copyButton = new SimpleTextButton("Copy","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
         this.copyButton.setBounds(0,0,60,20);
         this.copyButton.y = 5;
         this.copyButton.on("click", copyButtonClickListener, this);
 
-        this.deleteButton = new SimpleTextButton("Delete","18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
+        this.deleteButton = new SimpleTextButton("Delete","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
         this.deleteButton.setBounds(0,0,60,20);
         this.deleteButton.y = 5;
         this.deleteButton.on("click", deleteButtonClickListener, this);
 
-        this.pasteButton = new SimpleTextButton("Paste","18px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
+        this.pasteButton = new SimpleTextButton("Paste","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
         this.pasteButton.setBounds(0,0,60,20);
         this.pasteButton.y = 5;
         this.pasteButton.on("click", pasteButtonClickListener, this);

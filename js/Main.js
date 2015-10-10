@@ -98,7 +98,7 @@
             {id:"ball-supply-icon", src:"img/ball-supply-icon-26.png", type:createjs.AbstractLoader.IMAGE}
         ];
 
-        Main.loadQueue = new createjs.LoadQueue(false,"",true);
+        Main.loadQueue = new createjs.LoadQueue(false, null, true);
         Main.loadQueue.on("complete", this.onAssetLoadComplete, this);
         Main.loadQueue.on("error", this.onAssetLoadFailure, this);
         Main.loadQueue.loadManifest(manifest);

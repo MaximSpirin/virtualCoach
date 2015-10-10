@@ -16,7 +16,8 @@
     //static variable
     TransformTool.OUTLINE_STROKE_SIZE = 2;
     TransformTool.OUTLINE_STROKE_COLOR = "#FF0000";
-    TransformTool.SCALE_CONTROL_SIZE = 20;
+    //TransformTool.SCALE_CONTROL_SIZE = 20;
+    TransformTool.SCALE_CONTROL_SIZE = 16;
     TransformTool.LINE_CONTROL_SIZE = 18;
 
     //constructor
@@ -52,7 +53,7 @@
 
 
         this.scaleControl = new createjs.Shape();
-        this.scaleControl.graphics.beginFill("#FF0000");
+        this.scaleControl.graphics.beginFill("rgba(255,0,0,0.5)");
         this.scaleControl.graphics.drawRect(0, 0, TransformTool.SCALE_CONTROL_SIZE, TransformTool.SCALE_CONTROL_SIZE);
         this.scaleControl.on("mousedown", function (evt){
             this.scaleControlOffsetX = evt.localX;
