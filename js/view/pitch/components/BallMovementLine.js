@@ -38,14 +38,20 @@
 
     /************************************************* overridden methods *********************************************/
 
-    p.addData = function(){
+    /*p.addData = function(){
         this.BaseComponentRenderer_addData();
         this.rendererData.on(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, graphicPropertyChangeHandler, this);
-    };
+    };*/
 
     p.getBounds = function(){
         var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data.width, this._data.height);
         return result;
+    };
+
+    p.destroy = function(){
+        this.BaseComponentRenderer_destroy();
+        this.off("mousedown", this.mouseDownHandler);
+        this.off("pressmove", this.pressMoveHandler);
     };
 
     p.initialize = function(){
@@ -166,8 +172,8 @@
     };
 
     p.isInteractiveLine = true;
-    /******************************************** event handlers *******************************************/
-    function graphicPropertyChangeHandler(event){
+
+    p.graphicPropertyChangeHandler = function(event){
         var propertyName = event.payload.name;
 
         switch (propertyName){
@@ -184,6 +190,11 @@
                 break;
 
         }
-    }
+    };
+
+    /******************************************** event handlers *******************************************/
+    /*function graphicPropertyChangeHandler(event){
+
+    }*/
 
 }(window));

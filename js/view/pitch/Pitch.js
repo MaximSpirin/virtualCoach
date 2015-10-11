@@ -169,14 +169,19 @@
 
     function elementDeletedHandler(evt){
        if(this.selectedElement){
+           // 1. destroy element
+           this.selectedElement.destroy();
 
-           //2. remove it from screen and from elements array
+           // 2. remove it from screen and from elements array
            if(this.selectedElement.stage){
                this.elementsLayer.removeChild(this.selectedElement);
                var elementIndex = this.elements.indexOf(this.selectedElement);
-               this.elements.splice(elementIndex,1);
+               this.elements.splice(elementIndex, 1);
            }
-           //1. deselect element
+
+           this.selectedElement = null;
+
+           //3. deselect element
            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
        }
     }

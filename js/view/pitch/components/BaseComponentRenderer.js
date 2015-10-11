@@ -36,12 +36,12 @@
         this.container = new createjs.Container();
         this.addChild(this.container);
 
-        this.mouseDownHandler = this.on("mousedown", function(evt){
+        this.BaseComponentRenderer_mouseDownHandler = this.on("mousedown", function(evt){
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
         },this);
 
-        this.pressMoveHandler = this.on("pressmove", function(evt){
+        this.BaseComponentRenderer_pressMoveHandler = this.on("pressmove", function(evt){
             this.x = evt.stageX + this.offset.x;
             this.y = evt.stageY + this.offset.y;
 
@@ -50,7 +50,11 @@
             this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
         });
 
-        console.log("BaseComponentRenderer.initialize()");
+
+    };
+
+    p.render = function(){
+        // TO BE OVERRIDDEN AND EXTENDED BY SUCCESSORS
     };
 
     /*
@@ -65,9 +69,15 @@
         return result;
     };
 
+    /**
+     * Destroys all interactivity in this instance.
+     * To be overridden and extended by successors.
+     */
     p.destroy = function(){
-        this.off(this.mouseDownHandler);
-        this.off(this.pressMoveHandler);
+        this.off("mousedown", this.BaseComponentRenderer_mouseDownHandler);
+        this.off("pressmove", this.BaseComponentRenderer_pressMoveHandler);
+
+        this.removeData();
     };
 
     p.setRendererData = function(value){
@@ -104,22 +114,21 @@
     };
 
     p.removeData = function(){
-
+        if(this._data){
+            this._data.off(ApplicationEvent.ELEMENT_RESIZE, this.BaseComponentRenderer_elementResizeHandler);
+            this._data.off(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, this.graphicPropertyChangeHandler);
+        }
     };
 
     p.addData = function(){
         //add listeners to the updated rendererData
-        this._data.on(ApplicationEvent.ELEMENT_RESIZE, this.render, this);
+        this.BaseComponentRenderer_elementResizeHandler = this._data.on(ApplicationEvent.ELEMENT_RESIZE, this.render, this);
+        this.BaseComponentRenderer_graphicPropertyChanged = this._data.on(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, this.graphicPropertyChangeHandler, this);
     };
 
-
-    // public functions
-
-    //private functions
-    //function privateFunction(param) { }
-
-    //public static method
-    //BaseComponentRenderer.staticFunctionName = function(param1){ //method body };
+    p.graphicPropertyChangeHandler = function(evt){
+        //TO BE OVERRIDDEN AND EXTENDED BY SUCCESSORS
+    };
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.BaseComponentRenderer = createjs.promote(BaseComponentRenderer,"Container");

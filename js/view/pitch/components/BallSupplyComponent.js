@@ -30,11 +30,6 @@
         this.container.addChild(this.ballIcon);
     };
 
-    p.render = function(){
-
-    };
-
-
     p.getContentBounds = function(){
         var contentPositionInParentCS =
             this.localToLocal(0,0, this.parent);

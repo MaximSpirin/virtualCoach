@@ -37,11 +37,6 @@
 
     /************************************************* overridden methods *********************************************/
 
-    p.addData = function(){
-        this.BaseComponentRenderer_addData();
-        this.rendererData.on(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, graphicPropertyChangeHandler, this);
-    };
-
     p.getBounds = function(){
         var result = new createjs.Rectangle(this._data.position.x, this._data.position.y, this._data.width, this._data.height);
         return result;
@@ -93,6 +88,12 @@
             this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
         }, this);
 
+    };
+
+    p.destroy = function(){
+        this.BaseComponentRenderer_destroy();
+        this.off("mousedown", this.mouseDownHandler);
+        this.off("pressmove", this.pressMoveHandler);
     };
 
     p.render = function(){
@@ -157,9 +158,7 @@
         return new createjs.Point(DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
     };
 
-    p.isInteractiveLine = true;
-    /******************************************** event handlers *******************************************/
-    function graphicPropertyChangeHandler(event){
+    p.graphicPropertyChangeHandler = function(event){
         var propertyName = event.payload.name;
 
         switch (propertyName){
@@ -177,6 +176,10 @@
 
 
         }
-    }
+    };
+
+    p.isInteractiveLine = true;
+    /******************************************** event handlers *******************************************/
+
 
 }(window));

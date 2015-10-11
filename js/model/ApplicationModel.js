@@ -12,7 +12,7 @@
     ApplicationModel.prototype.mpp; // meters per pixel
 
     //static variables and constants
-    ApplicationModel.VERSION = "0.0.8";
+    ApplicationModel.VERSION = "0.0.9d";
     ApplicationModel.debugVersion = false;
     ApplicationModel.instance = null;
     ApplicationModel.APP_WIDTH = 800;

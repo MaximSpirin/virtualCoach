@@ -30,8 +30,6 @@
         this.BaseComponentRenderer_initialize();
 
         this.container = new createjs.Container();
-        /*this.container.regX = -ArchedArrow.STD_WIDTH / 2;
-        this.container.regY = -ArchedArrow.STD_HEIGHT / 2;*/
         this.addChild(this.container);
 
         this.opaqueBackground = new createjs.Shape();
@@ -47,12 +45,6 @@
         this.cp1 = new createjs.Point(this.startPoint.x - 10, -ArchedArrow.STD_HEIGHT/2-6);
         this.cp2 = new createjs.Point(this.endPoint.x + 10, -ArchedArrow.STD_HEIGHT/2-6);
 
-        /*this.startPoint = new createjs.Point( ArchedArrow.STD_WIDTH, ArchedArrow.STD_HEIGHT);
-        this.endPoint = new createjs.Point( 0, ArchedArrow.STD_HEIGHT);
-        this.cp1 = new createjs.Point(this.startPoint.x - 10, -6);
-        this.cp2 = new createjs.Point(this.endPoint.x + 10, -6);*/
-
-
         this.arcShape.graphics.setStrokeStyle(ArchedArrow.STROKE_SIZE);
         this.arcShape.graphics.beginStroke(ArchedArrow.STROKE_COLOR);
         this.arcShape.graphics.moveTo(this.startPoint.x, this.startPoint.y);
@@ -62,20 +54,7 @@
         this.arrowShape.graphics.beginFill("#ffffff").moveTo(-6,7).lineTo(1,0).lineTo(-6, -7);
         this.container.addChild(this.arrowShape);
 
-        //this.updateArrowPositionAndRotation(Math.atan2((this.endPoint.y - this.cp2.y),(this.endPoint.x - this.cp2.x)));
-
-        /*var demoShape = new createjs.Shape();
-        demoShape.graphics.beginFill("#00FF00").drawCircle(0,0,5);
-        demoShape.x = 0;
-        demoShape.y = 0;
-        this.addChild(demoShape);*/
-
-
         this.setBounds(-ArchedArrow.STD_WIDTH / 2,-ArchedArrow.STD_HEIGHT / 2, ArchedArrow.STD_WIDTH, ArchedArrow.STD_HEIGHT);
-
-
-
-        console.log("ArchedArrow.initialize()");
 
     };
 
@@ -93,7 +72,6 @@
     };
 
 
-
     p.getContentBounds = function(){
         var contentPosInParentCS = this.localToLocal(- ArchedArrow.STD_WIDTH/2, - ArchedArrow.STD_HEIGHT/2, this.parent);
         var result = new createjs.Rectangle(contentPosInParentCS.x, contentPosInParentCS.y, this.rendererData.width, this.rendererData.height);
@@ -101,10 +79,22 @@
     };
 
 
-    p.addData = function(){
+    /*p.addData = function(){
         this.BaseComponentRenderer_addData();
         this.rendererData.on(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, graphicPropertyChangeHandler, this);
+    };*/
+
+    p.graphicPropertyChangeHandler = function(evt){
+        var propertyName = evt.payload.name;
+
+        switch (propertyName){
+            case "arrowDirection":
+                this.updateArrowPositionAndRotation();
+                break;
+
+        }
     };
+
     /************************************************* public methods *************************************************/
     p.updateArrowPositionAndRotation = function(){
 
@@ -117,7 +107,7 @@
     };
 
     /************************************************** event handlers ************************************************/
-    function graphicPropertyChangeHandler(evt){
+    /*function graphicPropertyChangeHandler(evt){
         var propertyName = evt.payload.name;
 
         switch (propertyName){
@@ -127,7 +117,7 @@
 
         }
 
-    }
+    }*/
 
     /************************************************** static methods ************************************************/
 

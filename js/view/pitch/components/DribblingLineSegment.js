@@ -51,12 +51,6 @@
         this.arrowShape.graphics.beginFill(this.color).moveTo(6, 0).lineTo(6,14).lineTo(0,7).lineTo(6,0);
         this.addChild(this.arrowShape);
 
-
-        /*this.zeroLine = new createjs.Shape();
-        this.zeroLine.graphics.beginStroke("#0000FF").setStrokeStyle(1).moveTo(0,0).lineTo(DribblingLineSegment.STD_WIDTH, 0);
-        this.zeroLine.graphics.moveTo(0,0).lineTo(0, DribblingLineSegment.STD_HEIGHT);
-        this.addChild(this.zeroLine);*/
-
         var blurFilter = new createjs.BlurFilter(1, 1, 3);
         this.curveShape.filters = [blurFilter];
 
