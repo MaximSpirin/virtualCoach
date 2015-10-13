@@ -25,7 +25,7 @@
     MainMenuScreen.prototype.constructScreenUI = function(){
 
         //display background
-        this.backgroundImage = new createjs.Bitmap(Main.loadQueue.getResult("main-menu-background"));
+        this.backgroundImage = new createjs.Bitmap(DrillEditorApplication.loadQueue.getResult("main-menu-background"));
         this.addChild(this.backgroundImage);
 
         //create header text

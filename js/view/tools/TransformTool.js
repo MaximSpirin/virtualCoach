@@ -36,7 +36,7 @@
         this.addChild(this.outline);
 
         //this.rotationControl = new createjs.Shape();
-        var rotationIcon = new createjs.Bitmap(Main.loadQueue.getResult("rotation-icon"));
+        var rotationIcon = new createjs.Bitmap(DrillEditorApplication.loadQueue.getResult("rotation-icon"));
         rotationIcon.x = -16;
         rotationIcon.y = -16;
 

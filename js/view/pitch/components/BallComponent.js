@@ -26,7 +26,7 @@
         this.container = new createjs.Container();
         this.addChild(this.container);
 
-        this.ballIcon = new createjs.Bitmap(Main.loadQueue.getResult("soccer-ball-icon"));
+        this.ballIcon = new createjs.Bitmap(DrillEditorApplication.loadQueue.getResult("soccer-ball-icon"));
         this.container.addChild(this.ballIcon);
     };
 

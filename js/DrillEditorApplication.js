@@ -4,10 +4,10 @@
 
 (function (window){
 
-    Main.prototype.currentScreen = null;
-    Main.prototype.stage = null;
+    DrillEditorApplication.prototype.currentScreen = null;
+    DrillEditorApplication.prototype.stage = null;
 
-    function Main(userID, sessionID){
+    function DrillEditorApplication(userID, sessionID){
         this.Container_constructor();
 
         //init model
@@ -55,16 +55,16 @@
         this.showAppScreen(AppScreen.EDITOR, applicationEvent.payload.presentation);
     }
 
-    var p = createjs.extend(Main, createjs.Container);
+    var p = createjs.extend(DrillEditorApplication, createjs.Container);
 
-    Main.prototype.onTickHandler = function(){
+    DrillEditorApplication.prototype.onTickHandler = function(){
       if(this.stage){
           this.stage.update();
          // console.log("stage update!");
       }
     };
 
-    Main.prototype.showAppScreen = function(screenID, initParams){
+    DrillEditorApplication.prototype.showAppScreen = function(screenID, initParams){
         //get screen init params if available
         var screenClass;
 
@@ -96,7 +96,7 @@
         this.addChild(this.currentScreen);
     };
 
-    Main.prototype.loadExternalAssets = function(){
+    DrillEditorApplication.prototype.loadExternalAssets = function(){
         //load all external files required by app
         var manifest = [
             {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE},
@@ -105,13 +105,13 @@
             {id:"ball-supply-icon", src:"img/ball-supply-icon-26.png", type:createjs.AbstractLoader.IMAGE}
         ];
 
-        Main.loadQueue = new createjs.LoadQueue(false, null, true);
-        Main.loadQueue.on("complete", this.onAssetLoadComplete, this);
-        Main.loadQueue.on("error", this.onAssetLoadFailure, this);
-        Main.loadQueue.loadManifest(manifest);
+        DrillEditorApplication.loadQueue = new createjs.LoadQueue(false, null, true);
+        DrillEditorApplication.loadQueue.on("complete", this.onAssetLoadComplete, this);
+        DrillEditorApplication.loadQueue.on("error", this.onAssetLoadFailure, this);
+        DrillEditorApplication.loadQueue.loadManifest(manifest);
     };
 
-    Main.prototype.onAssetLoadComplete = function(evt){
+    DrillEditorApplication.prototype.onAssetLoadComplete = function(evt){
         window.applicationModel.assetsLoaded = true;
         console.log('Application assets loaded!');
 
@@ -119,12 +119,12 @@
         this.showAppScreen(AppScreen.MAIN_MENU);
     };
 
-    Main.prototype.onAssetLoadFailure = function(evt){
+    DrillEditorApplication.prototype.onAssetLoadFailure = function(evt){
         window.applicationModel.assetsLoaded = false;
         console.log('Failed to load application assets!');
     };
 
-    Main.prototype.createEmptyPresentation = function(){
+    DrillEditorApplication.prototype.createEmptyPresentation = function(){
         var id = createjs.UID.get();
         var presentation = new Presentation(id);
 
@@ -133,9 +133,15 @@
         return presentation;
     };
 
-    //public static properties
-    Main.loadQueue = null;
+    /**************************************** public static properties ************************************************/
+    DrillEditorApplication.loadQueue = null;
+    DrillEditorApplication.newDrill = null;
 
-    window.Main = createjs.promote(Main, "Container");
+    /********************************************** static methods ****************************************************/
+    DrillEditorApplication.getDrillData = function(){
+        //return drill JSON object
+    };
+
+    window.DrillEditorApplication = createjs.promote(DrillEditorApplication, "Container");
 
 }(window));
