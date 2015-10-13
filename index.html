@@ -89,13 +89,19 @@
     <script src="js/model/ApplicationModel.js"></script>
     <script src="js/controller/PresentationController.js"></script>
 
+    <!-- proxies -->
+    <script src="js/utils/DrillEditorProxy.js"></script>
+
     <!----- entry point class initialization ----->
     <script  src="js/DrillEditorApplication.js"></script>
     <script >
         $(document).ready(function(){
-           // console.log("Document ready");
-            //set demo userID and sessionID
-            window.main = new DrillEditorApplication("user001","0123456789");
+
+
+            DrillEditorProxy.drillStartupData = {presentationId : 1234};
+            DrillEditorProxy.drillsCollection = [];
+
+            window.drillEditorApplication = new DrillEditorApplication("user001","0123456789");
         });
     </script>
 

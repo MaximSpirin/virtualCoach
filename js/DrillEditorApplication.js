@@ -24,6 +24,9 @@
         //init presentation controller
         window.presentationController = PresentationController.getInstance();
 
+        //add callback to proxy
+        DrillEditorProxy.getDrillDataCallback = getDrillDataCallback;
+
 
         //subscribe to dispatcher events
         window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
@@ -47,6 +50,11 @@
 
         this.loadExternalAssets();
 
+    }
+
+
+    function getDrillDataCallback() {
+        return {name:"agent007"};
     }
 
     function showEditorHandler(applicationEvent){
@@ -135,12 +143,9 @@
 
     /**************************************** public static properties ************************************************/
     DrillEditorApplication.loadQueue = null;
-    DrillEditorApplication.newDrill = null;
 
     /********************************************** static methods ****************************************************/
-    DrillEditorApplication.getDrillData = function(){
-        //return drill JSON object
-    };
+
 
     window.DrillEditorApplication = createjs.promote(DrillEditorApplication, "Container");
 

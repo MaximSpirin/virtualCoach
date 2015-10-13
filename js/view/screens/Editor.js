@@ -110,7 +110,7 @@
 
     p.sizeInputNegativeCallback = function(){
         //this.removeForm();
-        window.main.showAppScreen(AppScreen.MAIN_MENU);
+        window.drillEditorApplication.showAppScreen(AppScreen.MAIN_MENU);
     };
 
     p.redrawPitch = function(){
@@ -160,7 +160,7 @@
 
     function exitToMainMenu(){
         //TODO: exit properly from the edit mode - possible show an yes/no dialog, dispose current presentation
-        window.main.showAppScreen(AppScreen.MAIN_MENU);
+        window.drillEditorApplication.showAppScreen(AppScreen.MAIN_MENU);
     }
 
 
