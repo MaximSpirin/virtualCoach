@@ -35,15 +35,16 @@
         //init dynamic buttons array
         this.dynamicButtons = [];
 
-        this.saveButton = new SimpleTextButton("Save", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
+        /*this.saveButton = new SimpleTextButton("Save", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
         this.saveButton.x = ToolsPanel.BUTTON_INTERVAL;
         this.saveButton.setBounds(0,0,50,20);
         this.saveButton.y = 5;
-        this.addChild(this.saveButton);
+        this.addChild(this.saveButton);*/
 
         this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
         this.backButton.setBounds(0,0,50,20);
-        this.backButton.x = this.saveButton.x + this.saveButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
+        //this.backButton.x = this.saveButton.x + this.saveButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
+        this.backButton.x = ToolsPanel.BUTTON_INTERVAL;
         this.backButton.y = 5;
         this.backButton.on("click",backClickListener,this);
         this.addChild(this.backButton);
