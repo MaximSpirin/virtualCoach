@@ -10,29 +10,34 @@
     function Main(userID, sessionID){
         this.Container_constructor();
 
-        //init singletons
-        window.applicationModel = ApplicationModel.getInstance();
+        //init model
         window.applicationModel = ApplicationModel.getInstance();
         window.applicationModel.userID = userID;
         window.applicationModel.sessionID = sessionID;
 
+        //service locator
         window.serviceLocator = ServiceLocator.getInstance();
+
+        //dispatcher
         window.eventDispatcher = Dispatcher.getInstance();
+
+        //init presentation controller
+        window.presentationController = PresentationController.getInstance();
+
 
         //subscribe to dispatcher events
         window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
 
         //create user object that will be stored as a property of window
         window.user = new User();
-        //init easeljs stage
+        //create and init easeljs stage
         window.stage = new createjs.Stage("appCanvas");
-        //if(window.applicationModel.platformInfo.mobile == false){ window.stage.enableMouseOver() ; }
 
         //proxy touch events(if running on touch device) into mouse events
         createjs.Touch.enable(window.stage);
         window.stage.mouseMoveOutside = true;
 
-        var supported = createjs.Touch.isSupported();
+        //var supported = createjs.Touch.isSupported();
         //console.log('Touch supported = ',supported);
 
         //stage will call update() on every tick ie each 1/30 sec
@@ -45,6 +50,8 @@
     }
 
     function showEditorHandler(applicationEvent){
+        PresentationController.getInstance().setPresentation(applicationEvent.payload.presentation);
+
         this.showAppScreen(AppScreen.EDITOR, applicationEvent.payload.presentation);
     }
 
@@ -102,7 +109,6 @@
         Main.loadQueue.on("complete", this.onAssetLoadComplete, this);
         Main.loadQueue.on("error", this.onAssetLoadFailure, this);
         Main.loadQueue.loadManifest(manifest);
-
     };
 
     Main.prototype.onAssetLoadComplete = function(evt){
@@ -122,7 +128,7 @@
         var id = createjs.UID.get();
         var presentation = new Presentation(id);
 
-        console.log("Created a new presentation with id="+id);
+        console.log("Created a new presentation with id= " + id);
 
         return presentation;
     };
@@ -130,6 +136,6 @@
     //public static properties
     Main.loadQueue = null;
 
-    window.Main = createjs.promote(Main,"Container");
+    window.Main = createjs.promote(Main, "Container");
 
 }(window));

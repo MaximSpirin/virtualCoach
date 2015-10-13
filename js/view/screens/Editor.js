@@ -16,9 +16,6 @@
     Editor.prototype.componentsPallete;
 
 
-    //static variable
-    //Editor.staticVar = "value";
-
     Editor.UI_CONTROLS_MARGIN = 10;
 
     //constructor
@@ -42,7 +39,6 @@
     p.constructScreenUI = function(){
         //create bg
         this.backgroundShape = new createjs.Shape();
-        //this.backgroundShape.graphics.beginFill("#99CA3B").drawRect(0, 0, ApplicationModel.APP_WIDTH, ApplicationModel.APP_HEIGHT);
         this.backgroundShape.graphics.beginLinearGradientFill(["#1E5799", "#7db9e8"],[0,1],0,0,0,ApplicationModel.APP_HEIGHT).drawRect(0, 0, ApplicationModel.APP_WIDTH, ApplicationModel.APP_HEIGHT);
         this.addChild(this.backgroundShape);
 
@@ -76,6 +72,8 @@
         this.pitch = new Pitch();
         this.addChild(this.pitch);
 
+        PresentationController.getInstance().setView(this.pitch);
+
         //draw pitch outline
         this.pitchOutline = new createjs.Shape();
         this.pitchOutline.graphics.clear();
@@ -98,9 +96,8 @@
             //TODO: visualize presentation data
         }
 
-
         Dispatcher.getInstance().on(ApplicationEvent.NAVIGATE_BACK, exitToMainMenu, this);
-        Dispatcher.getInstance().on(ApplicationEvent.ADD_COMPONENT, addComponentHandler, this);
+
     };
 
     //called when user hits proceed button on size input form
@@ -147,15 +144,6 @@
         this.pitch.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;
         this.pitch.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - pitchDisplayHeight/2;
 
-        /*this.pitch.graphics.clear();
-        this.pitch.graphics.setStrokeStyle(2);
-        this.pitch.graphics.beginStroke("#FFFFFF");
-        this.pitch.graphics.beginFill("#99CA3B");
-        this.pitch.graphics.drawRect(0, 0, pitchDisplayWidth, pitchDisplayHeight);
-
-        this.pitch.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;
-        this.pitch.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - pitchDisplayHeight/2;*/
-
 
         console.warn("pitch size ratio = " + Number(pitchDisplayWidth/pitchDisplayHeight).toFixed(4));
 
@@ -175,42 +163,7 @@
         window.main.showAppScreen(AppScreen.MAIN_MENU);
     }
 
-    function addComponentHandler(evt){
-        var componentClass;
-        var component;
 
-        switch (evt.payload.type){
-            case "rect":
-                    componentClass = RectComponent;
-                break;
-            case "box":
-                    componentClass = SquareComponent;
-                break;
-            case "attacker":
-                    componentClass = AttackerComponent;
-                break;
-
-            case "defender":
-                    componentClass = DefenderComponent;
-                break;
-
-            case "extra_team":
-                    componentClass = ExtraTeamComponent;
-                break;
-
-            case "cone":
-                componentClass = ConeComponent;
-                break;
-        }
-
-        if(componentClass){
-            component = new componentClass();
-            this.addChild(component);
-            component.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - componentClass['STD_WIDTH']/2;
-            component.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - componentClass['STD_HEIGHT']/2;
-
-        }
-    }
 
     window.Editor = createjs.promote(Editor, "AppScreen");
 

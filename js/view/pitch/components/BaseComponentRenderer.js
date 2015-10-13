@@ -4,13 +4,14 @@
  */
 (function (window) {
     //public variables
-    BaseComponentRenderer.prototype._data;
-    BaseComponentRenderer.prototype.needRender;
-    BaseComponentRenderer.prototype.positionChanged;
-    BaseComponentRenderer.prototype._x;
-    BaseComponentRenderer.prototype._y;
-    BaseComponentRenderer.rendererData;
-    BaseComponentRenderer.container;
+    BaseComponentRenderer.prototype._data = null;
+    BaseComponentRenderer.prototype.needRender = null;
+    BaseComponentRenderer.prototype.positionChanged = null;
+    BaseComponentRenderer.prototype._x = null;
+    BaseComponentRenderer.prototype._y = null;
+    BaseComponentRenderer.rendererData = null;
+    BaseComponentRenderer.container = null;
+    BaseComponentRenderer.dispatcher = null;
 
 
     //static variable
@@ -32,6 +33,8 @@
     };
 
     p.initialize = function(){
+
+        this.dispatcher = Dispatcher.getInstance();
 
         this.container = new createjs.Container();
         this.addChild(this.container);

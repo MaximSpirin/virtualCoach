@@ -15,6 +15,7 @@
     Pitch.prototype.elements = null;
     Pitch.prototype.transformTool = null;
     Pitch.prototype.selectedElement = null;
+    Pitch.prototype.transformToolMask = null;
 
     //************************************** static variables ************************************//
     //Pitch.staticVar = "value";
@@ -28,7 +29,7 @@
         if(sizeIsValid){
             this.componentWidth = initWidth;
             this.componentHeight = initHeight;
-            if(this.componentWidth!=undefined && this.componentHeight!=undefined){
+            if(this.componentWidth != undefined && this.componentHeight != undefined){
                 this.update = true;
             }
         }
@@ -79,11 +80,15 @@
         this.elementsLayer.mask = this.backgroundShapeMask;
         this.addChild(this.elementsLayer);
 
+        this.transformToolMask = new createjs.Shape();
+
         this.transformTool = new TransformTool();
-        this.elementsLayer.addChild(this.transformTool);
+        this.transformTool.mask = this.transformToolMask;
+        this.addChild(this.transformTool);
+
 
         this.dispatcher = Dispatcher.getInstance();
-        this.dispatcher.on(PresentationViewEvent.CREATE_RECTANGLE_CLICK, createRectangleClickHandler , this);
+        /*this.dispatcher.on(PresentationViewEvent.CREATE_RECTANGLE_CLICK, createRectangleClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_SQUARE_CLICK, createSquareClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_ATTACKER_CLICK, createAttackerClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_DEFENDER_CLICK, createDefenderClickHandler , this);
@@ -100,9 +105,9 @@
         this.dispatcher.on(PresentationViewEvent.COPY_ELEMENT_BUTTON_CLICK, copyElementClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK, pasteElementClickHandler, this);
 
-        this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
-        this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, elementDeletedHandler, this);
-        this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler,this);
+        this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);*/
+        /*this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, elementDeletedHandler, this);
+        this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler, this);*/
 
     }
 
@@ -112,8 +117,6 @@
         }
         //redraw bg shape
         this.backgroundShape.graphics.clear();
-        //this.backgroundShape.graphics.setStrokeStyle(2);
-        //this.backgroundShape.graphics.beginStroke("#FFFFFF");
         this.backgroundShape.graphics.beginFill("#99CA3B");
         this.backgroundShape.graphics.drawRect(0, 0, this.componentWidth, this.componentHeight);
 
@@ -126,11 +129,15 @@
         this.backgroundShapeMask.graphics.clear();
         this.backgroundShapeMask.graphics.beginFill("#FF0000");
         this.backgroundShapeMask.graphics.drawRect(0, 0, this.componentWidth, this.componentHeight);
+
+        this.transformToolMask.graphics.clear();
+        this.transformToolMask.graphics.beginFill("#FFFFFF");
+        this.transformToolMask.graphics.drawRect(0, 0, this.componentWidth, this.componentHeight);
     }
 
 
     /************************************* public functions *******************************************/
-    p.addItemByModel = function(itemModel, addedByUser) {
+    /*p.addItemByModel = function(itemModel, addedByUser) {
         var elementRenderer = createElementRenderer(itemModel);
         elementRenderer.x = itemModel.position.x;
         elementRenderer.y = itemModel.position.y;
@@ -144,7 +151,7 @@
         }
         this.elements.push(elementRenderer);
         this.elementsLayer.addChild(this.transformTool);
-    };
+    };*/
 
 
 
@@ -155,19 +162,11 @@
         Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
     }
 
-    function addComponentHandler(evt){
-       var componentType = evt.payload.type;
-       /*var componentX = evt.payload.x!=undefined ? evt.payload.x : get;
-       var componentY = evt.payload.y!=undefined ? evt.payload.y : ;*/
-    }
-
-    function elementSelectedHandler(evt){
+    /*function elementSelectedHandler(evt){
        this.selectedElement = evt.payload.data;
-        //this.transformTool.setTarget(selectedElement);
+    }*/
 
-    }
-
-    function elementDeletedHandler(evt){
+    /*function elementDeletedHandler(evt){
        if(this.selectedElement){
            // 1. destroy element
            this.selectedElement.destroy();
@@ -184,9 +183,9 @@
            //3. deselect element
            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
        }
-    }
+    }*/
 
-    function createRectangleClickHandler(presentationViewEvent){
+    /*function createRectangleClickHandler(presentationViewEvent){
         var defaultRectangleWidth = 200;
         var defaultRectangleHeight = 100;
         var elemId = createjs.UID.get();
@@ -320,9 +319,9 @@
 
         var elementRendererData = new DribblingLineVO(elemId, startPoint, endPoint, "rtl");
         this.addItemByModel(elementRendererData, true);
-    }
+    }*/
 
-    function getElementDefaultPosition(width, height){
+    /*function getElementDefaultPosition(width, height){
         var result = new createjs.Point(this.componentWidth/2 - width/2, this.componentHeight/2 - height/2);
         return result;
     }
@@ -376,10 +375,10 @@
         result.setRendererData(elementVO);
 
         return result;
-    }
+    }*/
 
 
-    function copyElementClickHandler(event){
+    /*function copyElementClickHandler(event){
         var clonedSourceData = this.cloneElementData(this.selectedElement.rendererData);
         Clipboard.data = clonedSourceData;
         this.dispatcher.dispatchEvent(new PresentationViewEvent(PresentationViewEvent.ELEMENT_COPIED_TO_CLIPBOARD,{data:clonedSourceData}));
@@ -390,16 +389,15 @@
            var clonedElementData = this.cloneElementData(Clipboard.data);
            this.addItemByModel(clonedElementData, true);
        }
-    }
+    }*/
     
-    function swapDirectionsClickHandler(event){
-       //TODO implement
+    /*function swapDirectionsClickHandler(event){
         if(this.selectedElement){
             this.selectedElement.rendererData.invertArrowDirection();
         }
-    }
+    }*/
 
-    p.cloneElementData = function(sourceElementData){
+    /*p.cloneElementData = function(sourceElementData){
 
         var clonedElementData;
         var newId = createjs.UID.get();
@@ -486,7 +484,7 @@
 
 
         return clonedElementData
-    };
+    };*/
 
     //************************************ static methods ********************************************/
     //Pitch.staticFunctionName = function(param1){ //method body };
