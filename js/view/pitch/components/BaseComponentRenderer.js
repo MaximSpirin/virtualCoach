@@ -40,11 +40,13 @@
         this.addChild(this.container);
 
         this.BaseComponentRenderer_mouseDownHandler = this.on("mousedown", function(evt){
+            //console.log("mousedown");
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
         },this);
 
         this.BaseComponentRenderer_pressMoveHandler = this.on("pressmove", function(evt){
+            //console.log("pressmove");
             this.x = evt.stageX + this.offset.x;
             this.y = evt.stageY + this.offset.y;
 

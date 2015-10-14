@@ -6,14 +6,19 @@
 
     DrillEditorApplication.prototype.currentScreen = null;
     DrillEditorApplication.prototype.stage = null;
+    DrillEditorApplication.prototype.presentationController = null;
 
-    function DrillEditorApplication(userID, sessionID){
+
+    /**
+     * Constructor
+     * @constructor
+     */
+    function DrillEditorApplication(){
+
         this.Container_constructor();
 
         //init model
         window.applicationModel = ApplicationModel.getInstance();
-        window.applicationModel.userID = userID;
-        window.applicationModel.sessionID = sessionID;
 
         //service locator
         window.serviceLocator = ServiceLocator.getInstance();
@@ -22,17 +27,17 @@
         window.eventDispatcher = Dispatcher.getInstance();
 
         //init presentation controller
-        window.presentationController = PresentationController.getInstance();
+        this.presentationController = PresentationController.getInstance();
 
         //add callback to proxy
         DrillEditorProxy.getDrillDataCallback = getDrillDataCallback;
 
 
         //subscribe to dispatcher events
-        window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
+        //window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
+        window.eventDispatcher.on(ApplicationEvent.NEW_DRILL_BUTTON_CLICK, newDrillButtonClickHandler, this);
 
-        //create user object that will be stored as a property of window
-        window.user = new User();
+
         //create and init easeljs stage
         window.stage = new createjs.Stage("appCanvas");
 
@@ -57,10 +62,15 @@
         return {name:"agent007"};
     }
 
-    function showEditorHandler(applicationEvent){
-        PresentationController.getInstance().setPresentation(applicationEvent.payload.presentation);
+    /*function showEditorHandler(applicationEvent){
+        this.presentationController.setPresentation(applicationEvent.payload.presentation);
 
         this.showAppScreen(AppScreen.EDITOR, applicationEvent.payload.presentation);
+    }*/
+
+    function newDrillButtonClickHandler(event){
+       this.presentationController.createEmptyPresentation();
+       this.showAppScreen(AppScreen.EDITOR);
     }
 
     var p = createjs.extend(DrillEditorApplication, createjs.Container);
@@ -123,8 +133,13 @@
         window.applicationModel.assetsLoaded = true;
         console.log('Application assets loaded!');
 
-        //when external assets loaded -> go to main menu screen
-        this.showAppScreen(AppScreen.MAIN_MENU);
+        if(DrillEditorProxy.drillStartupData){
+            PresentationController.getInstance().loadPresentation(DrillEditorProxy.drillStartupData);
+            this.showAppScreen(AppScreen.EDITOR);
+        } else {
+            this.showAppScreen(AppScreen.MAIN_MENU);
+        }
+
     };
 
     DrillEditorApplication.prototype.onAssetLoadFailure = function(evt){

@@ -1,4 +1,5 @@
 /**
+ * [Deprecated]
  * Stores properties that are related to the current user
  */
 

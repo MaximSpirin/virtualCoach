@@ -7,8 +7,8 @@
 
 
     /******************* static variables *******************/
-    DrillEditorProxy.drillStartupData = null;   // data of the drill that has to be rendered right after app start. If null then app starts with main menu view
-    DrillEditorProxy.drillsCollection = null; //array of drills that user could open through load drill view.
+    DrillEditorProxy.drillStartupData = null;   // Should be set by outer code. data of the drill that has to be rendered right after app start. If null then app starts with main menu view
+    DrillEditorProxy.drillsCollection = null; // Should be set by outer code. An array of drills that user could open through load drill view.
 
     DrillEditorProxy.getDrillDataCallback = null; // Should be set by drill editor. Editor app function that returns data of the current drill
     DrillEditorProxy.getDrillByIdCallback = null;  // Should be set by outer code.
@@ -29,7 +29,7 @@
         var result;
         if(DrillEditorProxy.getDrillDataCallback){
             result = DrillEditorProxy.getDrillDataCallback();
-        }new Promise
+        }
         return result;
     };
 

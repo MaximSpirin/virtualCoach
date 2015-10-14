@@ -16,6 +16,7 @@
     ApplicationEvent.ELEMENT_RESIZE = "element_resize";
     ApplicationEvent.ELEMENT_ROTATION_CHANGED = "element_rotation_changed";
     ApplicationEvent.GRAPHIC_PROPERTY_CHANGED = "item_model_property_changed";
+    ApplicationEvent.NEW_DRILL_BUTTON_CLICK = "new_drill_button_click_event";
 
 
     //Each instance of this event will have an associated payload object

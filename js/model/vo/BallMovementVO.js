@@ -8,17 +8,17 @@
     BallMovementVO.prototype.endPoint = null;
     BallMovementVO.prototype.lineWidth = null;
     BallMovementVO.prototype.angle = null;
-    BallMovementVO.prototype.direction = null;
+    BallMovementVO.prototype.arrowDirection = null;
 
     /******************* static variables *******************/
     //BallMovementVO.staticVar = "value";
 
     /********************** constructor *********************/
-    function BallMovementVO(id, startPoint, endPoint, direction) {
+    function BallMovementVO(id, startPoint, endPoint, arrowDirection) {
         this.GraphicItemVO_constructor(id, GraphicElementType.BALL_MOVEMENT, new createjs.Point(0,0));
         this.startPoint = startPoint;
         this.endPoint = endPoint;
-        this.direction = (direction == undefined || direction == null) ? "rtl" : direction;
+        this.arrowDirection = (arrowDirection == ArrowDirection.LEFT || arrowDirection == ArrowDirection.RIGHT) ? arrowDirection : ArrowDirection.LEFT;
         updateLineWidth.call(this);
         updateAngle.call(this);
     }
@@ -43,12 +43,13 @@
     };
 
     p.invertArrowDirection = function(){
-        if(this.direction == "ltr"){
-            this.direction = "rtl"
+        if(this.arrowDirection == ArrowDirection.RIGHT){
+            this.arrowDirection = ArrowDirection.LEFT
         }else{
-            this.direction = "ltr";
+            this.arrowDirection = ArrowDirection.RIGHT;
         }
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"direction"}));
+
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"arrowDirection"}));
     };
 
     /******************** private methods *******************/

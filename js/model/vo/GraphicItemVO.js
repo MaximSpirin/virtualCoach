@@ -38,7 +38,7 @@
 
         if(value){
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
-        }else{
+        } else {
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_DESELECTED,{data:this}));
         }
 
@@ -92,6 +92,10 @@
     GraphicItemVO.prototype.setRotation = function(value, changedByUser){
         this.rotation = value;
         this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_ROTATION_CHANGED));
+    };
+
+    GraphicItemVO.prototype.getDTO = function(){
+
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName

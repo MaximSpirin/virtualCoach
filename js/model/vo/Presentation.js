@@ -6,13 +6,15 @@
     Presentation.prototype.id = null;
     Presentation.prototype.pitchWidth;
     Presentation.prototype.pitchHeight;
+    Presentation.prototype.elements; //array that stores vo of the presentation items
 
     //static variable
-    //Presentation.staticVar = "value";
+    Presentation.DEFAULT_ID = "0000";
 
     //constructor
     function Presentation(id) {
         this.id = id;
+        this.elements = [];
     }
 
     // public functions

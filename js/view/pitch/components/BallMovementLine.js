@@ -7,7 +7,7 @@
     BallMovementLine.prototype.demoShape = null;
     BallMovementLine.prototype.lineContainer = null;
     BallMovementLine.prototype.lineContainerMask = null;
-    BallMovementLine.prototype.direction = null;
+    //BallMovementLine.prototype.arrowDirection = null;
 
     //static variables
     BallMovementLine.INTERVAL = 3;
@@ -125,10 +125,10 @@
             this.lineContainer.setBounds(0, 0, 1006 , BallMovementLine.STD_HEIGHT);
         }
 
-        if(this.rendererData.direction == "rtl"){
+        if(this.rendererData.arrowDirection == ArrowDirection.LEFT){
             this.lineContainer.scaleX = 1;
             this.lineContainer.x = 0;
-        } else if(this.rendererData.direction == "ltr"){
+        } else if(this.rendererData.arrowDirection == ArrowDirection.RIGHT){
             this.lineContainer.scaleX = -1;
             this.lineContainer.x = this.rendererData.lineWidth;
         }
@@ -185,7 +185,7 @@
                 this.contentRegPoint = "startPoint";
                 this.render();
                 break;
-            case "direction":
+            case "arrowDirection":
                 this.render();
                 break;
 

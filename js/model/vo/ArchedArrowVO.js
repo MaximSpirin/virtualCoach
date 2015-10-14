@@ -4,7 +4,7 @@
  */
 (function (window) {
     //public variables
-    ArchedArrowVO.prototype.arrowDirection = "left";
+    ArchedArrowVO.prototype.arrowDirection;
     ArchedArrowVO.prototype.startPointPosition = null;
     ArchedArrowVO.prototype.endPointPosition = null;
 
@@ -14,7 +14,7 @@
 
     //constructor
     function ArchedArrowVO(elemId, elemPosition, elementWidth, elementHeight, arrowDirection, rotation) {
-        this.arrowDirection = arrowDirection;
+        this.arrowDirection = (arrowDirection == ArrowDirection.RIGHT || arrowDirection == ArrowDirection.LEFT) ? arrowDirection : ArrowDirection.LEFT;
         this.rotation = rotation;
         this.setWidth(elementWidth);
         this.setHeight(elementHeight);

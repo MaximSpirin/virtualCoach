@@ -8,16 +8,17 @@
     DribblingLineVO.prototype.endPoint = null;
     DribblingLineVO.prototype.lineWidth = null;
     DribblingLineVO.prototype.angle = null;
-    DribblingLineVO.prototype.direction = null;
+    DribblingLineVO.prototype.arrowDirection = null;
 
     //constructor
-    function DribblingLineVO(id, startPoint, endPoint, direction) {
+    function DribblingLineVO(id, startPoint, endPoint, arrowDirection) {
         //invoke constructor of superclass
         this.GraphicItemVO_constructor(id, GraphicElementType.DRIBBLING_PLAYER, new createjs.Point(0,0));
 
         this.startPoint = startPoint;
         this.endPoint = endPoint;
-        this.direction = (direction==undefined || direction == null) ? "rtl" : direction;
+        this.arrowDirection = (arrowDirection == ArrowDirection.LEFT || arrowDirection == ArrowDirection.RIGHT) ? arrowDirection : ArrowDirection.LEFT;
+
         updateLineWidth.call(this);
         updateAngle.call(this);
     }
@@ -42,12 +43,13 @@
     };
 
     p.invertArrowDirection = function(){
-        if(this.direction == "ltr"){
-            this.direction = "rtl"
+        if(this.arrowDirection == ArrowDirection.RIGHT){
+            this.arrowDirection = ArrowDirection.LEFT
         }else{
-            this.direction = "ltr";
+            this.arrowDirection = ArrowDirection.RIGHT;
         }
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"direction"}));
+
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"arrowDirection"}));
     };
 
     /***************************************** private function **************************************/

@@ -13,6 +13,7 @@
     function PrimitiveShapeRenderer() {
         //invoke constructor of superclass
         this.BaseComponentRenderer_constructor();
+        this.mouseChildren = false;
     }
 
     //extend this class from a superclass

@@ -4,10 +4,7 @@
 (function (window) {
     //public variables
     ApplicationModel.prototype.serviceLocator;
-    ApplicationModel.prototype.user;
     ApplicationModel.prototype.platformInfo;
-    ApplicationModel.prototype.userID;
-    ApplicationModel.prototype.sessionID;
     ApplicationModel.prototype.assetsLoaded;
     ApplicationModel.prototype.mpp; // meters per pixel
 
@@ -38,7 +35,6 @@
 
         // initialize properties
         this.serviceLocator = ServiceLocator.getInstance();
-       // this.user = new User();
         this.platformInfo = ServiceLocator.getInstance().platformInfoService.getPlatformInfo();
 
         //console.log("Model constructor fired.");

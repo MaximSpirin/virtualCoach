@@ -60,10 +60,13 @@
 
 
     p.newDrillClickHandler = function(evt){
-        var newPresentation = PresentationController.createEmptyPresentation();
+
+        window.eventDispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.NEW_DRILL_BUTTON_CLICK));
+
+        /*var newPresentation = PresentationController.createEmptyPresentation();
         if(newPresentation){
             window.eventDispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.SHOW_EDITOR, {presentation: newPresentation}));
-        }
+        }*/
     };
 
 

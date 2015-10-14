@@ -27,11 +27,12 @@
     <script  src="js/events/PresentationViewEvent.js"></script>
 
     <!-- utils -->
-    <script  src="js/utils/InheritanceManager.js"></script>
+
     <script  src="js/utils/StringUtils.js"></script>
     <script  src="js/utils/DrawingUtils.js"></script>
     <script src="js/utils/Clipboard.js"></script>
     <script src="js/utils/MathUtils.js"></script>
+    <script src="js/utils/DTOUtils.js"></script>
 
     <!-- views -->
     <script  src="js/view/screens/AppScreen.js"></script>
@@ -79,6 +80,7 @@
     <script src="js/model/vo/BallMovementVO.js"></script>
     <script src="js/model/vo/BallVO.js"></script>
     <script src="js/model/vo/BallSupplyVO.js"></script>
+    <script src="js/model/constants/ArrowDirection.js"></script>
 
     <!-- services -->
     <script  src="js/service/PlatformInfoService.js"></script>
@@ -97,11 +99,14 @@
     <script >
         $(document).ready(function(){
 
+            DrillEditorProxy.getDrillByIdCallback = function(id, onSuccess, onFailure){
+                //look for the drill data and call onSuccess or onFailure
+            };
 
-            DrillEditorProxy.drillStartupData = {presentationId : 1234};
+            DrillEditorProxy.drillStartupData = null;
             DrillEditorProxy.drillsCollection = [];
 
-            window.drillEditorApplication = new DrillEditorApplication("user001","0123456789");
+            window.drillEditorApplication = new DrillEditorApplication();
         });
     </script>
 

@@ -7,7 +7,6 @@
     DribblingLine.prototype.demoShape = null;
     DribblingLine.prototype.lineContainer = null;
     DribblingLine.prototype.lineContainerMask = null;
-    DribblingLine.prototype.direction = null;
 
     //static variables
     DribblingLine.INTERVAL = 3;
@@ -111,12 +110,12 @@
             this.lineContainer.setBounds(0, 0, numSegments*(DribblingLineSegment.STD_WIDTH) + (numSegments-1)*DribblingLine.INTERVAL, DribblingLineSegment.STD_HEIGHT);
         }
 
-        if(this.rendererData.direction == "rtl"){
+        //if(this.rendererData.direction == "rtl"){
+        if(this.rendererData.arrowDirection == ArrowDirection.LEFT){
             this.lineContainer.scaleX = 1;
             this.lineContainer.x = 0;
-        } else if(this.rendererData.direction == "ltr"){
+        } else if(this.rendererData.arrowDirection == ArrowDirection.RIGHT){
             this.lineContainer.scaleX = -1;
-            //this.lineContainer.x = this.lineContainer._bounds.width;
             this.lineContainer.x = this.rendererData.lineWidth;
         }
 
@@ -170,7 +169,10 @@
                 this.contentRegPoint = "startPoint";
                 this.render();
                 break;
-            case "direction":
+            /*case "direction":
+                this.render();
+                break;*/
+            case "arrowDirection":
                 this.render();
                 break;
 

@@ -14,14 +14,16 @@
     Editor.prototype.pitch;
     Editor.prototype.toolsPanel;
     Editor.prototype.componentsPallete;
+    Editor.prototype.presentationController;
 
 
     Editor.UI_CONTROLS_MARGIN = 10;
 
     //constructor
-    function Editor(presentation) {
+    function Editor() {
+    //function Editor(presentation) {
 
-        this.presentation = presentation;
+        //this.presentationController.presentation = presentation;
 
         // call constructor of the superclass
         this.AppScreen_constructor();
@@ -86,7 +88,9 @@
     };
 
     p.initialize = function(){
-        if(!this.presentation.pitchWidth || !this.presentation.pitchHeight){
+        this.presentationController = PresentationController.getInstance();
+
+        if(!this.presentationController.presentation.pitchWidth || !this.presentationController.presentation.pitchHeight){
             this.showForm(PitchSizeInputFormHTML,{
                 positiveCallback:this.sizeInputPositiveCallback,
                 negativeCallback:this.sizeInputNegativeCallback,
@@ -103,8 +107,8 @@
     //called when user hits proceed button on size input form
     p.sizeInputPositiveCallback = function(w,h){
         this.removeForm();
-        this.presentation.pitchWidth =  w;
-        this.presentation.pitchHeight = h;
+        this.presentationController.presentation.pitchWidth =  w;
+        this.presentationController.presentation.pitchHeight = h;
         this.redrawPitch();
     };
 
@@ -117,9 +121,9 @@
         var pitchDisplayWidth;
         var pitchDisplayHeight;
 
-        var ratio = this.presentation.pitchWidth / this.presentation.pitchHeight;
+        var ratio = this.presentationController.presentation.pitchWidth / this.presentationController.presentation.pitchHeight;
 
-        if(this.presentation.pitchWidth > this.presentation.pitchHeight){
+        if(this.presentationController.presentation.pitchWidth > this.presentationController.presentation.pitchHeight){
             pitchDisplayWidth = this.pitchViewportBounds.width;
             pitchDisplayHeight =  pitchDisplayWidth / ratio;
         } else {
@@ -137,7 +141,7 @@
             pitchDisplayHeight = pitchDisplayWidth/(prevW/pitchDisplayHeight)
         }
 
-        ApplicationModel.getInstance().mpp = this.presentation.pitchWidth/pitchDisplayWidth;
+        ApplicationModel.getInstance().mpp = this.presentationController.presentation.pitchWidth/pitchDisplayWidth;
 
         this.pitch.setSize(pitchDisplayWidth, pitchDisplayHeight);
 
