@@ -98,6 +98,7 @@
             });
         } else {
             //TODO: visualize presentation data
+            this.createPitchView();
         }
 
         Dispatcher.getInstance().on(ApplicationEvent.NAVIGATE_BACK, exitToMainMenu, this);
@@ -109,7 +110,7 @@
         this.removeForm();
         this.presentationController.presentation.pitchWidth =  w;
         this.presentationController.presentation.pitchHeight = h;
-        this.redrawPitch();
+        this.createPitchView();
     };
 
     p.sizeInputNegativeCallback = function(){
@@ -117,7 +118,7 @@
         window.drillEditorApplication.showAppScreen(AppScreen.MAIN_MENU);
     };
 
-    p.redrawPitch = function(){
+    p.createPitchView = function(){
         var pitchDisplayWidth;
         var pitchDisplayHeight;
 
@@ -148,8 +149,10 @@
         this.pitch.x = this.pitchViewportBounds.x + this.pitchViewportBounds.width/2 - pitchDisplayWidth/2;
         this.pitch.y = this.pitchViewportBounds.y + this.pitchViewportBounds.height/2 - pitchDisplayHeight/2;
 
-
         console.warn("pitch size ratio = " + Number(pitchDisplayWidth/pitchDisplayHeight).toFixed(4));
+
+        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.PITCH_VIEW_CREATED));
+
 
     };
 

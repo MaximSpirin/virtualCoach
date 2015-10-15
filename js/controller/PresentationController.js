@@ -7,7 +7,7 @@
     PresentationController.prototype.presentation = null;
     PresentationController.prototype.presentationView = null;
     PresentationController.prototype.dispatcher = null;
-    PresentationController.prototype.elements = null;
+    //PresentationController.prototype.elements = null;
     PresentationController.prototype.selectedElement = null;
 
     //static variable
@@ -54,7 +54,7 @@
         this.presentation = DTOUtils.presentationDTOToVO(presentationDTO);
 
 
-        this.elements = [];
+        //this.elements = [];
         this.selectedElement = null;
 
     };
@@ -94,6 +94,7 @@
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
         this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, deleteElementHandler, this);
         this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler, this);
+        this.dispatcher.on(ApplicationEvent.PITCH_VIEW_CREATED, pitchViewCreatedHandler, this);
 
     }
 
@@ -262,6 +263,13 @@
 
     /*************************************** event handler *****************************************/
 
+    function pitchViewCreatedHandler(event){
+        for(var i=0; i<this.presentation.elements.length; i++){
+            var elementVO = this.presentation.elements[i];
+            addItemByModel.call(this,elementVO,false);
+        }
+    }
+
     function swapDirectionsClickHandler(evt){
         if(this.selectedElement){
             this.selectedElement.rendererData.invertArrowDirection();
@@ -418,7 +426,7 @@
         var elemId = createjs.UID.get();
         var elementWidth =  ArchedArrow.STD_WIDTH;
         var elementHeight =  ArchedArrow.STD_HEIGHT;
-        var elemPosition = getElementDefaultPosition.call(this, ArchedArrow.STD_WIDTH, ArchedArrow.STD_HEIGHT);
+        var elemPosition = getElementDefaultPosition.call(this, ArchedArrow.STD_WIDTH/2, ArchedArrow.STD_HEIGHT/2);
         var elementRendererData = new ArchedArrowVO(elemId, elemPosition, elementWidth, elementHeight, defaultArrowDirection, defaultArcRotation);
         addItemByModel.call(this, elementRendererData, true);
 

@@ -78,7 +78,7 @@
 
             this.container.x = evt.stageX + this.offset.x;
             this.container.y = evt.stageY + this.offset.y;
-            this._data.position.setValues(this.container.x, this.container.y);
+            //this._data.position.setValues(this.container.x, this.container.y);
             this.rendererData.startPoint.x = pitchCoordinates.x - this.offset.startPointOffsetX;
             this.rendererData.startPoint.y = pitchCoordinates.y - this.offset.startPointOffsetY;
             this.rendererData.endPoint.x = pitchCoordinates.x - this.offset.endPointOffsetX;

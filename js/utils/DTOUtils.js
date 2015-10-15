@@ -27,7 +27,97 @@
     /******************* public static method ***************/
 
     DTOUtils.presentationDTOToVO = function(presentationDTO){
+        var presentation = new Presentation(presentationDTO.id);
+        presentation.pitchWidth = presentationDTO.pitchWidth;
+        presentation.pitchHeight = presentationDTO.pitchHeight;
+        presentation.elements = [];
 
+        for(var i=0; i<presentationDTO.elements.length; i++){
+            var elementDTO = presentationDTO.elements[i];
+            var elementVO = DTOUtils.elementDTOToVO(elementDTO);
+            presentation.elements.push(elementVO);
+        }
+
+        return presentation;
+    };
+
+    DTOUtils.elementDTOToVO = function(elementDTO){
+        var elementVO;
+        var elementPosition = new createjs.Point(elementDTO.position.x, elementDTO.position.y);
+
+        switch (elementDTO.type){
+            case GraphicElementType.RECTANGLE:
+                elementVO = new RectVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
+                break;
+
+            case GraphicElementType.SQUARE:
+                elementVO = new SquareVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
+                break;
+
+            case GraphicElementType.ATTACKER:
+                elementVO = new AttackerVO(elementDTO.id, elementPosition, elementDTO.width/2);
+                elementVO.fillColor = elementDTO.fillColor;
+                break;
+
+            case GraphicElementType.DEFENDER:
+                elementVO = new DefenderVO(elementDTO.id, elementPosition, elementDTO.width/2);
+                elementVO.fillColor = elementDTO.fillColor;
+                break;
+
+            case GraphicElementType.EXTRA_TEAM:
+                elementVO = new ExtraTeamVO(elementDTO.id, elementPosition, elementDTO.width/2);
+                elementVO.fillColor = elementDTO.fillColor;
+                break;
+
+            case GraphicElementType.NEUTRAL_PLAYER:
+                elementVO = new NeutralVO(elementDTO.id, elementPosition, elementDTO.width/2);
+                elementVO.fillColor = elementDTO.fillColor;
+                break;
+
+            case GraphicElementType.CONE:
+                elementVO = new ConeVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
+                elementVO.fillColor = elementDTO.fillColor;
+                break;
+
+            case GraphicElementType.ARCUATE_MOVEMENT:
+                elementVO = new ArchedArrowVO(elementDTO.id, elementPosition,
+                    elementDTO.width, elementDTO.height,
+                    elementDTO.arrowDirection, elementDTO.rotation);
+                break;
+
+            case GraphicElementType.DRIBBLING_PLAYER:
+                var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
+                var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
+                elementVO = new DribblingLineVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
+                break;
+
+            case GraphicElementType.PLAYER_MOVEMENT:
+                var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
+                var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
+                elementVO = new PlayerMovementVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
+                break;
+
+            case GraphicElementType.BALL_MOVEMENT:
+                var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
+                var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
+                elementVO = new BallMovementVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
+                break;
+
+            case GraphicElementType.BALL:
+                elementVO = new BallVO(elementDTO.id, elementPosition);
+                break;
+
+            case GraphicElementType.BALLS_SUPPLY:
+                elementVO = new BallSupplyVO(elementDTO.id, elementPosition);
+                break;
+        }
+
+        if(elementVO){
+            elementVO.id = elementDTO.id;
+            elementVO.position = new createjs.Point(elementVO.position.x, elementVO.position.y)
+        }
+
+        return elementVO;
     };
 
 
@@ -116,10 +206,12 @@
                 result.endPoint = {x:elementVO.endPoint.x, y:elementVO.endPoint.y};
                 result.arrowDirection = elementVO.arrowDirection;
 
+
         }
 
         return result;
     };
+
 
 
     window.DTOUtils = DTOUtils;

@@ -8,7 +8,6 @@
     DrillEditorApplication.prototype.stage = null;
     DrillEditorApplication.prototype.presentationController = null;
 
-
     /**
      * Constructor
      * @constructor
