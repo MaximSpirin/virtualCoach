@@ -160,7 +160,7 @@
                     this.scalePropotionally = true;
                     break;
 
-                case GraphicElementType.ARC:
+                case GraphicElementType.ARCUATE_MOVEMENT:
                     this.rotationTool.visible = true;
 
                     break;

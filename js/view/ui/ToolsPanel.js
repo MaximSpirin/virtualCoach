@@ -87,7 +87,7 @@
         if(selectedElementData){
 
             switch(selectedElementData.type){
-                case GraphicElementType.ARC:
+                case GraphicElementType.ARCUATE_MOVEMENT:
                 case GraphicElementType.DRIBBLING_PLAYER:
                 case GraphicElementType.PLAYER_MOVEMENT:
                 case GraphicElementType.BALL_MOVEMENT:
@@ -113,17 +113,18 @@
                 elem.x = initX;
                 this.addChild(elem);
                 initX += elem.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
-            },this)
+            },this);
         }
 
     };
 
     /********************************* event listeners **********************************/
 
-
-    
     function backClickListener(){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.NAVIGATE_BACK));
+        //Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.NAVIGATE_BACK));
+
+        var presDTO = PresentationController.getInstance().getPresentationDTO();
+        console.log(presDTO);
     }
 
     function copyButtonClickListener(event){

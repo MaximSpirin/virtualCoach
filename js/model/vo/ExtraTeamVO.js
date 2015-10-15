@@ -31,6 +31,8 @@
     //extend this class from a superclass
     var p = createjs.extend(ExtraTeamVO,GraphicItemVO);
 
+    //flag for serialization
+    p.isPlayer = true;
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.ExtraTeamVO = createjs.promote(ExtraTeamVO,"GraphicItemVO");

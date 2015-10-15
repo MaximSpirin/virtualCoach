@@ -26,6 +26,9 @@
     //extend this class from a superclass
     var p = createjs.extend(BallMovementVO, GraphicItemVO);
 
+    // flag for serialization
+    p.isActivity = true;
+
     /********************* overridden methods ***************/
     p.setStartPoint = function(value){
         this.startPoint = value;

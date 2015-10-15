@@ -52,6 +52,9 @@
         this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"arrowDirection"}));
     };
 
+    // flag for serialization
+    p.isActivity = true;
+
     /******************** private methods *******************/
     function updateLineWidth(){
         this.lineWidth = MathUtils.getDistanceBetween2Points(this.startPoint, this.endPoint);

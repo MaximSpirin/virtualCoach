@@ -31,6 +31,8 @@
     //extend this class from a superclass
     var p = createjs.extend(NeutralVO,GraphicItemVO);
 
+    //flag for serialization
+    p.isPlayer = true;
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.NeutralVO = createjs.promote(NeutralVO,"GraphicItemVO");

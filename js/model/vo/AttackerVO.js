@@ -31,6 +31,8 @@
     //extend this class from a superclass
     var p = createjs.extend(AttackerVO,GraphicItemVO);
 
+    //flag for serialization
+    p.isPlayer = true;
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.AttackerVO = createjs.promote(AttackerVO,"GraphicItemVO");

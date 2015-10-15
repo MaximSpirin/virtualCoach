@@ -92,7 +92,7 @@
         this.dispatcher.on(PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK, pasteElementClickHandler, this);
 
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
-        this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, elementDeletedHandler, this);
+        this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, deleteElementHandler, this);
         this.dispatcher.on(PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK, swapDirectionsClickHandler, this);
 
     }
@@ -160,7 +160,7 @@
                 result = new BallSupplyComponent();
                 break;
 
-            case GraphicElementType.ARC:
+            case GraphicElementType.ARCUATE_MOVEMENT:
                 result = new ArchedArrow();
                 break;
         }
@@ -221,7 +221,7 @@
                 clonedElementData.fillColor = sourceElementData.fillColor;
                 break;
 
-            case GraphicElementType.ARC:
+            case GraphicElementType.ARCUATE_MOVEMENT:
                 clonedElementData = new ArchedArrowVO(newId, clonedPosition,
                     clonedWidth, clonedHeight,
                     sourceElementData.arrowDirection, clonedRotation);
@@ -268,7 +268,7 @@
         }
     }
 
-    function elementDeletedHandler(evt){
+    function deleteElementHandler(evt){
         if(this.selectedElement){
             // 1. destroy element
             this.selectedElement.destroy();
@@ -276,15 +276,17 @@
             // 2. remove it from screen and from elements array
             if(this.selectedElement.stage){
                 this.presentationView.elementsLayer.removeChild(this.selectedElement);
-                var elementIndex = this.presentation.elements.indexOf(this.selectedElement);
-                this.presentation.elements.splice(elementIndex, 1);
+                var elementDataIndex = this.presentation.elements.indexOf(this.selectedElement.rendererData);//TODO substitute with Presentation.removeElementById
+                this.presentation.elements.splice(elementDataIndex, 1);
             }
 
             // loop between VOs and update their depths according to the depth of the views
             for(var i=0; i<this.presentationView.elementsLayer.numChildren; i++){
                 var childElement = this.presentationView.elementsLayer.getChildAt(i);
                 childElement.rendererData.depth = i;
-               /* console.info("element %d typeof %d has index of %d",
+                //TODO - sort Presentation.elements on "depth" by ascending
+
+                   /* console.info("element %d typeof %d has index of %d",
                     childElement.rendererData.id, childElement.rendererData.type,
                     childElement.rendererData.depth);*/
             }
@@ -292,7 +294,7 @@
 
             this.selectedElement = null;
 
-            //3. deselect element
+            //3. remove selection
             Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
         }
     }

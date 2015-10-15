@@ -19,11 +19,14 @@
         this.setWidth(elementWidth);
         this.setHeight(elementHeight);
         //invoke constructor of superclass
-        this.GraphicItemVO_constructor(elemId, GraphicElementType.ARC, elemPosition);
+        this.GraphicItemVO_constructor(elemId, GraphicElementType.ARCUATE_MOVEMENT, elemPosition);
     }
 
     //extend this class from a superclass
     var p = createjs.extend(ArchedArrowVO, GraphicItemVO);
+
+    // flag for serialization
+    p.isActivity = true;
 
     p.invertArrowDirection = function(){
         if(this.arrowDirection == "left"){

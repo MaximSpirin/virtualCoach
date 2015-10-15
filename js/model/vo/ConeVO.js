@@ -31,6 +31,8 @@
     //extend this class from a superclass
     var p = createjs.extend(ConeVO,GraphicItemVO);
 
+    // flag for serialization
+    p.isEquipment = true;
 
     //Make aliases for all superclass methods: SuperClass_methodName
     window.ConeVO = createjs.promote(ConeVO,"GraphicItemVO");

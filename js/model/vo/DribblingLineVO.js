@@ -26,6 +26,8 @@
     //extend this class from a superclass
     var p = createjs.extend(DribblingLineVO, GraphicItemVO);
 
+    // flag for serialization
+    p.isActivity = true;
 
     p.setStartPoint = function(value){
         this.startPoint = value;

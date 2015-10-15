@@ -21,6 +21,9 @@
     //extend this class from a superclass
     var p = createjs.extend(BallVO, GraphicItemVO);
 
+    // flag for serialization
+    p.isEquipment = true;
+
     /******************** private methods *******************/
 
 
