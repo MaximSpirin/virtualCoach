@@ -21,6 +21,7 @@
     PresentationViewEvent.ELEMENT_COPIED_TO_CLIPBOARD = "element_copied_to_clipboard";
     PresentationViewEvent.DELETE_ELEMENT = "delete_element";
     PresentationViewEvent.SWAP_DIRECTIONS_BUTTON_CLICK = "swap_directions_button_click";
+    PresentationViewEvent.BACK_BUTTON_CLICK = "back_button_click";
 
 
     //Each instance of this event will have an associated payload object

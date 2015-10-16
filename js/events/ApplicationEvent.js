@@ -5,10 +5,8 @@
 
     // Usage: ApplicationEvent.EVENT_NAME = 'event_name'
     ApplicationEvent.SHOW_SCREEN = "show_screen";
-    ApplicationEvent.SHOW_EDITOR = "show_editor";
-    ApplicationEvent.NAVIGATE_BACK = "navigate_back";
     ApplicationEvent.HIDE_CURRENT_FORM = "hide_current_form";
-    ApplicationEvent.ADD_COMPONENT = "add_component";
+    //ApplicationEvent.ADD_COMPONENT = "add_component";
     ApplicationEvent.ELEMENT_SELECTED = "element_selected";
     ApplicationEvent.ELEMENT_DESELECTED = "element_deselected";
     ApplicationEvent.ELEMENT_POSITION_CHANGED = "element_position_changed";

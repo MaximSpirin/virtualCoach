@@ -30,7 +30,7 @@
         this.addChild(this.background);
 
 
-        this.rectButton = new SimpleTextButton("Rect", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.rectButton = new SimpleTextButton("Rectangle", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
         this.rectButton.x = 5;
         this.rectButton.y = 5;
         this.rectButton.on("click", rectButtonClickHandler, this);

@@ -27,6 +27,7 @@
         this.downColor = downColor;
         this.overColor = overColor;
         this.buttonWidth = buttonWidth ? buttonWidth : null;
+        this.applicationModel = ApplicationModel.getInstance();
         this.setup();
     }
     var p = createjs.extend(SimpleTextButton, createjs.Container);
@@ -55,7 +56,7 @@
 
         this.on("click", this.handleClick);
 
-        if(window.applicationModel.platformInfo.mobile){
+        if(this.applicationModel.platformInfo.mobile){
 
         }
 

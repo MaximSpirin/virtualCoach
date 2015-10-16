@@ -32,10 +32,6 @@
     PresentationController.prototype.setView = function(value){
         this.presentationView = value;
 
-        // TODO
-        //1. clear presentationView container and other layers
-        //2. loop between presentation.elements and add them to view
-
 
     };
     /**
@@ -63,13 +59,39 @@
      * Returns DTO of the current presentation.
      */
     PresentationController.prototype.getPresentationDTO = function(){
-        var result = DTOUtils.presentationToDTO(this.presentation);
-        return result;
+
+        if(!this.presentation){
+            return null;
+        }
+
+        var canvas = document.getElementById('appCanvas');
+        var imageDataString = null;
+        var imageDataFormatPrefix = "data:image/png;base64,";
+
+        if(this.presentationView){
+
+            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
+            window.stage.update();
+
+            imageDataString = CanvasUtils.getCanvasSegmentData(canvas,
+                this.presentationView.x,
+                this.presentationView.y,
+                this.presentationView.componentWidth,
+                this.presentationView.componentHeight);
+
+                //cut "data:image/png;base64," from the data string
+                var dataFormatIndex = imageDataString.indexOf(imageDataFormatPrefix);
+
+                if(dataFormatIndex>=0){
+                    imageDataString = imageDataString.substr(dataFormatIndex + imageDataFormatPrefix.length);
+                }
+        }
+
+        var presentationDTO = DTOUtils.presentationToDTO(this.presentation);
+        presentationDTO.drillImageData = imageDataString ;
+        presentationDTO.drillImageFormat = imageDataString ? imageDataFormatPrefix : null;
+        return presentationDTO;
     };
-
-
-
-
 
     /*************************************** private functions *************************************/
     function initialize() {
@@ -90,6 +112,7 @@
         this.dispatcher.on(PresentationViewEvent.CREATE_DRIBBLING_CLICK, createDribblingClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.COPY_ELEMENT_BUTTON_CLICK, copyElementClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK, pasteElementClickHandler, this);
+        this.dispatcher.on(PresentationViewEvent.BACK_BUTTON_CLICK, backButtonClickHandler, this);
 
         this.dispatcher.on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
         this.dispatcher.on(PresentationViewEvent.DELETE_ELEMENT, deleteElementHandler, this);
@@ -461,6 +484,12 @@
         }
     }
 
+    function backButtonClickHandler(event){
+        this.getPresentationDTO();
+        this.setView(null);
+        this.dispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.SHOW_SCREEN,{screenId:AppScreen.MAIN_MENU}));
+    }
+
     /*********************************** public static method *************************************/
 
     PresentationController.getInstance = function(){
@@ -473,7 +502,7 @@
     };
 
     PresentationController.createEmptyPresentation = function(){
-        var id = "000000"
+        var id = "000000";
         var presentation = new Presentation(id);
 
         console.log("Created a new presentation with id= " + id);

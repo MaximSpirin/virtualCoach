@@ -61,7 +61,7 @@
 
     p.newDrillClickHandler = function(evt){
 
-        window.eventDispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.NEW_DRILL_BUTTON_CLICK));
+        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.NEW_DRILL_BUTTON_CLICK));
 
         /*var newPresentation = PresentationController.createEmptyPresentation();
         if(newPresentation){

@@ -4,12 +4,13 @@
  */
 (function (window) {
     //public variables
-    ToolsPanel.prototype.background;
-    ToolsPanel.prototype.componentWidth;
-    ToolsPanel.prototype.componentHeight;
-    ToolsPanel.prototype.backButton;
-    ToolsPanel.prototype.saveButton;
-    ToolsPanel.prototype.dynamicButtons;
+    ToolsPanel.prototype.background = null;
+    ToolsPanel.prototype.componentWidth = null;
+    ToolsPanel.prototype.componentHeight = null;
+    ToolsPanel.prototype.backButton = null;
+    ToolsPanel.prototype.saveButton = null;
+    ToolsPanel.prototype.dynamicButtons = null;
+    ToolsPanel.prototype.dynamicButtonsInitX = null;
 
     //static variable
     ToolsPanel.PANEL_STD_HEIGHT = 50;
@@ -21,7 +22,8 @@
         this.Container_constructor();
         this.componentWidth = width;
         this.componentHeight = height;
-        
+
+        this.applicationModel = ApplicationModel.getInstance();
         this.initialize();
     }
 
@@ -41,13 +43,20 @@
         this.saveButton.y = 5;
         this.addChild(this.saveButton);*/
 
-        this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
-        this.backButton.setBounds(0,0,50,20);
-        //this.backButton.x = this.saveButton.x + this.saveButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
-        this.backButton.x = ToolsPanel.BUTTON_INTERVAL;
-        this.backButton.y = 5;
-        this.backButton.on("click",backClickListener,this);
-        this.addChild(this.backButton);
+
+        if(this.applicationModel.appMode == ApplicationModel.NEW_DRILL_APP_MODE){
+            this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
+            this.backButton.setBounds(0, 0, 50, 20);
+            this.backButton.x = ToolsPanel.BUTTON_INTERVAL;
+            this.backButton.y = 5;
+            this.backButton.on("click",backClickListener,this);
+            this.addChild(this.backButton);
+            this.dynamicButtonsInitX = this.backButton.x + this.backButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
+        } else{
+            this.dynamicButtonsInitX = ToolsPanel.BUTTON_INTERVAL;
+        }
+
+
 
         this.swapDirectionsButton = new SimpleTextButton("Swap directions","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 140);
         this.swapDirectionsButton.setBounds(0,0,140,20);
@@ -108,7 +117,8 @@
             //reverse dyn buttons
             this.dynamicButtons.reverse();
             //add dyn buttonds to screen
-            var initX = this.backButton.x + this.backButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
+            //var initX = this.backButton.x + this.backButton.getBounds().width + ToolsPanel.BUTTON_INTERVAL;
+            var initX = this.dynamicButtonsInitX;
             this.dynamicButtons.forEach(function(elem, index, sourceArray){
                 elem.x = initX;
                 this.addChild(elem);
@@ -121,10 +131,10 @@
     /********************************* event listeners **********************************/
 
     function backClickListener(){
-        //Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.NAVIGATE_BACK));
+        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.BACK_BUTTON_CLICK));
 
-        var presDTO = PresentationController.getInstance().getPresentationDTO();
-        console.log(presDTO);
+        /*var presDTO = PresentationController.getInstance().getPresentationDTO();
+        console.log(presDTO);*/
     }
 
     function copyButtonClickListener(event){
