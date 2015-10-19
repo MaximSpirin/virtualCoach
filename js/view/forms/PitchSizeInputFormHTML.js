@@ -11,12 +11,8 @@
     function PitchSizeInputFormHTML(initParams) {
         this.Form_constructor(initParams);
 
-        //this.createFormFromHTMLString();
-        //this.DOMElement_constructor(this.formHTMLElement);
-        //this.DOMElement_constructor(this.formHTMLElement);
     }
 
-    //var p = createjs.extend(PitchSizeInputFormHTML, createjs.DOMElement);
     var p = createjs.extend(PitchSizeInputFormHTML, Form);
 
     p.constructForm = function(){

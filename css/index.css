@@ -51,3 +51,11 @@ body{
     width: 305px;
     background: #1b6d85;
 }
+
+
+.load-pitch-panel{
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    background: #1b6d85;
+}

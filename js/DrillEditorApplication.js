@@ -157,18 +157,6 @@
     };
 
 
-
-
-
-    /*DrillEditorApplication.prototype.createEmptyPresentation = function(){
-        var id = createjs.UID.get();
-        var presentation = new Presentation(id);
-
-        console.log("Created a new presentation with id= " + id);
-
-        return presentation;
-    };*/
-
     /**************************************** public static properties ************************************************/
     DrillEditorApplication.loadQueue = null;
 

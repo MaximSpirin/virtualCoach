@@ -17,7 +17,7 @@
     function DrillEditorProxy() {
 
     }
-    /******************* static methods *******************/
+    /******************* static methods ********************/
 
 
     /**
@@ -45,6 +45,8 @@
             DrillEditorProxy.getDrillByIdCallback(drillId, successCallback, failureCallback);
         }
     };
+
+
 
 
     window.DrillEditorProxy = DrillEditorProxy;

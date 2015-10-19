@@ -3,10 +3,9 @@
  */
 (function (window) {
 
-    // Usage: ApplicationEvent.EVENT_NAME = 'event_name'
+
     ApplicationEvent.SHOW_SCREEN = "show_screen";
     ApplicationEvent.HIDE_CURRENT_FORM = "hide_current_form";
-    //ApplicationEvent.ADD_COMPONENT = "add_component";
     ApplicationEvent.ELEMENT_SELECTED = "element_selected";
     ApplicationEvent.ELEMENT_DESELECTED = "element_deselected";
     ApplicationEvent.ELEMENT_POSITION_CHANGED = "element_position_changed";
@@ -15,6 +14,7 @@
     ApplicationEvent.ELEMENT_ROTATION_CHANGED = "element_rotation_changed";
     ApplicationEvent.GRAPHIC_PROPERTY_CHANGED = "item_model_property_changed";
     ApplicationEvent.NEW_DRILL_BUTTON_CLICK = "new_drill_button_click_event";
+    ApplicationEvent.LOAD_DRILL_BUTTON_CLICK = "load_drill_button_click_event";
     ApplicationEvent.PITCH_VIEW_CREATED = "pitch_view_created";
 
 

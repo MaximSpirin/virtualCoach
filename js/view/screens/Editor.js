@@ -99,7 +99,7 @@
                 callbackScope: this
             });
         } else {
-            //TODO: visualize presentation data
+            //visualize presentation data
             this.createPitchView();
         }
 
