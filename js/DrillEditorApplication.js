@@ -37,6 +37,7 @@
         //window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
         this.eventDispatcher.on(ApplicationEvent.NEW_DRILL_BUTTON_CLICK, newDrillButtonClickHandler, this);
         this.eventDispatcher.on(ApplicationEvent.SHOW_SCREEN, showScreenHandler, this);
+        this.eventDispatcher.on(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK, loadDrillButtonClick, this);
 
 
         //create and init easeljs stage
@@ -79,6 +80,12 @@
     function newDrillButtonClickHandler(event){
        this.presentationController.createEmptyPresentation();
        this.showAppScreen(AppScreen.EDITOR);
+    }
+
+    function loadDrillButtonClick(event) {
+        var drillId = event.payload.drillId;
+        //show preloader form
+        this.currentScreen.showForm(ProgressBarForm,{headerText:"Loading you drill..."});
     }
 
     DrillEditorApplication.prototype.onTickHandler = function(){

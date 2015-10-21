@@ -41,9 +41,9 @@
     <script  src="js/view/screens/Editor.js"></script>
     <script  src="js/view/ui/SimpleTextButton.js"></script>
     <script  src="js/view/forms/Form.js"></script>
-    <script  src="js/view/forms/PitchDimensionsInput.js"></script>
+    <script  src="js/view/forms/LoadDrillView.js"></script>
     <script  src="js/view/forms/PitchSizeInputFormHTML.js"></script>
-    <script  src="js/view/forms/DrillNameInputForm.js"></script>
+    <script  src="js/view/forms/ProgressBarForm.js"></script>
     <script  src="js/view/ui/ToolsPanel.js"></script>
     <script src="js/view/tools/TransformTool.js"></script>
     <script src="js/view/tools/RotationTool.js"></script>
@@ -133,7 +133,73 @@
                                     ]
                             };*/
 
-            DrillEditorProxy.drillsCollection = [];
+            DrillEditorProxy.drillsCollection = [
+                {
+                    drillId:"0000001",
+                    displayName: "Manchester United's 'Boxes' Drill",
+                    lastModified:"15 Oct 2015",
+                    pitchWidth: 101,
+                    pitchHeight: 201,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000002",
+                    displayName: "United practise Van Gaal passing drills",
+                    lastModified:"12 Sep 2015",
+                    pitchWidth: 102,
+                    pitchHeight: 202,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000003",
+                    displayName: "FC Dacia drill",
+                    lastModified:"01 May 2014",
+                    pitchWidth: 103,
+                    pitchHeight: 203,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000004",
+                    displayName: "School football drill 1",
+                    lastModified:"14 Feb 2015",
+                    pitchWidth: 104,
+                    pitchHeight: 204,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000005",
+                    displayName: "My cool drill 5",
+                    lastModified:"06 Apr 2014",
+                    pitchWidth: 105,
+                    pitchHeight: 205,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000006",
+                    displayName: "My cool drill 6",
+                    lastModified:"01 Oct 2013",
+                    pitchWidth: 106,
+                    pitchHeight: 206,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000007",
+                    displayName: "My cool drill 7",
+                    lastModified:"21 Jun 2014",
+                    pitchWidth: 107,
+                    pitchHeight: 207,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                },
+                {
+                    drillId:"0000008",
+                    displayName: "My cool drill 7",
+                    lastModified:"21 Jun 2014",
+                    pitchWidth: 107,
+                    pitchHeight: 207,
+                    thumbURL:"img/dummy_thumb_64.svg"
+                }
+
+            ];
 
             window.drillEditorApplication = new DrillEditorApplication();
         });

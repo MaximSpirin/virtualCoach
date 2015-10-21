@@ -53,21 +53,55 @@ body{
 }
 
 
-.load-pitch-panel{
+.load-pitch-panel, .progress-bar-panel{
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
-    max-height: 290px;
+    margin-bottom: 0px;
+
+
+    width: 480px;
+    max-height: 360px;
 }
 
 .load-pitch-container{
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-    max-height: 165px;
+    max-height: 256px;
+    min-height: 42px;
     overflow: auto;
 }
 
 .load-pitch-list{
-    margin-bottom: 0px;
+    margin-bottom: 0px!important;
+}
+
+.load-drill-form-h3, .progress-bar-form-h3{
+    text-align: center;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.load-pitch-form-load-btn-container{
+    margin-left: auto;
+    margin-right: 10px;
+    width:65px;
+    margin-bottom: 10px;
+}
+
+.load-pitch-form-load-btn{
+    width:65px;
+}
+
+.form-back-button{
+    position: absolute; padding-top: 10px; padding-left: 10px
+}
+
+.drill-editor-app-form, .progress-bar-form{
+    position:absolute;left:0px;top:0px;width: 800px;height: 600px;background: #ffffff;
+}
+
+.load-pitch-form-thumb-image{
+    width: 64px;
+    height: 64px;
 }

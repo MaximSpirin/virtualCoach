@@ -54,7 +54,7 @@
         this.loadDrillButton = new SimpleTextButton("Load drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150);
         this.loadDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
         this.loadDrillButton.y = this.newDrillButton.y + 60;
-        this.loadDrillButton.addEventListener("click", loadDrillClickHandler)
+        this.loadDrillClickHandler = this.loadDrillButton.on("click", loadDrillClickHandler, this);
         this.addChild(this.loadDrillButton);
 
     };
@@ -66,7 +66,13 @@
     }
 
     function loadDrillClickHandler(){
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK));
+        //Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK));
+
+        this.showForm(LoadDrillView,{
+            positiveCallback:null,
+            negativeCallback:null,
+            callbackScope: this
+        });
     }
 
 
@@ -83,6 +89,7 @@
         this.newDrillButton.destroy();
 
         this.loadDrillButton.removeAllEventListeners();
+        this.loadDrillButton.off("click", this.loadDrillClickHandler);
         this.loadDrillButton.destroy();
 
         console.log("MainMenuScreen.destroy()");
