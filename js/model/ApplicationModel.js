@@ -11,7 +11,7 @@
 
 
     //static variables and constants
-    ApplicationModel.VERSION = "0.1.0";
+    ApplicationModel.VERSION = "0.1.1";
     ApplicationModel.debugVersion = false;
     ApplicationModel.instance = null;
     ApplicationModel.APP_WIDTH = 800;
