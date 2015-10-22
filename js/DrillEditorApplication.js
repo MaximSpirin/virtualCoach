@@ -91,14 +91,14 @@
         DrillEditorProxy.getDrillDataById(drillId, getDrillDataSuccess, getDrillDataFailure, this);
 
 
-        function getDrillDataSuccess(drillDTO, scope){
+        function getDrillDataSuccess(drillDTO){
 
-            scope.presentationController.loadPresentation(drillDTO);
-            scope.showAppScreen(AppScreen.EDITOR);//  scope.currentScreen.removeForm();
+            this.presentationController.loadPresentation(drillDTO);
+            this.showAppScreen(AppScreen.EDITOR);//  scope.currentScreen.removeForm();
         }
 
-        function getDrillDataFailure(scope){
-            scope.currentScreen.removeForm();
+        function getDrillDataFailure(){
+            this.currentScreen.removeForm();
             //TODO - show error message panel
         }
     }
@@ -107,11 +107,11 @@
         this.currentScreen.showForm(ProgressBarForm,{headerText:"Loading your saved drills..."});
         DrillEditorProxy.getSavedDrills(getSavedDrillsSuccess, getSavedDrillsFailure, this);
 
-        function getSavedDrillsSuccess(drills, scope){
+        function getSavedDrillsSuccess(drills){
             console.log("Successfully loaded drills");
             ApplicationModel.getInstance().savedDrills = drills;
-            scope.currentScreen.removeForm();
-            scope.currentScreen.showForm(LoadDrillView,{
+            this.currentScreen.removeForm();
+            this.currentScreen.showForm(LoadDrillView,{
                 positiveCallback: null,
                 negativeCallback: null,
                 callbackScope: this
