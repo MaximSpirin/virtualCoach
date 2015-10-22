@@ -485,7 +485,7 @@
     }
 
     function backButtonClickHandler(event){
-        this.getPresentationDTO();
+        //this.getPresentationDTO();
         this.setView(null);
         this.dispatcher.dispatchEvent(new ApplicationEvent(ApplicationEvent.SHOW_SCREEN,{screenId:AppScreen.MAIN_MENU}));
     }
