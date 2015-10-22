@@ -7,11 +7,14 @@
 
 
     /******************* static variables *******************/
-    DrillEditorProxy.drillStartupData = null;   // Should be set by outer code. data of the drill that has to be rendered right after app start. If null then app starts with main menu view
-    DrillEditorProxy.drillsCollection = null; // Should be set by outer code. An array of drills that user could open through load drill view.
 
-    DrillEditorProxy.getDrillDataCallback = null; // Should be set by drill editor. Editor app function that returns data of the current drill
+    //callbacks that are set by outer code:
+    DrillEditorProxy.drillStartupData = null;   // Should be set by outer code. data of the drill that has to be rendered right after app start. If null then app starts with main menu view
     DrillEditorProxy.getDrillByIdCallback = null;  // Should be set by outer code.
+    DrillEditorProxy.getSavedDrillsCallback = null; // Should be set by outer code.
+
+    //callbacks set by editor application
+    DrillEditorProxy.getDrillDataCallback = null; // Should be set by drill editor. Editor app function that returns data of the current drill
 
     /********************** constructor *********************/
     function DrillEditorProxy() {
@@ -40,13 +43,22 @@
      * @param successCallback
      * @param failureCallback
      */
-    DrillEditorProxy.getDrillDataById = function(drillId, successCallback, failureCallback){
+    DrillEditorProxy.getDrillDataById = function(drillId, successCallback, failureCallback, scope){
         if(DrillEditorProxy.getDrillByIdCallback){
-            DrillEditorProxy.getDrillByIdCallback(drillId, successCallback, failureCallback);
+            DrillEditorProxy.getDrillByIdCallback(drillId, successCallback, failureCallback, scope);
         }
     };
 
-
+    /**
+     * Retrieves an array of drills previously created by user
+     * @param successCallback
+     * @param failureCallback
+     */
+    DrillEditorProxy.getSavedDrills = function(successCallback, failureCallback, scope){
+        if(DrillEditorProxy.getSavedDrillsCallback){
+            DrillEditorProxy.getSavedDrillsCallback(successCallback, failureCallback, scope);
+        }
+    };
 
 
     window.DrillEditorProxy = DrillEditorProxy;

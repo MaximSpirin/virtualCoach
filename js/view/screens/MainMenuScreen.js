@@ -66,13 +66,13 @@
     }
 
     function loadDrillClickHandler(){
-        //Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK));
+        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.MAIN_MENU_LOAD_DRILL_CLICK));
 
-        this.showForm(LoadDrillView,{
+        /*this.showForm(LoadDrillView,{
             positiveCallback:null,
             negativeCallback:null,
             callbackScope: this
-        });
+        });*/
     }
 
 

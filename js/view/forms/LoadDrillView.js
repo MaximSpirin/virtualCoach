@@ -54,8 +54,10 @@
         });
 
         //populate list of drills
-        for(var i=0;i<DrillEditorProxy.drillsCollection.length;i++){
-            var drillShortInfo = DrillEditorProxy.drillsCollection[i];
+        //for(var i=0;i<DrillEditorProxy.drillsCollection.length;i++){
+        for(var i=0;i<ApplicationModel.getInstance().savedDrills.length;i++){
+            //var drillShortInfo = DrillEditorProxy.drillsCollection[i];
+            var drillShortInfo = ApplicationModel.getInstance().savedDrills[i];
             $(".load-pitch-list").append("<a href='#' class='list-group-item'> <div class='media-left'> <img class='media-object load-pitch-form-thumb-image' src=''> </div> <div class='media-body'> <h4 class='list-group-item-heading drill-name-label'></h4> <p class='list-group-item-text load-drill-view-size-label'></p> <p class='list-group-item-text load-drill-view-last-edit-label'></p> </div> </a>");
 
             var lastAddedItem = $($(".load-pitch-list .list-group-item:last")[0]);

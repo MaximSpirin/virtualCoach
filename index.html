@@ -100,8 +100,102 @@
     <script >
         $(document).ready(function(){
 
-            DrillEditorProxy.getDrillByIdCallback = function(id, onSuccess, onFailure){
+            DrillEditorProxy.getDrillByIdCallback = function(id, onSuccess, onFailure, scope){
                 //look for the drill data and call onSuccess or onFailure
+                /*var emulatedData = {
+                    drillId : "12ss",
+                    pitchWidth : 50,
+                    pitchHeight : 50,
+                    elements :
+                            [
+                                {
+                                    arrowDirection:"right",
+                                    id:97,
+                                    position:{x:230, y:248},
+                                    type:13,
+                                    width:60,
+                                    height:24,
+                                    rotation:-44.14
+                                },
+                                {
+                                    arrowDirection:"right",
+                                    endPoint:{x:518.5,y:3.000000057},
+                                    id:223,
+                                    position:{x:0, y:0},
+                                    startPoint:{x:8.49999993, y:514},
+                                    type:10
+                                }
+                            ]
+                };*/
+
+                var emulatedData =  {
+                    drillId : "00000",
+                    pitchWidth : 50,
+                    pitchHeight : 50,
+                    elements:[
+                        {
+                            fillColor:"#382CBF",
+                            id:"91",
+                            type:3,
+                            width:40,
+                            height:40,
+                            position:{x:47, y:47}
+                        },
+                        {
+                            fillColor:"#382CBF",
+                            id:"95",
+                            type:3,
+                            width:40,
+                            height:40,
+                            position:{x:473, y:63}
+                        },
+                        {
+                            fillColor:"#382CBF",
+                            id:"99",
+                            type:3,
+                            width:40,
+                            height:40,
+                            position:{x:34, y:489}
+                        },
+                        {
+                            fillColor:"#382CBF",
+                            id:"103",
+                            type:3,
+                            width:40,
+                            height:40,
+                            position:{x:491, y:491}
+                        },
+                        {
+                            fillColor:"#F21818",
+                            id:"107",
+                            type:4,
+                            width:40,
+                            height:40,
+                            position:{x:216, y:275}
+                        },
+                        {
+                            fillColor:"#085429",
+                            id:"111",
+                            type:6,
+                            width:40,
+                            height:40,
+                            position:{x:278, y:275}
+                        }
+
+
+                    ]
+                };
+
+                setTimeout(function(){
+                    if(onSuccess){
+                        onSuccess(emulatedData, scope);
+                    }
+
+                    /*if(onFailure){
+                     onFailure();
+                     }*/
+
+                }, Math.random()*3000);
             };
 
             DrillEditorProxy.drillStartupData = null;
@@ -133,73 +227,89 @@
                                     ]
                             };*/
 
-            DrillEditorProxy.drillsCollection = [
-                {
-                    drillId:"0000001",
-                    displayName: "Manchester United's 'Boxes' Drill",
-                    lastModified:"15 Oct 2015",
-                    pitchWidth: 101,
-                    pitchHeight: 201,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000002",
-                    displayName: "United practise Van Gaal passing drills",
-                    lastModified:"12 Sep 2015",
-                    pitchWidth: 102,
-                    pitchHeight: 202,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000003",
-                    displayName: "FC Dacia drill",
-                    lastModified:"01 May 2014",
-                    pitchWidth: 103,
-                    pitchHeight: 203,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000004",
-                    displayName: "School football drill 1",
-                    lastModified:"14 Feb 2015",
-                    pitchWidth: 104,
-                    pitchHeight: 204,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000005",
-                    displayName: "My cool drill 5",
-                    lastModified:"06 Apr 2014",
-                    pitchWidth: 105,
-                    pitchHeight: 205,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000006",
-                    displayName: "My cool drill 6",
-                    lastModified:"01 Oct 2013",
-                    pitchWidth: 106,
-                    pitchHeight: 206,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000007",
-                    displayName: "My cool drill 7",
-                    lastModified:"21 Jun 2014",
-                    pitchWidth: 107,
-                    pitchHeight: 207,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                },
-                {
-                    drillId:"0000008",
-                    displayName: "My cool drill 7",
-                    lastModified:"21 Jun 2014",
-                    pitchWidth: 107,
-                    pitchHeight: 207,
-                    thumbURL:"img/dummy_thumb_64.svg"
-                }
+            //DrillEditorProxy.drillsCollection =
 
-            ];
+            DrillEditorProxy.getSavedDrillsCallback = function(onSuccess, onFailure, thisScope){
+                var emulatedData = [
+                    {
+                        drillId:"0000001",
+                        displayName: "Manchester United's 'Boxes' Drill",
+                        lastModified:"15 Oct 2015",
+                        pitchWidth: 101,
+                        pitchHeight: 201,
+                        thumbURL:"img/dummy_thumb_1.jpg"
+                    },
+                    {
+                        drillId:"0000002",
+                        displayName: "United practise Van Gaal passing drills",
+                        lastModified:"12 Sep 2015",
+                        pitchWidth: 102,
+                        pitchHeight: 202,
+                        thumbURL:"img/dummy_thumb_2.jpg"
+                    },
+                    {
+                        drillId:"0000003",
+                        displayName: "FC Dacia drill",
+                        lastModified:"01 May 2014",
+                        pitchWidth: 103,
+                        pitchHeight: 203,
+                        thumbURL:"img/dummy_thumb_1.jpg"
+                    },
+                    {
+                        drillId:"0000004",
+                        displayName: "School football drill 1",
+                        lastModified:"14 Feb 2015",
+                        pitchWidth: 104,
+                        pitchHeight: 204,
+                        thumbURL:"img/dummy_thumb_2.jpg"
+                    },
+                    {
+                        drillId:"0000005",
+                        displayName: "My cool drill 5",
+                        lastModified:"06 Apr 2014",
+                        pitchWidth: 105,
+                        pitchHeight: 205,
+                        thumbURL:"img/dummy_thumb_1.jpg"
+                    },
+                    {
+                        drillId:"0000006",
+                        displayName: "My cool drill 6",
+                        lastModified:"01 Oct 2013",
+                        pitchWidth: 106,
+                        pitchHeight: 206,
+                        thumbURL:"img/dummy_thumb_2.jpg"
+                    },
+                    {
+                        drillId:"0000007",
+                        displayName: "My cool drill 7",
+                        lastModified:"21 Jun 2014",
+                        pitchWidth: 107,
+                        pitchHeight: 207,
+                        thumbURL:"img/dummy_thumb_1.jpg"
+                    },
+                    {
+                        drillId:"0000008",
+                        displayName: "My cool drill 7",
+                        lastModified:"21 Jun 2014",
+                        pitchWidth: 107,
+                        pitchHeight: 207,
+                        thumbURL:"img/dummy_thumb_2.jpg"
+                    }
+
+                ];
+
+                setTimeout(function(){
+                    if(onSuccess){
+                        onSuccess(emulatedData, thisScope);
+                    };
+
+                    /*if(onFailure){
+                        onFailure();
+                    }*/
+
+                }, Math.random()*3000);
+
+            };
 
             window.drillEditorApplication = new DrillEditorApplication();
         });

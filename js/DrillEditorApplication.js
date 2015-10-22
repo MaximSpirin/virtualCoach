@@ -37,7 +37,8 @@
         //window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
         this.eventDispatcher.on(ApplicationEvent.NEW_DRILL_BUTTON_CLICK, newDrillButtonClickHandler, this);
         this.eventDispatcher.on(ApplicationEvent.SHOW_SCREEN, showScreenHandler, this);
-        this.eventDispatcher.on(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK, loadDrillButtonClick, this);
+        this.eventDispatcher.on(ApplicationEvent.MAIN_MENU_LOAD_DRILL_CLICK, mainMenuLoadDrillClick, this);
+        this.eventDispatcher.on(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK, loadDrillFormLoadButtonClick, this);
 
 
         //create and init easeljs stage
@@ -82,10 +83,44 @@
        this.showAppScreen(AppScreen.EDITOR);
     }
 
-    function loadDrillButtonClick(event) {
+    function loadDrillFormLoadButtonClick(event) {
         var drillId = event.payload.drillId;
-        //show preloader form
+        //show progress bar form
         this.currentScreen.showForm(ProgressBarForm,{headerText:"Loading you drill..."});
+
+        DrillEditorProxy.getDrillDataById(drillId, getDrillDataSuccess, getDrillDataFailure, this);
+
+
+        function getDrillDataSuccess(drillDTO, scope){
+
+            scope.presentationController.loadPresentation(drillDTO);
+            scope.showAppScreen(AppScreen.EDITOR);//  scope.currentScreen.removeForm();
+        }
+
+        function getDrillDataFailure(scope){
+            scope.currentScreen.removeForm();
+            //TODO - show error message panel
+        }
+    }
+
+    function mainMenuLoadDrillClick(event){
+        this.currentScreen.showForm(ProgressBarForm,{headerText:"Loading your saved drills..."});
+        DrillEditorProxy.getSavedDrills(getSavedDrillsSuccess, getSavedDrillsFailure, this);
+
+        function getSavedDrillsSuccess(drills, scope){
+            console.log("Successfully loaded drills");
+            ApplicationModel.getInstance().savedDrills = drills;
+            scope.currentScreen.removeForm();
+            scope.currentScreen.showForm(LoadDrillView,{
+                positiveCallback: null,
+                negativeCallback: null,
+                callbackScope: this
+            });
+        }
+
+        function getSavedDrillsFailure(){
+            console.log("Failed to load drills");
+        }
     }
 
     DrillEditorApplication.prototype.onTickHandler = function(){

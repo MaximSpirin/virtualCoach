@@ -16,6 +16,7 @@
     ApplicationEvent.NEW_DRILL_BUTTON_CLICK = "new_drill_button_click_event";
     ApplicationEvent.LOAD_DRILL_BUTTON_CLICK = "load_drill_button_click_event";
     ApplicationEvent.PITCH_VIEW_CREATED = "pitch_view_created";
+    ApplicationEvent.MAIN_MENU_LOAD_DRILL_CLICK = "main_menu_load_drill_click";
 
 
     //Each instance of this event will have an associated payload object
