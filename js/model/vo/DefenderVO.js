@@ -6,6 +6,7 @@
     "use strict";
     //public variables
     DefenderVO.prototype.radius;
+    DefenderVO.prototype.playerNumber;
 
     //static variable
     //DefenderVO.staticVar = "value";
@@ -30,6 +31,11 @@
 
     //extend this class from a superclass
     var p = createjs.extend(DefenderVO,GraphicItemVO);
+
+    p.setPlayerNumber = function(value){
+        this.playerNumber = value;
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"playerNumber"}));
+    };
 
     //flag for serialization
     p.isPlayer = true;

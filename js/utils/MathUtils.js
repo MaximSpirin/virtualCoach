@@ -35,6 +35,18 @@
         return distance;
     };
 
+    MathUtils.compareNumeric = function(a,b){
+        if(a>b){
+            return 1;
+        }
+
+        if(a<b){
+            return -1;
+        }
+
+        return 0;
+    };
+
     //Make aliases for all superclass methods: SuperClass_methodName
     //window.MathUtils = createjs.promote(MathUtils,"SuperClass");
 

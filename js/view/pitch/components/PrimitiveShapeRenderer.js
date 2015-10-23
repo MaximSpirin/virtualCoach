@@ -5,6 +5,8 @@
 (function (window) {
     //public variables
     PrimitiveShapeRenderer.prototype.minimalSize;
+    PrimitiveShapeRenderer.prototype.textField = null;
+
 
     //static variable
     PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS = 20;
@@ -23,6 +25,11 @@
         this.BaseComponentRenderer_initialize();
         this.outlineShape = new createjs.Shape();
         this.container.addChild(this.outlineShape);
+
+        //if(this.rendererData.type!=GraphicElementType.NEUTRAL_PLAYER && this.rendererData.type!=GraphicElementType.CONE){
+            this.textField = new createjs.Text("","16px Arial","#ffffff");
+            this.container.addChild(this.textField);
+       // }
     };
 
     p.render = function(){
@@ -74,6 +81,17 @@
 
     p.getMinimalSize = function(){
         return this.minimalSize;
+    };
+
+    p.graphicPropertyChangeHandler = function(evt){
+        switch(evt.payload.name){
+            case "playerNumber":
+                    this.textField.text = this.rendererData.playerNumber;
+                    var tfBounds = this.textField.getBounds();
+                    this.textField.x = -tfBounds.width / 2;
+                    this.textField.y = -tfBounds.height / 2;
+                break;
+        }
     };
 
 

@@ -6,7 +6,7 @@
     "use strict";
     //public variables
     ExtraTeamVO.prototype.radius;
-
+    ExtraTeamVO.playerNumber;
     //static variable
     //ExtraTeamVO.staticVar = "value";
 
@@ -30,6 +30,11 @@
 
     //extend this class from a superclass
     var p = createjs.extend(ExtraTeamVO,GraphicItemVO);
+
+    p.setPlayerNumber = function(value){
+        this.playerNumber = value;
+        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"playerNumber"}));
+    };
 
     //flag for serialization
     p.isPlayer = true;

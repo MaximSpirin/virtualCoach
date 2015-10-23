@@ -49,8 +49,6 @@
     PresentationController.prototype.loadPresentation = function (presentationDTO) {
         this.presentation = DTOUtils.presentationDTOToVO(presentationDTO);
 
-
-        //this.elements = [];
         this.selectedElement = null;
 
     };
@@ -140,7 +138,7 @@
             this.presentationView.elementsLayer.addChildAt(elementRenderer, depth);
         }
 
-
+        this.actualizePlayerNumbers();
         //this.elements.push(elementRenderer);
 
         this.presentationView.elementsLayer.addChild(this.transformTool);
@@ -284,6 +282,20 @@
     };
 
 
+
+    PresentationController.prototype.actualizePlayerNumbers = function(){
+        this.presentation.elements.sort(MathUtils.compareNumeric);
+
+        var playerNumber=1;
+        for(var j=0; j<this.presentation.elements.length; j++){
+            var elementVO = this.presentation.elements[j];
+            if(elementVO.isPlayer && elementVO.type != GraphicElementType.NEUTRAL_PLAYER){
+                elementVO.setPlayerNumber(playerNumber);
+                playerNumber++;
+            }
+        }
+    };
+
     /*************************************** event handler *****************************************/
 
     function pitchViewCreatedHandler(event){
@@ -315,13 +327,14 @@
             for(var i=0; i<this.presentationView.elementsLayer.numChildren; i++){
                 var childElement = this.presentationView.elementsLayer.getChildAt(i);
                 childElement.rendererData.depth = i;
-                //TODO - sort Presentation.elements on "depth" by ascending
+
 
                    /* console.info("element %d typeof %d has index of %d",
                     childElement.rendererData.id, childElement.rendererData.type,
                     childElement.rendererData.depth);*/
             }
 
+            this.actualizePlayerNumbers();
 
             this.selectedElement = null;
 
