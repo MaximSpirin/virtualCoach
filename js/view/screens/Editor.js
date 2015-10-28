@@ -23,15 +23,9 @@
 
     //constructor
     function Editor() {
-    //function Editor(presentation) {
-
-        //this.presentationController.presentation = presentation;
-
         // call constructor of the superclass
         this.AppScreen_constructor();
 
-        //construct UI
-        this.constructScreenUI();
         //initialize code
         this.initialize();
 
@@ -40,36 +34,46 @@
     //create inheritance
     var p = createjs.extend(Editor, AppScreen);
 
-    p.constructScreenUI = function(){
+
+    p.initialize = function(){
+        this.presentationController = PresentationController.getInstance();
+
         //create bg
         this.backgroundShape = new createjs.Shape();
         this.backgroundShape.graphics.beginLinearGradientFill(["#1E5799", "#7db9e8"],[0,1],0,0,0,ApplicationModel.APP_HEIGHT).drawRect(0, 0, ApplicationModel.APP_WIDTH, ApplicationModel.APP_HEIGHT);
         this.addChild(this.backgroundShape);
 
-        //calculate toolbar bounds
-        this.componentsPalleteBounds = new createjs.Rectangle(ApplicationModel.APP_WIDTH - ComponentsPallete.PANEL_STD_WIDTH - Editor.UI_CONTROLS_MARGIN,
-            Editor.UI_CONTROLS_MARGIN,
-            ComponentsPallete.PANEL_STD_WIDTH,
-            ApplicationModel.APP_HEIGHT - Editor.UI_CONTROLS_MARGIN*2);
-
-        this.componentsPallete = new ComponentsPallete(this.componentsPalleteBounds.width, this.componentsPalleteBounds.height);
-        this.componentsPallete.x = this.componentsPalleteBounds.x;
-        this.componentsPallete.y = this.componentsPalleteBounds.y;
+        if(!this.presentationController.componentsPallete){
+          //calculate toolbar bounds
+          this.presentationController.componentsPalleteBounds = new createjs.Rectangle(ApplicationModel.APP_WIDTH - ComponentsPallete.PANEL_STD_WIDTH - Editor.UI_CONTROLS_MARGIN,
+              Editor.UI_CONTROLS_MARGIN,
+              ComponentsPallete.PANEL_STD_WIDTH,
+              ApplicationModel.APP_HEIGHT - Editor.UI_CONTROLS_MARGIN*2);
+          this.presentationController.componentsPallete = new ComponentsPallete(this.presentationController.componentsPalleteBounds.width, this.presentationController.componentsPalleteBounds.height);
+          this.presentationController.componentsPallete.x = this.presentationController.componentsPalleteBounds.x;
+          this.presentationController.componentsPallete.y = this.presentationController.componentsPalleteBounds.y;
+          console.warn("components pallete created");
+        }
+        this.componentsPallete = this.presentationController.componentsPallete;
         this.addChild(this.componentsPallete);
 
-        this.toolBarBounds = new createjs.Rectangle(Editor.UI_CONTROLS_MARGIN,
-            Editor.UI_CONTROLS_MARGIN,
-            ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - ComponentsPallete.PANEL_STD_WIDTH,
-            ToolsPanel.PANEL_STD_HEIGHT);
+        if(!this.presentationController.toolsPanel){
+              this.presentationController.toolBarBounds = new createjs.Rectangle(Editor.UI_CONTROLS_MARGIN,
+              Editor.UI_CONTROLS_MARGIN,
+              ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - ComponentsPallete.PANEL_STD_WIDTH,
+              ToolsPanel.PANEL_STD_HEIGHT);
 
-        this.toolsPanel = new ToolsPanel(this.toolBarBounds.width, this.toolBarBounds.height);
-        this.toolsPanel.x = this.toolBarBounds.x;
-        this.toolsPanel.y = this.toolBarBounds.y;
+              this.presentationController.toolsPanel = new ToolsPanel(this.presentationController.toolBarBounds.width, this.presentationController.toolBarBounds.height);
+              this.presentationController.toolsPanel.x = this.presentationController.toolBarBounds.x;
+              this.presentationController.toolsPanel.y = this.presentationController.toolBarBounds.y;
+              console.warn("tools panel created");
+        }
+        this.toolsPanel = this.presentationController.toolsPanel;
         this.addChild(this.toolsPanel);
 
         //calculate size of pitch viewport area
         this.pitchViewportBounds = new createjs.Rectangle(Editor.UI_CONTROLS_MARGIN,
-            this.toolBarBounds.y + this.toolBarBounds.height + Editor.UI_CONTROLS_MARGIN,
+            this.presentationController.toolBarBounds.y + this.presentationController.toolBarBounds.height + Editor.UI_CONTROLS_MARGIN,
             ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - ComponentsPallete.PANEL_STD_WIDTH,
             ApplicationModel.APP_HEIGHT - 3*Editor.UI_CONTROLS_MARGIN - ToolsPanel.PANEL_STD_HEIGHT);
 
@@ -87,10 +91,8 @@
         this.pitchOutline.y = this.pitchViewportBounds.y;
         this.pitchOutline.visible = false;
         this.addChild(this.pitchOutline);
-    };
 
-    p.initialize = function(){
-        this.presentationController = PresentationController.getInstance();
+
 
         if(!this.presentationController.presentation.pitchWidth || !this.presentationController.presentation.pitchHeight){
             this.showForm(PitchSizeInputFormHTML,{
@@ -102,8 +104,6 @@
             //visualize presentation data
             this.createPitchView();
         }
-
-        //Dispatcher.getInstance().on(ApplicationEvent.NAVIGATE_BACK, exitToMainMenu, this);
 
     };
 
@@ -159,16 +159,21 @@
     p.destroy = function(){
         this.AppScreen_destroy();
 
-        //destroy things related to Editor
-        //Dispatcher.getInstance().off(ApplicationEvent.NAVIGATE_BACK, exitToMainMenu);
+        //remove components pallete and tools panel from screen
+        if(this.contains(this.componentsPallete)){
+          this.removeChild(this.componentsPallete);
+          console.log("components pallete removed from screen");
+        }
+
+        if(this.contains(this.toolsPanel)){
+          this.removeChild(this.toolsPanel);
+          console.log("tools panel removed from screen");
+        }
+
+        //TODO: destroy Pitch instance
 
         console.log("Editor destroyed");
     };
-
-    /*function exitToMainMenu(){
-        //TODO: exit properly from the edit mode - possible show an yes/no dialog, dispose current presentation
-        window.drillEditorApplication.showAppScreen(AppScreen.MAIN_MENU);
-    }*/
 
 
 

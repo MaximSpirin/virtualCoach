@@ -37,13 +37,6 @@
         //init dynamic buttons array
         this.dynamicButtons = [];
 
-        /*this.saveButton = new SimpleTextButton("Save", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
-        this.saveButton.x = ToolsPanel.BUTTON_INTERVAL;
-        this.saveButton.setBounds(0,0,50,20);
-        this.saveButton.y = 5;
-        this.addChild(this.saveButton);*/
-
-
         if(this.applicationModel.appMode == ApplicationModel.NEW_DRILL_APP_MODE){
             this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
             this.backButton.setBounds(0, 0, 50, 20);
@@ -152,7 +145,7 @@
     function elementSelectedHandler(evt){
         this.updateDynamicButtons(evt.payload.data && evt.payload.data.rendererData ? evt.payload.data.rendererData: null);
     }
-    
+
     function deleteButtonClickListener(evt){
        Dispatcher.getInstance().dispatchEvent(new PresentationViewEvent(PresentationViewEvent.DELETE_ELEMENT));
     }

@@ -11,7 +11,7 @@
 
 
     //static variables and constants
-    ApplicationModel.VERSION = "0.1.4";
+    ApplicationModel.VERSION = "0.1.5";
     ApplicationModel.debugVersion = false;
     ApplicationModel.instance = null;
     ApplicationModel.APP_WIDTH = 800;
@@ -42,8 +42,6 @@
         this.serviceLocator = ServiceLocator.getInstance();
         this.platformInfo = ServiceLocator.getInstance().platformInfoService.getPlatformInfo();
 
-        //console.log("Model constructor fired.");
-        //console.log(this.platformInfo);
     }
 
     window.ApplicationModel = ApplicationModel;

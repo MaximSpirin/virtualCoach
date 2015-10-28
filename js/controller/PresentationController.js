@@ -9,6 +9,7 @@
     PresentationController.prototype.dispatcher = null;
     //PresentationController.prototype.elements = null;
     PresentationController.prototype.selectedElement = null;
+    PresentationController.prototype.componentsPallete = null;
 
     //static variable
     PresentationController.instance = null;
@@ -296,14 +297,41 @@
     PresentationController.prototype.actualizePlayerNumbers = function(){
         this.presentation.elements.sort(MathUtils.compareNumeric);
 
-        var playerNumber=1;
+
+
+        var atackersCount = 0;
+        var defendersCount = 0;
+        var extraCount = 0
+
+        for(var j=0; j<this.presentation.elements.length; j++){
+            var elementVO = this.presentation.elements[j];
+
+            switch(elementVO.type){
+                case GraphicElementType.ATTACKER:
+                        atackersCount +=1;
+                        elementVO.setPlayerNumber(atackersCount)
+                    break;
+                    case GraphicElementType.DEFENDER:
+                        defendersCount +=1;
+                        elementVO.setPlayerNumber(defendersCount)
+                    break;
+                    case GraphicElementType.EXTRA_TEAM:
+                        extraCount +=1;
+                        elementVO.setPlayerNumber(extraCount);
+                    break;
+            }
+
+        }
+
+
+        /*var playerNumber=1;
         for(var j=0; j<this.presentation.elements.length; j++){
             var elementVO = this.presentation.elements[j];
             if(elementVO.isPlayer && elementVO.type != GraphicElementType.NEUTRAL_PLAYER){
                 elementVO.setPlayerNumber(playerNumber);
                 playerNumber++;
             }
-        }
+        }*/
     };
 
     /*************************************** event handler *****************************************/
