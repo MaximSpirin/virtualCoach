@@ -53,7 +53,7 @@ body{
 }
 
 
-.load-pitch-panel, .progress-bar-panel{
+.load-pitch-panel, .progress-bar-panel, .dialog-panel{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0px;
@@ -97,11 +97,17 @@ body{
     position: absolute; padding-top: 10px; padding-left: 10px
 }
 
-.drill-editor-app-form, .progress-bar-form{
-    position:absolute;left:0px;top:0px;width: 800px;height: 600px;background: #ffffff;
+.drill-editor-app-form, .progress-bar-form, .dialog-form{
+    position:absolute;
+    left:0px;
+    top:0px;
+    width: 800px;
+    height: 600px;
+    background: #ffffff;
 }
 
 .load-pitch-form-thumb-image{
     width: 64px;
     height: 64px;
 }
+

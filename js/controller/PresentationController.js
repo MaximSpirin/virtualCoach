@@ -108,6 +108,8 @@
         this.dispatcher.on(PresentationViewEvent.CREATE_BALLS_SUPPLY_CLICK, createBallsSupplyClickHandler , this);
         this.dispatcher.on(PresentationViewEvent.CREATE_ARC_CLICK, createArcClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.CREATE_DRIBBLING_CLICK, createDribblingClickHandler, this);
+        this.dispatcher.on(PresentationViewEvent.CREATE_GOAL_CLICK, createGoalClickHandler, this);
+
         this.dispatcher.on(PresentationViewEvent.COPY_ELEMENT_BUTTON_CLICK, copyElementClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.PASTE_ELEMENT_BUTTON_CLICK, pasteElementClickHandler, this);
         this.dispatcher.on(PresentationViewEvent.BACK_BUTTON_CLICK, backButtonClickHandler, this);
@@ -185,6 +187,10 @@
             case GraphicElementType.ARCUATE_MOVEMENT:
                 result = new ArchedArrow();
                 break;
+
+            case GraphicElementType.GOAL:
+                result = new Goal();
+                break;
         }
 
         var result;
@@ -247,6 +253,10 @@
                 clonedElementData = new ArchedArrowVO(newId, clonedPosition,
                     clonedWidth, clonedHeight,
                     sourceElementData.arrowDirection, clonedRotation);
+                break;
+
+            case GraphicElementType.GOAL:
+                clonedElementData = new GoalVO(newId,clonedPosition,clonedWidth, clonedHeight, clonedRotation);
                 break;
 
             case GraphicElementType.DRIBBLING_PLAYER:
@@ -483,6 +493,15 @@
         addItemByModel.call(this, elementRendererData, true);
     }
 
+    function createGoalClickHandler(evt){
+        var elemId = createjs.UID.get();
+        var defaultRotation = 0;
+        var defaultWidth = Goal.STD_WIDTH;
+        var defaultHeight = Goal.STD_HEIGHT;
+        var elementPosition = getElementDefaultPosition.call(this, defaultWidth, defaultHeight);
+        var rendererData = new GoalVO(elemId, elementPosition ,defaultWidth, defaultHeight, defaultRotation);
+        addItemByModel.call(this, rendererData, true);
+    }
 
     function copyElementClickHandler(event){
         var clonedSourceData = this.cloneElementData(this.selectedElement.rendererData);

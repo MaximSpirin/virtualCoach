@@ -92,7 +92,6 @@
 
 
         function getDrillDataSuccess(drillDTO){
-
             this.presentationController.loadPresentation(drillDTO);
             this.showAppScreen(AppScreen.EDITOR);//  scope.currentScreen.removeForm();
         }
@@ -118,8 +117,15 @@
             });
         }
 
-        function getSavedDrillsFailure(){
-            console.log("Failed to load drills");
+        function getSavedDrillsFailure(errorMessage){
+            console.log("Failed to load drills",errorMessage);
+            this.currentScreen.removeForm();
+            this.currentScreen.showForm(ErrorDialogForm,{
+                errorMessage: errorMessage,
+                positiveCallback: null,
+                negativeCallback: null,
+                callbackScope: this
+            });
         }
     }
 
@@ -189,7 +195,8 @@
             {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE},
             {id:"rotation-icon", src:"img/rotating22.png", type:createjs.AbstractLoader.IMAGE},
             {id:"soccer-ball-icon", src:"img/soccer-ball-icon-32.png", type:createjs.AbstractLoader.IMAGE},
-            {id:"ball-supply-icon", src:"img/ball-supply-icon-26.png", type:createjs.AbstractLoader.IMAGE}
+            {id:"ball-supply-icon", src:"img/ball-supply-icon-26.png", type:createjs.AbstractLoader.IMAGE},
+            {id:"goal-component-icon", src:"img/goal_65_47.png", type:createjs.AbstractLoader.IMAGE}
         ];
 
         DrillEditorApplication.loadQueue = new createjs.LoadQueue(false, null, true);

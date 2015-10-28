@@ -161,6 +161,7 @@
                     break;
 
                 case GraphicElementType.ARCUATE_MOVEMENT:
+                case GraphicElementType.GOAL:
                     this.rotationTool.visible = true;
 
                     break;

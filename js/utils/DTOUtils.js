@@ -85,6 +85,10 @@
                     elementDTO.arrowDirection, elementDTO.rotation);
                 break;
 
+            case GraphicElementType.GOAL:
+                    elementVO = new GoalVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height, elementDTO.rotation);
+                break;
+
             case GraphicElementType.DRIBBLING_PLAYER:
                 var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
                 var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
@@ -197,6 +201,12 @@
                     result.height = elementVO.height;
                     result.arrowDirection =  elementVO.arrowDirection;
                     result.rotation = elementVO.rotation;
+                break;
+
+            case GraphicElementType.GOAL:
+                result.width = elementVO.width;
+                result.height = elementVO.height;
+                result.rotation = elementVO.rotation;
                 break;
 
             case GraphicElementType.DRIBBLING_PLAYER:

@@ -18,6 +18,7 @@
     GraphicElementType.BALL = 11;
     GraphicElementType.BALLS_SUPPLY = 12;
     GraphicElementType.ARCUATE_MOVEMENT = 13;
+    GraphicElementType.GOAL = 14;
 
     //constructor
     function GraphicElementType() {

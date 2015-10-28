@@ -44,6 +44,7 @@
     <script  src="js/view/forms/LoadDrillView.js"></script>
     <script  src="js/view/forms/PitchSizeInputFormHTML.js"></script>
     <script  src="js/view/forms/ProgressBarForm.js"></script>
+    <script  src="js/view/forms/ErrorDialogForm.js"></script>
     <script  src="js/view/ui/ToolsPanel.js"></script>
     <script src="js/view/tools/TransformTool.js"></script>
     <script src="js/view/tools/RotationTool.js"></script>
@@ -62,6 +63,7 @@
     <script src="js/view/pitch/components/BallMovementLine.js"></script>
     <script src="js/view/pitch/components/BallComponent.js"></script>
     <script src="js/view/pitch/components/BallSupplyComponent.js"></script>
+    <script src="js/view/pitch/components/Goal.js"></script>
 
     <!-- vo -->
     <script  src="js/model/User.js"></script>
@@ -81,6 +83,7 @@
     <script src="js/model/vo/BallMovementVO.js"></script>
     <script src="js/model/vo/BallVO.js"></script>
     <script src="js/model/vo/BallSupplyVO.js"></script>
+    <script src="js/model/vo/GoalVO.js"></script>
     <script src="js/model/constants/ArrowDirection.js"></script>
 
     <!-- services -->
@@ -102,33 +105,48 @@
 
             DrillEditorProxy.getDrillByIdCallback = function(id, onSuccess, onFailure, scope){
                 //look for the drill data and call onSuccess or onFailure
-                /*var emulatedData = {
+                var emulatedData = {
                     drillId : "12ss",
-                    pitchWidth : 50,
-                    pitchHeight : 50,
+                    pitchWidth : 105,
+                    pitchHeight : 68,
                     elements :
                             [
                                 {
-                                    arrowDirection:"right",
-                                    id:97,
-                                    position:{x:230, y:248},
-                                    type:13,
-                                    width:60,
-                                    height:24,
-                                    rotation:-44.14
+                                    id:94,
+                                    position:{x:33, y:192},
+                                    type:14,
+                                    width:65,
+                                    height:47,
+                                    rotation:-90
                                 },
                                 {
-                                    arrowDirection:"right",
-                                    endPoint:{x:518.5,y:3.000000057},
-                                    id:223,
+                                    id:95,
+                                    position:{x:616, y:199},
+                                    type:14,
+                                    width:65,
+                                    height:47,
+                                    rotation:90
+                                },
+                                {
+                                    id:96,
                                     position:{x:0, y:0},
-                                    startPoint:{x:8.49999993, y:514},
-                                    type:10
+                                    arrowDirection:"left",
+                                    type:8,
+                                    startPoint:{x:84, y:204},
+                                    endPoint:{x:580, y:203}
+                                },
+                                {
+                                    id:232,
+                                    position:{x:314, y:165},
+                                    type:14,
+                                    width:65,
+                                    height:47,
+                                    rotation:0
                                 }
                             ]
-                };*/
+                };
 
-                var emulatedData =  {
+                /*var emulatedData =  {
                     drillId : "00000",
                     pitchWidth : 50,
                     pitchHeight : 50,
@@ -184,7 +202,7 @@
 
 
                     ]
-                };
+                };*/
 
                 setTimeout(function(){
                     if(onSuccess){
@@ -270,13 +288,17 @@
 
                 ];
 
+                var errorMessage = "Error getting saved drills";
+
                 setTimeout(function(){
                     if(onSuccess){
                         onSuccess.call(scope, emulatedData);
                     };
 
                     /*if(onFailure){
-                        onFailure.call(scope);
+                        //console.log("TTYL:",scope, errorMessage);
+                        onFailure.call(scope, errorMessage);
+
                     }*/
 
                 }, Math.random()*3000);
