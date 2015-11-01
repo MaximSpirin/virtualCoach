@@ -16,9 +16,10 @@
      * @param downColor
      * @param overColor
      * @param buttonWidth
+     * @param buttonHeight
      * @constructor
      */
-    function SimpleTextButton(label, labelFont, labelColor, upColor, downColor, overColor, buttonWidth) {
+    function SimpleTextButton(label, labelFont, labelColor, upColor, downColor, overColor, buttonWidth, buttonHeight) {
         this.Container_constructor();
         this.label = label;
         this.labelFont = labelFont ? labelFont : SimpleTextButton.DEFAULT_FONT;
@@ -27,6 +28,7 @@
         this.downColor = downColor;
         this.overColor = overColor;
         this.buttonWidth = buttonWidth ? buttonWidth : null;
+        this.buttonHeight = buttonHeight ? buttonHeight : null;
         this.applicationModel = ApplicationModel.getInstance();
         this.setup();
     }
@@ -41,7 +43,8 @@
             this.buttonWidth = this.text.getMeasuredWidth() + 30;
         }
 
-        this.buttonHeight = this.text.getMeasuredHeight() + 20;
+
+        this.buttonHeight = this.buttonHeight ? this.buttonHeight : this.text.getMeasuredHeight() + 20;
 
         this.text.x = this.buttonWidth/2;
         this.text.y = 10;
@@ -70,6 +73,7 @@
 
         this.offset = Math.random()*10;
         this.count = 0;
+        this.setBounds(0,0,this.buttonWidth, this.buttonHeight);
     } ;
 
     p.handleMouseDown = function(event){

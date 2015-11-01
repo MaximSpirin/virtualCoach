@@ -45,13 +45,13 @@
         this.addChild(this.copyrighAndVersionText);
 
         //display menu buttons
-        this.newDrillButton = new SimpleTextButton("New drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150);
+        this.newDrillButton = new SimpleTextButton("New drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150, 45);
         this.newDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
         this.newDrillButton.y = 260;
         this.newDrillButton.addEventListener("click", newDrillClickHandler);
         this.addChild(this.newDrillButton);
 
-        this.loadDrillButton = new SimpleTextButton("Load drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150);
+        this.loadDrillButton = new SimpleTextButton("Load drill","25px Arial", "#000000", "#FFFFFF","#999999","#0000FF", 150, 45);
         this.loadDrillButton.x = ApplicationModel.APP_WIDTH/2 - 150/2;
         this.loadDrillButton.y = this.newDrillButton.y + 60;
         this.loadDrillClickHandler = this.loadDrillButton.on("click", loadDrillClickHandler, this);

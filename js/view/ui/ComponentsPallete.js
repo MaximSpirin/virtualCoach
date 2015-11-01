@@ -30,90 +30,89 @@
         this.addChild(this.background);
 
 
-        this.rectButton = new SimpleTextButton("Rectangle", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.rectButton = new SimpleTextButton("Rectangle", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.rectButton.x = 5;
         this.rectButton.y = 5;
         this.rectButton.on("click", rectButtonClickHandler, this);
         this.addChild(this.rectButton);
 
-        this.boxButton = new SimpleTextButton("Square", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.boxButton = new SimpleTextButton("Square", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.boxButton.x = 5;
-        this.boxButton.y = this.rectButton.y + this.rectButton.getBounds().height*2 + 9;
+        this.boxButton.y = this.rectButton.y + this.rectButton.getBounds().height + 5;
         this.boxButton.on("click", boxButtonClickHandler, this);
         this.addChild(this.boxButton);
 
-        this.attackerButton = new SimpleTextButton("Attacker", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.attackerButton = new SimpleTextButton("Attacker", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.attackerButton.x = 5;
-        this.attackerButton.y = this.boxButton.y + this.boxButton.getBounds().height*2 + 9;
+        this.attackerButton.y = this.boxButton.y + this.boxButton.getBounds().height + 5;
         this.attackerButton.on("click", attackerButtonClickHandler, this);
         this.addChild(this.attackerButton);
 
-        this.defenderButton = new SimpleTextButton("Defender", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.defenderButton = new SimpleTextButton("Defender", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.defenderButton.x = 5;
-        this.defenderButton.y = this.attackerButton.y + this.attackerButton.getBounds().height*2 + 9;
+        this.defenderButton.y = this.attackerButton.y + this.attackerButton.getBounds().height + 5;
         this.defenderButton.on("click", defenderButtonClickHandler, this);
         this.addChild(this.defenderButton);
 
-        this.extraTeamButton = new SimpleTextButton("Extra", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.extraTeamButton = new SimpleTextButton("Extra", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.extraTeamButton.x = 5;
-        this.extraTeamButton.y = this.defenderButton.y + this.defenderButton.getBounds().height*2 + 9;
+        this.extraTeamButton.y = this.defenderButton.y + this.defenderButton.getBounds().height + 5;
         this.extraTeamButton.on("click", extraTeamButtonClickHandler, this);
         this.addChild(this.extraTeamButton);
 
-        this.neutralPlayerButton = new SimpleTextButton("Neutral", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.neutralPlayerButton = new SimpleTextButton("Neutral", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.neutralPlayerButton.x = 5;
-        this.neutralPlayerButton.y = this.extraTeamButton.y + this.extraTeamButton.getBounds().height*2 + 9;
+        this.neutralPlayerButton.y = this.extraTeamButton.y + this.extraTeamButton.getBounds().height + 5;
         this.neutralPlayerButton.on("click", neutralButtonClickHandler, this);
         this.addChild(this.neutralPlayerButton);
 
-        this.coneButton = new SimpleTextButton("Cone", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.coneButton = new SimpleTextButton("Cone", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.coneButton.x = 5;
-        this.coneButton.y = this.neutralPlayerButton.y + this.neutralPlayerButton.getBounds().height*2 + 9;
+        this.coneButton.y = this.neutralPlayerButton.y + this.neutralPlayerButton.getBounds().height + 5;
         this.coneButton.on("click", coneButtonClickHandler, this);
         this.addChild(this.coneButton);
         
-        this.arcButton = new SimpleTextButton("Arcuate mvm", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.arcButton = new SimpleTextButton("Arcuate mvm", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.arcButton.x = 5;
-        this.arcButton.y = this.coneButton.y + this.coneButton.getBounds().height*2 + 9;
+        this.arcButton.y = this.coneButton.y + this.coneButton.getBounds().height + 5;
         this.arcButton.on("click", arcButtonClickHandler,this);
         this.addChild(this.arcButton);
 
-        this.dribblingButton = new SimpleTextButton("Dribbling", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.dribblingButton = new SimpleTextButton("Dribbling", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.dribblingButton.x = 5;
-        this.dribblingButton.y = this.arcButton.y + this.arcButton.getBounds().height*2 + 9;
+        this.dribblingButton.y = this.arcButton.y + this.arcButton.getBounds().height + 5;
         this.dribblingButton.on("click", dribblingButtonClickHandler,this);
         this.addChild(this.dribblingButton);
 
-        this.playerMvmButton = new SimpleTextButton("Player path", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.playerMvmButton = new SimpleTextButton("Player path", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.playerMvmButton.x = 5;
-        this.playerMvmButton.y = this.dribblingButton.y + this.playerMvmButton.getBounds().height*2 + 9;
+        this.playerMvmButton.y = this.dribblingButton.y + this.playerMvmButton.getBounds().height + 5;
         this.playerMvmButton.on("click", playerMovementButtonClick, this);
         this.addChild(this.playerMvmButton);
 
-        this.ballMvmButton = new SimpleTextButton("Ball path", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.ballMvmButton = new SimpleTextButton("Ball path", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.ballMvmButton.x = 5;
-        this.ballMvmButton.y = this.playerMvmButton.y + this.ballMvmButton.getBounds().height*2 + 9;
+        this.ballMvmButton.y = this.playerMvmButton.y + this.ballMvmButton.getBounds().height + 5;
         this.ballMvmButton.on("click", ballMovementButtonClick, this);
         this.addChild(this.ballMvmButton);
 
-        this.ballButton = new SimpleTextButton("Ball", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.ballButton = new SimpleTextButton("Ball", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.ballButton.x = 5;
-        this.ballButton.y = this.ballMvmButton.y + this.ballButton.getBounds().height*2 + 9;
+        this.ballButton.y = this.ballMvmButton.y + this.ballButton.getBounds().height + 5;
         this.ballButton.on("click", ballButtonClick, this);
         this.addChild(this.ballButton);
 
-        this.ballSupplyButton = new SimpleTextButton("Ball supply", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.ballSupplyButton = new SimpleTextButton("Ball supply", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.ballSupplyButton.x = 5;
-        this.ballSupplyButton.y = this.ballButton.y + this.ballSupplyButton.getBounds().height*2 + 9;
+        this.ballSupplyButton.y = this.ballButton.y + this.ballSupplyButton.getBounds().height + 5;
         this.ballSupplyButton.on("click", ballSupplyButtonClick, this);
         this.addChild(this.ballSupplyButton);
 
-        this.goalButton = new SimpleTextButton("Goal", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105);
+        this.goalButton = new SimpleTextButton("Goal", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 105, 36);
         this.goalButton.x = 5;
-        this.goalButton.y = this.ballSupplyButton.y + this.ballSupplyButton.getBounds().height*2 + 9;
+        this.goalButton.y = this.ballSupplyButton.y + this.ballSupplyButton.getBounds().height + 5;
         this.goalButton.on("click", goalButtonClick, this);
         this.addChild(this.goalButton);
-
 
     };
 

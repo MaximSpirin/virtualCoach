@@ -38,7 +38,7 @@
         this.dynamicButtons = [];
 
         if(this.applicationModel.appMode == ApplicationModel.NEW_DRILL_APP_MODE){
-            this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50);
+            this.backButton = new SimpleTextButton("Back", "16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 50, 36);
             this.backButton.setBounds(0, 0, 50, 20);
             this.backButton.x = ToolsPanel.BUTTON_INTERVAL;
             this.backButton.y = 5;
@@ -51,22 +51,22 @@
 
 
 
-        this.swapDirectionsButton = new SimpleTextButton("Swap directions","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 140);
+        this.swapDirectionsButton = new SimpleTextButton("Swap directions","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 140, 36);
         this.swapDirectionsButton.setBounds(0,0,140,20);
         this.swapDirectionsButton.y = 5;
         this.swapDirectionsButton.on("click", swapDirectionsButtonClickHandler, this);
 
-        this.copyButton = new SimpleTextButton("Copy","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
+        this.copyButton = new SimpleTextButton("Copy","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60, 36);
         this.copyButton.setBounds(0,0,60,20);
         this.copyButton.y = 5;
         this.copyButton.on("click", copyButtonClickListener, this);
 
-        this.deleteButton = new SimpleTextButton("Delete","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
+        this.deleteButton = new SimpleTextButton("Delete","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60, 36);
         this.deleteButton.setBounds(0,0,60,20);
         this.deleteButton.y = 5;
         this.deleteButton.on("click", deleteButtonClickListener, this);
 
-        this.pasteButton = new SimpleTextButton("Paste","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60);
+        this.pasteButton = new SimpleTextButton("Paste","16px Arial", "#000000", "#FFFFFF", "#999999", "#0000FF", 60, 36);
         this.pasteButton.setBounds(0,0,60,20);
         this.pasteButton.y = 5;
         this.pasteButton.on("click", pasteButtonClickListener, this);
