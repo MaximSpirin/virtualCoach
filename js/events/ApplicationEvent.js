@@ -1,9 +1,15 @@
+//##############################################################################
+// ApplicationEvent
+//##############################################################################
+
 /**
  * ApplicationEvent
  */
-(function (window) {
 
+this.drillEditor = this.drillEditor || {};
 
+(function () {
+    "use strict";
     ApplicationEvent.SHOW_SCREEN = "show_screen";
     ApplicationEvent.HIDE_CURRENT_FORM = "hide_current_form";
     ApplicationEvent.ELEMENT_SELECTED = "element_selected";
@@ -36,6 +42,6 @@
 
     var p = createjs.extend(ApplicationEvent, createjs.Event);
 
-    window.ApplicationEvent = createjs.promote(ApplicationEvent, "Event");
+    drillEditor.ApplicationEvent = createjs.promote(ApplicationEvent, "Event");
 
-}(window));
+}());

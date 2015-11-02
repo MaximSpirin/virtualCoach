@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class PrimitiveShapeRenderer
  * Created by maxim_000 on 10/1/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     PrimitiveShapeRenderer.prototype.minimalSize;
     PrimitiveShapeRenderer.prototype.textField = null;
@@ -19,7 +26,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(PrimitiveShapeRenderer,BaseComponentRenderer);
+    var p = createjs.extend(PrimitiveShapeRenderer,drillEditor.BaseComponentRenderer);
 
     p.initialize = function(){
         this.BaseComponentRenderer_initialize();
@@ -35,16 +42,16 @@
     p.render = function(){
 
         switch (this.rendererData.type){
-            case GraphicElementType.ATTACKER:
-            case GraphicElementType.DEFENDER:
-            case GraphicElementType.EXTRA_TEAM:
-            case GraphicElementType.NEUTRAL_PLAYER:
+            case drillEditor.GraphicElementType.ATTACKER:
+            case drillEditor.GraphicElementType.DEFENDER:
+            case drillEditor.GraphicElementType.EXTRA_TEAM:
+            case drillEditor.GraphicElementType.NEUTRAL_PLAYER:
                 this.outlineShape.graphics.clear();
                 this.outlineShape.graphics.beginFill(this.rendererData.fillColor);
                 this.outlineShape.graphics.drawCircle(0,0,this.rendererData.getWidth()/2);
                 this.minimalSize = new createjs.Point(PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS*2,PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS*2);
 
-                if(this.rendererData.type == GraphicElementType.NEUTRAL_PLAYER){
+                if(this.rendererData.type == drillEditor.GraphicElementType.NEUTRAL_PLAYER){
                     var letterT = new createjs.Shape();
                     letterT.graphics.clear();
                     letterT.graphics.beginFill("#ffffff");
@@ -57,7 +64,7 @@
 
                 break;
 
-            case GraphicElementType.CONE:
+            case drillEditor.GraphicElementType.CONE:
                 //to be implemented
                 this.outlineShape.graphics.beginFill(this.rendererData.fillColor);
                 this.outlineShape.graphics.moveTo(0, -this.rendererData.height/2);
@@ -96,7 +103,7 @@
 
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.PrimitiveShapeRenderer = createjs.promote(PrimitiveShapeRenderer,"BaseComponentRenderer");
+    drillEditor.PrimitiveShapeRenderer = createjs.promote(PrimitiveShapeRenderer,"BaseComponentRenderer");
 
 
-}(window));
+}());

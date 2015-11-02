@@ -1,9 +1,17 @@
+//##############################################################################
+// Dispatcher
+//##############################################################################
+
+
 /**
  * Class Dispatcher
  * Created by Maxim Spirin on 9/14/2015.
  */
-(function (window) {
 
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     Dispatcher.instance = null;
 
     //constructor
@@ -24,6 +32,6 @@
     var p = createjs.extend(Dispatcher, createjs.EventDispatcher);
 
 
-    window.Dispatcher = createjs.promote(Dispatcher,"EventDispatcher");
+    drillEditor.Dispatcher = createjs.promote(Dispatcher,"EventDispatcher");
 
-}(window));
+}());

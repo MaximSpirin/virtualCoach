@@ -1,14 +1,16 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * App entry point class
  */
 
-(function (window){
+this.drillEditor = this.drillEditor || {};
 
-    /******************************************* public vars *********************************************/
-    DrillEditorApplication.prototype.currentScreen = null;
-    DrillEditorApplication.prototype.stage = null;
-    DrillEditorApplication.prototype.presentationController = null;
-    DrillEditorApplication.model = null;
+(function (){
+    "use strict";
+
 
     /******************************************* constructor ********************************************/
 
@@ -17,28 +19,25 @@
         this.Container_constructor();
 
         //init model
-        this.applicationModel = ApplicationModel.getInstance();
+        this.applicationModel = drillEditor.ApplicationModel.getInstance();
 
-
-        //service locator
-        //this.serviceLocator = ServiceLocator.getInstance();
 
         //dispatcher
-        this.eventDispatcher = Dispatcher.getInstance();
+        this.eventDispatcher = drillEditor.Dispatcher.getInstance();
 
         //init presentation controller
-        this.presentationController = PresentationController.getInstance();
+        this.presentationController = drillEditor.PresentationController.getInstance();
 
         //add callback to proxy
-        DrillEditorProxy.getDrillDataCallback = getDrillDataCallback;
+        drillEditor.DrillEditorProxy.getDrillDataCallback = getDrillDataCallback;
 
 
         //subscribe to dispatcher events
         //window.eventDispatcher.on(ApplicationEvent.SHOW_EDITOR, showEditorHandler, this);
-        this.eventDispatcher.on(ApplicationEvent.NEW_DRILL_BUTTON_CLICK, newDrillButtonClickHandler, this);
-        this.eventDispatcher.on(ApplicationEvent.SHOW_SCREEN, showScreenHandler, this);
-        this.eventDispatcher.on(ApplicationEvent.MAIN_MENU_LOAD_DRILL_CLICK, mainMenuLoadDrillClick, this);
-        this.eventDispatcher.on(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK, loadDrillFormLoadButtonClick, this);
+        this.eventDispatcher.on(drillEditor.ApplicationEvent.NEW_DRILL_BUTTON_CLICK, newDrillButtonClickHandler, this);
+        this.eventDispatcher.on(drillEditor.ApplicationEvent.SHOW_SCREEN, showScreenHandler, this);
+        this.eventDispatcher.on(drillEditor.ApplicationEvent.MAIN_MENU_LOAD_DRILL_CLICK, mainMenuLoadDrillClick, this);
+        this.eventDispatcher.on(drillEditor.ApplicationEvent.LOAD_DRILL_BUTTON_CLICK, loadDrillFormLoadButtonClick, this);
 
 
         //create and init easeljs stage
@@ -52,7 +51,7 @@
         //console.log('Touch supported = ',supported);
 
         //stage will call update() on every tick ie each 1/30 sec
-        createjs.Ticker.addEventListener("tick", this.onTickHandler);
+        createjs.Ticker.on("tick", this.onTickHandler);
 
         window.stage.addChild(this);
 
@@ -63,12 +62,10 @@
     var p = createjs.extend(DrillEditorApplication, createjs.Container);
 
 
-
-
     /********************************** event handlers and callbacks *************************************/
 
     function getDrillDataCallback() {
-        var presentationDTO = PresentationController.getInstance().getPresentationDTO();
+        var presentationDTO = drillEditor.PresentationController.getInstance().getPresentationDTO();
         return presentationDTO;
     }
 
@@ -80,20 +77,20 @@
 
     function newDrillButtonClickHandler(event){
        this.presentationController.createEmptyPresentation();
-       this.showAppScreen(AppScreen.EDITOR);
+       this.showAppScreen(drillEditor.AppScreen.EDITOR);
     }
 
     function loadDrillFormLoadButtonClick(event) {
         var drillId = event.payload.drillId;
         //show progress bar form
-        this.currentScreen.showForm(ProgressBarForm,{headerText:"Loading you drill..."});
+        this.currentScreen.showForm(drillEditor.ProgressBarForm,{headerText:"Loading you drill..."});
 
-        DrillEditorProxy.getDrillDataById(drillId, getDrillDataSuccess, getDrillDataFailure, this);
+        drillEditor.DrillEditorProxy.getDrillDataById(drillId, getDrillDataSuccess, getDrillDataFailure, this);
 
 
         function getDrillDataSuccess(drillDTO){
             this.presentationController.loadPresentation(drillDTO);
-            this.showAppScreen(AppScreen.EDITOR);//  scope.currentScreen.removeForm();
+            this.showAppScreen(drillEditor.AppScreen.EDITOR);//  scope.currentScreen.removeForm();
         }
 
         function getDrillDataFailure(){
@@ -103,14 +100,14 @@
     }
 
     function mainMenuLoadDrillClick(event){
-        this.currentScreen.showForm(ProgressBarForm,{headerText:"Loading your saved drills..."});
-        DrillEditorProxy.getSavedDrills(getSavedDrillsSuccess, getSavedDrillsFailure, this);
+        this.currentScreen.showForm(drillEditor.ProgressBarForm,{headerText:"Loading your saved drills..."});
+        drillEditor.DrillEditorProxy.getSavedDrills(getSavedDrillsSuccess, getSavedDrillsFailure, this);
 
         function getSavedDrillsSuccess(drills){
             console.log("Successfully loaded drills");
-            ApplicationModel.getInstance().savedDrills = drills;
+            drillEditor.ApplicationModel.getInstance().savedDrills = drills;
             this.currentScreen.removeForm();
-            this.currentScreen.showForm(LoadDrillView,{
+            this.currentScreen.showForm(drillEditor.LoadDrillView,{
                 positiveCallback: null,
                 negativeCallback: null,
                 callbackScope: this
@@ -120,7 +117,7 @@
         function getSavedDrillsFailure(errorMessage){
             console.log("Failed to load drills",errorMessage);
             this.currentScreen.removeForm();
-            this.currentScreen.showForm(ErrorDialogForm,{
+            this.currentScreen.showForm(drillEditor.ErrorDialogForm,{
                 errorMessage: errorMessage,
                 positiveCallback: null,
                 negativeCallback: null,
@@ -129,35 +126,35 @@
         }
     }
 
-    DrillEditorApplication.prototype.onTickHandler = function(){
-        if(this.stage){
-            this.stage.update();
+    p.onTickHandler = function(){
+        if(window.stage){
+            window.stage.update();
             // console.log("stage update!");
         }
     };
 
-    DrillEditorApplication.prototype.onAssetLoadComplete = function(evt){
+    p.onAssetLoadComplete = function(evt){
         this.applicationModel.assetsLoaded = true;
         console.log('Application assets loaded!');
 
-        if(DrillEditorProxy.drillStartupData){
-            this.applicationModel.appMode = ApplicationModel.EDIT_DRILL_APP_MODE;
-            PresentationController.getInstance().loadPresentation(DrillEditorProxy.drillStartupData);
-            this.showAppScreen(AppScreen.EDITOR);
+        if(drillEditor.DrillEditorProxy.drillStartupData){
+            this.applicationModel.appMode = drillEditor.ApplicationModel.EDIT_DRILL_APP_MODE;
+            drillEditor.PresentationController.getInstance().loadPresentation(drillEditor.DrillEditorProxy.drillStartupData);
+            this.showAppScreen(drillEditor.AppScreen.EDITOR);
         } else {
-            this.applicationModel.appMode = ApplicationModel.NEW_DRILL_APP_MODE;
-            this.showAppScreen(AppScreen.MAIN_MENU);
+            this.applicationModel.appMode = drillEditor.ApplicationModel.NEW_DRILL_APP_MODE;
+            this.showAppScreen(drillEditor.AppScreen.MAIN_MENU);
         }
 
     };
 
-    DrillEditorApplication.prototype.onAssetLoadFailure = function(evt){
+    p.onAssetLoadFailure = function(evt){
         this.applicationModel.assetsLoaded = false;
         console.log('Failed to load application assets!');
     };
     /**************************************** public function ******************************************/
 
-    DrillEditorApplication.prototype.showAppScreen = function(screenID, initParams){
+    p.showAppScreen = function(screenID, initParams){
         //get screen init params if available
         var screenClass;
 
@@ -169,12 +166,12 @@
 
         // 2. define class for the new screen
         switch(screenID){
-            case AppScreen.MAIN_MENU:
-                screenClass = MainMenuScreen;
+            case drillEditor.AppScreen.MAIN_MENU:
+                screenClass = drillEditor.MainMenuScreen;
                 break;
 
-            case AppScreen.EDITOR:
-                screenClass = Editor;
+            case drillEditor.AppScreen.EDITOR:
+                screenClass = drillEditor.Editor;
                 break;
         }
 
@@ -189,7 +186,7 @@
         this.addChild(this.currentScreen);
     };
 
-    DrillEditorApplication.prototype.loadExternalAssets = function(){
+    p.loadExternalAssets = function(){
         //load all external files required by app
         var manifest = [
             {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE},
@@ -211,7 +208,6 @@
 
     /********************************************** static methods ****************************************************/
 
+    drillEditor.DrillEditorApplication = createjs.promote(DrillEditorApplication, "Container");
 
-    window.DrillEditorApplication = createjs.promote(DrillEditorApplication, "Container");
-
-}(window));
+}());

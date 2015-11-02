@@ -1,8 +1,16 @@
+//##############################################################################
+// ArrowDirection
+//##############################################################################
+
 /**
  * Class ArrowDirection
  * Created by maxim_000 on 10/14/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+	"use strict";
+
 
     /******************* static variables *******************/
     ArrowDirection.RIGHT = "right";
@@ -13,6 +21,6 @@
         
     }
 
-    window.ArrowDirection = ArrowDirection;
+    drillEditor.ArrowDirection = ArrowDirection;
 
-}(window));
+}());

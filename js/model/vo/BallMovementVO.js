@@ -1,8 +1,14 @@
+//##############################################################################
+// BallMovementVO
+//##############################################################################
 /**
  * Class BallMovementVO
  * Created by maxim_000 on 10/9/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
     BallMovementVO.prototype.startPoint = null;
     BallMovementVO.prototype.endPoint = null;
@@ -11,20 +17,20 @@
     BallMovementVO.prototype.arrowDirection = null;
 
     /******************* static variables *******************/
-    //BallMovementVO.staticVar = "value";
+
 
     /********************** constructor *********************/
     function BallMovementVO(id, startPoint, endPoint, arrowDirection) {
-        this.GraphicItemVO_constructor(id, GraphicElementType.BALL_MOVEMENT, new createjs.Point(0,0));
+        this.GraphicItemVO_constructor(id, drillEditor.GraphicElementType.BALL_MOVEMENT, new createjs.Point(0,0));
         this.startPoint = startPoint;
         this.endPoint = endPoint;
-        this.arrowDirection = (arrowDirection == ArrowDirection.LEFT || arrowDirection == ArrowDirection.RIGHT) ? arrowDirection : ArrowDirection.LEFT;
+        this.arrowDirection = (arrowDirection == drillEditor.ArrowDirection.LEFT || arrowDirection == drillEditor.ArrowDirection.RIGHT) ? arrowDirection : drillEditor.ArrowDirection.LEFT;
         updateLineWidth.call(this);
         updateAngle.call(this);
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(BallMovementVO, GraphicItemVO);
+    var p = createjs.extend(BallMovementVO, drillEditor.GraphicItemVO);
 
     // flag for serialization
     p.isActivity = true;
@@ -34,7 +40,7 @@
         this.startPoint = value;
         updateLineWidth.call(this);
         updateAngle.call(this);
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"startPoint"}));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"startPoint"}));
         //console.log("start point set to x=", this.startPoint.x);
     };
 
@@ -42,26 +48,26 @@
         this.endPoint = value;
         updateLineWidth.call(this);
         updateAngle.call(this);
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"endPoint"}));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"endPoint"}));
     };
 
     p.invertArrowDirection = function(){
-        if(this.arrowDirection == ArrowDirection.RIGHT){
-            this.arrowDirection = ArrowDirection.LEFT
+        if(this.arrowDirection == drillEditor.ArrowDirection.RIGHT){
+            this.arrowDirection = drillEditor.ArrowDirection.LEFT
         }else{
-            this.arrowDirection = ArrowDirection.RIGHT;
+            this.arrowDirection = drillEditor.ArrowDirection.RIGHT;
         }
 
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"arrowDirection"}));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"arrowDirection"}));
     };
 
     /******************** private methods *******************/
     function updateLineWidth(){
-        this.lineWidth = MathUtils.getDistanceBetween2Points(this.startPoint, this.endPoint);
+        this.lineWidth = drillEditor.MathUtils.getDistanceBetween2Points(this.startPoint, this.endPoint);
     }
 
     function updateAngle() {
-        this.angle = MathUtils.getAngleBetween2Points(this.startPoint, this.endPoint);
+        this.angle = drillEditor.MathUtils.getAngleBetween2Points(this.startPoint, this.endPoint);
         this.rotation = this.angle;
     }
 
@@ -70,10 +76,10 @@
 
     /******************* public static method ***************/
 
-        //BallMovementVO.staticFunctionName = function(param1){ //method body };
+        //drillEditor.BallMovementVO.staticFunctionName = function(param1){ //method body };
 
 
         //Make aliases for all superclass methods: SuperClass_methodName
-    window.BallMovementVO = createjs.promote(BallMovementVO,"GraphicItemVO");
+    drillEditor.BallMovementVO = createjs.promote(BallMovementVO,"GraphicItemVO");
 
-}(window));
+}());

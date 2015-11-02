@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class BallSupplyVO
  * Created by maxim_000 on 10/9/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
     //BallSupplyVO.prototype.publicVar = "value";
 
@@ -13,13 +20,13 @@
     /********************** constructor *********************/
     function BallSupplyVO(id, position) {
         //invoke constructor of superclass
-        this.GraphicItemVO_constructor(id, GraphicElementType.BALLS_SUPPLY, position);
+        this.GraphicItemVO_constructor(id, drillEditor.GraphicElementType.BALLS_SUPPLY, position);
         this.width = BallSupplyVO.STD_WIDTH;
         this.height = BallSupplyVO.STD_HEIGHT;
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(BallSupplyVO, GraphicItemVO);
+    var p = createjs.extend(BallSupplyVO, drillEditor.GraphicItemVO);
 
     // flag for serialization
     p.isEquipment = true;
@@ -33,6 +40,6 @@
     /******************* public static method ***************/
 
         //Make aliases for all superclass methods: SuperClass_methodName
-    window.BallSupplyVO = createjs.promote(BallSupplyVO,"GraphicItemVO");
+    drillEditor.BallSupplyVO = createjs.promote(BallSupplyVO,"GraphicItemVO");
 
-}(window));
+}());

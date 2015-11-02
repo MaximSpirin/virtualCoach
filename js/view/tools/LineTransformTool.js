@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class LineTransformTool
+ * Class drillEditor.LineTransformTool
  * Created by maxim_000 on 10/6/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
     LineTransformTool.prototype.startPointHandler = null;
     LineTransformTool.prototype.endPointHandler = null;
@@ -41,7 +48,7 @@
     }
 
     function redraw() {
-        this.angle = MathUtils.getAngleBetween2Points(this.startPoint, this.endPoint);
+        this.angle = drillEditor.MathUtils.getAngleBetween2Points(this.startPoint, this.endPoint);
         this.startPointHandler.rotation = this.angle;
         this.endPointHandler.rotation = this.angle;
     }
@@ -53,7 +60,7 @@
     //LineTransformTool.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.LineTransformTool = createjs.promote(LineTransformTool,"Container");
+    drillEditor.LineTransformTool = createjs.promote(LineTransformTool,"Container");
 
 
-}(window));
+}());

@@ -1,10 +1,17 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class Goal
  * Created by maxim_000 on 10/28/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
-    //Goal.prototype.publicVar = "value";
+    //drillEditor.Goal.prototype.publicVar = "value";
 
     /******************* static variables *******************/
     Goal.STD_WIDTH = 65;
@@ -17,7 +24,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(Goal, BaseComponentRenderer);
+    var p = createjs.extend(Goal, drillEditor.BaseComponentRenderer);
 
     /*********************************************** overridden methods ***********************************************/
     p.initialize = function() {
@@ -26,7 +33,7 @@
         this.container = new createjs.Container();
         this.addChild(this.container);
 
-        this.goalIcon = new createjs.Bitmap(DrillEditorApplication.loadQueue.getResult("goal-component-icon"));
+        this.goalIcon = new createjs.Bitmap(drillEditor.DrillEditorApplication.loadQueue.getResult("goal-component-icon"));
         this.goalIcon.x = -Goal.STD_WIDTH / 2;
         this.goalIcon.y = -Goal.STD_HEIGHT / 2;
         this.container.addChild(this.goalIcon);
@@ -62,6 +69,6 @@
     /******************* public static method ***************/
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.Goal = createjs.promote(Goal, "BaseComponentRenderer");
+    drillEditor.Goal = createjs.promote(Goal, "BaseComponentRenderer");
 
-}(window));
+}());

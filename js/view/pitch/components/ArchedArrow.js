@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class ArchedArrow
  * Created by maxim_000 on 9/27/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /************************************************* public variables ***********************************************/
     ArchedArrow.prototype.arcShape = null;
     ArchedArrow.prototype.arrowShape = null;
@@ -23,7 +30,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(ArchedArrow, BaseComponentRenderer);
+    var p = createjs.extend(ArchedArrow, drillEditor.BaseComponentRenderer);
 
     /*********************************************** overridden methods ***********************************************/
     p.initialize = function(){
@@ -122,6 +129,6 @@
     /************************************************** static methods ************************************************/
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.ArchedArrow = createjs.promote(ArchedArrow,"BaseComponentRenderer");
+    drillEditor.ArchedArrow = createjs.promote(ArchedArrow,"BaseComponentRenderer");
 
-}(window));
+}());

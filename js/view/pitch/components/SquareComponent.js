@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class SquareComponent
  * Created by maxim_000 on 9/18/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /**************************************************** public variables ********************************************/
     //static variables
     SquareComponent.MIN_WIDTH = 75;
@@ -15,7 +22,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(SquareComponent,RectComponent);
+    var p = createjs.extend(SquareComponent,drillEditor.RectComponent);
 
     /************************************************* overridden methods *********************************************/
 
@@ -29,6 +36,6 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.SquareComponent = createjs.promote(SquareComponent,"RectComponent");
+    drillEditor.SquareComponent = createjs.promote(SquareComponent,"RectComponent");
 
-}(window));
+}());

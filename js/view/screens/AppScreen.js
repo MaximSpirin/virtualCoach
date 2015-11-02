@@ -1,7 +1,14 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * AppScreen
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
 
     AppScreen.prototype.form = null;  //reference to the form that is currently on the screen
@@ -16,33 +23,20 @@
         // call constructor of the superclass
         this.Container_constructor();
 
-        //private variables
-        /*var _privateVar1 = "value1";
-        var _privateVar2 = "value2";*/
+        this.onHideFormListener = drillEditor.Dispatcher.getInstance().on(drillEditor.ApplicationEvent.HIDE_CURRENT_FORM, hideCurrentFormHandler, this);
 
-        //public getters & setters ie properties
-        /*this.getProp1 = function(){return _privateVar1;};
-        this.getProp2 = function(){return _privateVar2;}*/
 
-        this.onHideFormListener = Dispatcher.getInstance().on(ApplicationEvent.HIDE_CURRENT_FORM, hideCurrentFormHandler, this);
-
-        //console.log("AppScreen constructor fired!");
     }
 
     var p = createjs.extend(AppScreen, createjs.Container);
-
-    /*p.draw = function(){
-        this.Container_draw();
-        //add custom logic here
-    };*/
 
     // public functions
     /**
      * Destroys this instance of AppScreen.
      * All interactivity & other processes should be disabled here
      */
-    AppScreen.prototype.destroy = function () {
-        Dispatcher.getInstance().off(ApplicationEvent.HIDE_CURRENT_FORM, this.onHideFormListener);
+    p.destroy = function () {
+        drillEditor.Dispatcher.getInstance().off(drillEditor.ApplicationEvent.HIDE_CURRENT_FORM, this.onHideFormListener);
         this.onHideFormListener=null;
         removeCurrentForm(this);
 
@@ -83,12 +77,6 @@
     }
 
 
-    //public static method
-    /*AppScreen.staticFunctionName = function(param1){
-        //method body
-    };*/
+    drillEditor.AppScreen = createjs.promote(AppScreen, "Container");
 
-
-    window.AppScreen = createjs.promote(AppScreen, "Container");
-
-}(window));
+}());

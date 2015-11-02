@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class BaseSpriteRenderer
  * Created by maxim_000 on 9/21/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     BaseComponentRenderer.prototype._data = null;
     BaseComponentRenderer.prototype.needRender = null;
@@ -34,14 +41,14 @@
 
     p.initialize = function(){
 
-        this.dispatcher = Dispatcher.getInstance();
+        this.dispatcher = drillEditor.Dispatcher.getInstance();
 
         this.container = new createjs.Container();
         this.addChild(this.container);
 
         this.BaseComponentRenderer_mouseDownHandler = this.on("mousedown", function(evt){
             //console.log("mousedown");
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             this.offset = {x: this.x - evt.stageX, y: this.y - evt.stageY};
         },this);
 
@@ -52,7 +59,7 @@
 
             this._data.position.setValues(this.x, this.y);
 
-            this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
+            this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_MOVE));
         });
 
 
@@ -120,15 +127,15 @@
 
     p.removeData = function(){
         if(this._data){
-            this._data.off(ApplicationEvent.ELEMENT_RESIZE, this.BaseComponentRenderer_elementResizeHandler);
-            this._data.off(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, this.graphicPropertyChangeHandler);
+            this._data.off(drillEditor.ApplicationEvent.ELEMENT_RESIZE, this.BaseComponentRenderer_elementResizeHandler);
+            this._data.off(drillEditor.ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, this.graphicPropertyChangeHandler);
         }
     };
 
     p.addData = function(){
         //add listeners to the updated rendererData
-        this.BaseComponentRenderer_elementResizeHandler = this._data.on(ApplicationEvent.ELEMENT_RESIZE, this.render, this);
-        this.BaseComponentRenderer_graphicPropertyChanged = this._data.on(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, this.graphicPropertyChangeHandler, this);
+        this.BaseComponentRenderer_elementResizeHandler = this._data.on(drillEditor.ApplicationEvent.ELEMENT_RESIZE, this.render, this);
+        this.BaseComponentRenderer_graphicPropertyChanged = this._data.on(drillEditor.ApplicationEvent.GRAPHIC_PROPERTY_CHANGED, this.graphicPropertyChangeHandler, this);
     };
 
     p.graphicPropertyChangeHandler = function(evt){
@@ -136,6 +143,6 @@
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.BaseComponentRenderer = createjs.promote(BaseComponentRenderer,"Container");
+    drillEditor.BaseComponentRenderer = createjs.promote(BaseComponentRenderer,"Container");
 
-}(window));
+}());

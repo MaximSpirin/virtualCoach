@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class TransformTool
+ * Class drillEditor.TransformTool
  * Created by maxim_000 on 9/23/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     TransformTool.prototype.target;
     TransformTool.prototype.outline;
@@ -36,7 +43,7 @@
         this.addChild(this.outline);
 
         //this.rotationControl = new createjs.Shape();
-        var rotationIcon = new createjs.Bitmap(DrillEditorApplication.loadQueue.getResult("rotation-icon"));
+        var rotationIcon = new createjs.Bitmap(drillEditor.DrillEditorApplication.loadQueue.getResult("rotation-icon"));
         rotationIcon.x = -16;
         rotationIcon.y = -16;
 
@@ -46,7 +53,7 @@
         this.rotationControl.cursor = "pointer";
         this.rotationControl.snapToPixel = true;
 
-        this.rotationTool = new RotationTool(0,0, this.rotationControl,0);
+        this.rotationTool = new drillEditor.RotationTool(0,0, this.rotationControl,0);
         this.rotationTool.visible = false;
         this.rotationTool.on("change",rotationChangeHandler, this);
         this.addChild(this.rotationTool);
@@ -132,7 +139,7 @@
         }, this);
 
 
-        Dispatcher.getInstance().on(ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
+        drillEditor.Dispatcher.getInstance().on(drillEditor.ApplicationEvent.ELEMENT_SELECTED, elementSelectedHandler, this);
 
     };
 
@@ -151,24 +158,24 @@
 
             switch (this.target.rendererData.type){
 
-                case GraphicElementType.RECTANGLE:
+                case drillEditor.GraphicElementType.RECTANGLE:
                     this.scaleControl.visible = true;
                     break;
 
-                case GraphicElementType.SQUARE:
+                case drillEditor.GraphicElementType.SQUARE:
                     this.scaleControl.visible = true;
                     this.scalePropotionally = true;
                     break;
 
-                case GraphicElementType.ARCUATE_MOVEMENT:
-                case GraphicElementType.GOAL:
+                case drillEditor.GraphicElementType.ARCUATE_MOVEMENT:
+                case drillEditor.GraphicElementType.GOAL:
                     this.rotationTool.visible = true;
 
                     break;
 
-                case GraphicElementType.DRIBBLING_PLAYER:
-                case GraphicElementType.PLAYER_MOVEMENT:
-                case GraphicElementType.BALL_MOVEMENT:
+                case drillEditor.GraphicElementType.DRIBBLING_PLAYER:
+                case drillEditor.GraphicElementType.PLAYER_MOVEMENT:
+                case drillEditor.GraphicElementType.BALL_MOVEMENT:
                     this.lineDragControl1.visible = true;
                     this.lineDragControl2.visible = true;
                     break;
@@ -178,14 +185,14 @@
                     break;
             }
 
-            this.elementMoveHandler = this.target.on(ApplicationEvent.ELEMENT_MOVE, this.redraw, this);
-            this.elementRotateHandler = this.target.rendererData.on(ApplicationEvent.ELEMENT_ROTATION_CHANGED, elementRotationChangedHandler, this);
+            this.elementMoveHandler = this.target.on(drillEditor.ApplicationEvent.ELEMENT_MOVE, this.redraw, this);
+            this.elementRotateHandler = this.target.rendererData.on(drillEditor.ApplicationEvent.ELEMENT_ROTATION_CHANGED, elementRotationChangedHandler, this);
             this.redraw();
         }
     };
 
     p.removeTarget = function(){
-        this.target.off(ApplicationEvent.ELEMENT_MOVE, this.elementMoveHandler);
+        this.target.off(drillEditor.ApplicationEvent.ELEMENT_MOVE, this.elementMoveHandler);
         //clear controls
         this.outline.graphics.clear();
         this.scaleControl.visible = false;
@@ -200,7 +207,7 @@
         var localBounds = this.target.getContentBounds();
         var targetData = this.target.rendererData;
 
-        DrawingUtils.drawStrictSizeRectangle(this.outline.graphics,
+        drillEditor.DrawingUtils.drawStrictSizeRectangle(this.outline.graphics,
             -TransformTool.OUTLINE_STROKE_SIZE,
             -TransformTool.OUTLINE_STROKE_SIZE,
             TransformTool.OUTLINE_STROKE_SIZE*2 + localBounds.width,
@@ -269,6 +276,6 @@
     }
 
 
-    window.TransformTool = createjs.promote(TransformTool,"Container");
+    drillEditor.TransformTool = createjs.promote(TransformTool,"Container");
 
-}(window));
+}());

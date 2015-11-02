@@ -1,21 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class GraphicItemVO
  * Created by maxim_000 on 9/21/2015.
  */
-(function (window) {
-    //public variables
-    GraphicItemVO.prototype.type;
-    GraphicItemVO.prototype.selected;
-    GraphicItemVO.prototype.id;
-    GraphicItemVO.prototype.depth;
-    GraphicItemVO.prototype.width;
-    GraphicItemVO.prototype.height;
-    GraphicItemVO.prototype.selected;
-    GraphicItemVO.prototype.rotation;
+this.drillEditor = this.drillEditor || {};
 
-
-    //static variable
-    //GraphicItemVO.staticVar = "value";
+(function () {
+    "use strict";
 
     //constructor
     function GraphicItemVO(id, type, position) {
@@ -31,15 +25,15 @@
     var p = createjs.extend(GraphicItemVO, createjs.EventDispatcher);
 
     // public functions
-    GraphicItemVO.prototype.setSelected = function (value) {
+    p.setSelected = function (value) {
         if(this.selected == value){
             return;
         }
 
         if(value){
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_SELECTED,{data:this}));
         } else {
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_DESELECTED,{data:this}));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_DESELECTED,{data:this}));
         }
 
         this.selected = value;
@@ -49,17 +43,17 @@
      * Sets x,y position on the screen
      * @param value A createjs.Point instance
      */
-    GraphicItemVO.prototype.setPosition = function(value){
+    p.setPosition = function(value){
         this.position = value;
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_POSITION_CHANGED));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_POSITION_CHANGED));
     };
 
-    GraphicItemVO.prototype.getPosition = function(){
+    p.getPosition = function(){
         return this.position;
     };
 
 
-    GraphicItemVO.prototype.setWidth = function(value){
+    p.setWidth = function(value){
         if(this.width == value){
             return;
         }
@@ -67,11 +61,11 @@
         this.width = value;
     };
 
-    GraphicItemVO.prototype.getWidth = function(){
+    p.getWidth = function(){
         return this.width;
     };
 
-    GraphicItemVO.prototype.setHeight = function(value){
+    p.setHeight = function(value){
         if(this.height == value){
             return;
         }
@@ -79,26 +73,26 @@
         this.height = value;
     };
 
-    GraphicItemVO.prototype.getHeight = function(){
+    p.getHeight = function(){
         return this.height;
     };
 
-    GraphicItemVO.prototype.resize = function(w, h){
+    p.resize = function(w, h){
         this.width = w;
         this.height = h;
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_RESIZE));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_RESIZE));
     };
 
-    GraphicItemVO.prototype.setRotation = function(value, changedByUser){
+    p.setRotation = function(value, changedByUser){
         this.rotation = value;
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_ROTATION_CHANGED));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_ROTATION_CHANGED));
     };
 
-    GraphicItemVO.prototype.getDTO = function(){
+    p.getDTO = function(){
 
     };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.GraphicItemVO = createjs.promote(GraphicItemVO,"EventDispatcher");
+    drillEditor.GraphicItemVO = createjs.promote(GraphicItemVO,"EventDispatcher");
 
-}(window));
+}());

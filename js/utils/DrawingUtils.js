@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class DrawingUtils
+ * Class drillEditor.DrawingUtils
  * Created by maxim_000 on 9/18/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     //constructor
     function DrawingUtils() {
@@ -41,6 +48,6 @@
         graphics.endFill();
     };
 
-    window.DrawingUtils = DrawingUtils;
+    drillEditor.DrawingUtils = DrawingUtils;
 
-}(window));
+}());

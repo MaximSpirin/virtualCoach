@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class BallComponent
  * Created by maxim_000 on 10/9/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
     BallComponent.prototype.ballIcon = null;
 
@@ -17,7 +24,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(BallComponent, BaseComponentRenderer);
+    var p = createjs.extend(BallComponent, drillEditor.BaseComponentRenderer);
 
     /******************** overridden methods ********************/
     p.initialize = function(){
@@ -26,7 +33,7 @@
         this.container = new createjs.Container();
         this.addChild(this.container);
 
-        this.ballIcon = new createjs.Bitmap(DrillEditorApplication.loadQueue.getResult("soccer-ball-icon"));
+        this.ballIcon = new createjs.Bitmap(drillEditor.DrillEditorApplication.loadQueue.getResult("soccer-ball-icon"));
         this.container.addChild(this.ballIcon);
     };
 
@@ -53,11 +60,11 @@
 
     /******************** public static method ******************/
 
-    //BallComponent.staticFunctionName = function(param1){ //method body };
+    //drillEditor.BallComponent.staticFunctionName = function(param1){ //method body };
 
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.BallComponent = createjs.promote(BallComponent,"BaseComponentRenderer");
+    drillEditor.BallComponent = createjs.promote(BallComponent,"BaseComponentRenderer");
 
 
-}(window));
+}());

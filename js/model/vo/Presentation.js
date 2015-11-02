@@ -1,7 +1,14 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Presentation class
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     Presentation.prototype.id = null;
     Presentation.prototype.pitchWidth;
@@ -29,6 +36,6 @@
     //public static method
 
 
-    window.Presentation = Presentation;
+    drillEditor.Presentation = Presentation;
 
-}(window));
+}());

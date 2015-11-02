@@ -1,7 +1,14 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * StringUtils
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     /**
      * Returns string representation of a number in a 2 digits format
@@ -28,7 +35,7 @@
      * @returns {string}
      */
     StringUtils.formatTime = function(milliseconds, format, omitZeroHrs){
-        //console.warn("StringUtils.formatTime:",milliseconds);
+        //console.warn("drillEditor.StringUtils.formatTime:",milliseconds);
         var result = "",
             delimiter = ":",
             timeFormat = format ? format : "hh:mm:ss",
@@ -52,6 +59,6 @@
         return result;
     };
 
-    window.StringUtils = StringUtils;
+    drillEditor.StringUtils = StringUtils;
 
-}(window));
+}());

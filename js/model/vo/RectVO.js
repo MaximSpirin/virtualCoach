@@ -1,14 +1,16 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class RectVO
  * Created by maxim_000 on 9/21/2015.
  */
-(function (window) {
-    "use strict";
-    //public variables
-    //RectVO.prototype.publicVar = "value";
+this.drillEditor = this.drillEditor || {};
 
-    //static variable
-    //RectVO.staticVar = "value";
+(function () {
+    "use strict";
+
 
     //constructor
     /**
@@ -23,17 +25,17 @@
      **/
     function RectVO(id, position, width, height) {
         //invoke constructor of superclass
-        this.GraphicItemVO_constructor(id, GraphicElementType.RECTANGLE, position);
+        this.GraphicItemVO_constructor(id, drillEditor.GraphicElementType.RECTANGLE, position);
         this.setWidth(width);
         this.setHeight(height);
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(RectVO,GraphicItemVO);
+    var p = createjs.extend(RectVO,drillEditor.GraphicItemVO);
 
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.RectVO = createjs.promote(RectVO,"GraphicItemVO");
+    drillEditor.RectVO = createjs.promote(RectVO,"GraphicItemVO");
 
 
-}(window));
+}());

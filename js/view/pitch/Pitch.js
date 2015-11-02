@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class Pitch
+ * Class drillEditor
  * Created by maxim_000 on 9/19/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //************************************** public variables ***********************************//
     Pitch.prototype.componentWidth = null;
     Pitch.prototype.componentHeight = null;
@@ -82,12 +89,12 @@
 
         this.transformToolMask = new createjs.Shape();
 
-        this.transformTool = new TransformTool();
+        this.transformTool = new drillEditor.TransformTool();
         this.transformTool.mask = this.transformToolMask;
         this.addChild(this.transformTool);
 
 
-        this.dispatcher = Dispatcher.getInstance();
+        this.dispatcher = drillEditor.Dispatcher.getInstance();
 
 
     }
@@ -126,7 +133,7 @@
 
     function canvasMouseDownHandler(evt){
         //this.transformTool.setTarget(null);
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:null}));
+        drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_SELECTED,{data:null}));
     }
 
 
@@ -134,6 +141,6 @@
 
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.Pitch = createjs.promote(Pitch,"Container");
+    drillEditor.Pitch = createjs.promote(Pitch,"Container");
 
-}(window));
+}());

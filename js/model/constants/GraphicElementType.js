@@ -1,8 +1,16 @@
+//##############################################################################
+// GraphicElementType
+//##############################################################################
+
 /**
  * Class GraphicElementType
  * Created by maxim_000 on 9/21/2015.
  */
-(function (window) {
+
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     //static variable
     GraphicElementType.RECTANGLE = 1;
@@ -26,6 +34,6 @@
     }
 
 
-    window.GraphicElementType = GraphicElementType;
+    drillEditor.GraphicElementType = GraphicElementType;
 
-}(window));
+}());

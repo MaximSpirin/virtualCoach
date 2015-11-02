@@ -1,14 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class ConeVO
  * Created by maxim_000 on 9/21/2015.
  */
-(function (window) {
-    "use strict";
-    //public variables
-    //ConeVO.prototype.publicVar = "value";
+this.drillEditor = this.drillEditor || {};
 
-    //static variable
-    //ConeVO.staticVar = "value";
+(function () {
+    "use strict";
 
     //constructor
     /**
@@ -23,19 +24,19 @@
      **/
     function ConeVO(id, position, width, height) {
         //invoke constructor of superclass
-        this.GraphicItemVO_constructor(id, GraphicElementType.CONE, position);
+        this.GraphicItemVO_constructor(id, drillEditor.GraphicElementType.CONE, position);
         this.setWidth(width);
         this.setHeight(height);
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(ConeVO,GraphicItemVO);
+    var p = createjs.extend(ConeVO,drillEditor.GraphicItemVO);
 
     // flag for serialization
     p.isEquipment = true;
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.ConeVO = createjs.promote(ConeVO,"GraphicItemVO");
+    drillEditor.ConeVO = createjs.promote(ConeVO,"GraphicItemVO");
 
 
-}(window));
+}());

@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class DribblingLine
  * Created by maxim_000 on 9/18/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /**************************************************** public variables ********************************************/
     DribblingLine.prototype.demoShape = null;
     DribblingLine.prototype.lineContainer = null;
@@ -18,7 +25,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(DribblingLine, BaseComponentRenderer);
+    var p = createjs.extend(DribblingLine, drillEditor.BaseComponentRenderer);
 
     /************************************************ private functions ***********************************************/
     function initialize() {
@@ -49,7 +56,7 @@
         this.contentRegPoint = "endPoint";
 
         this.mouseDownHandler = this.container.on("mousedown", function(evt){
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             //TODO calculate offsets
 
             var pitchCordinates = this.container.localToLocal(evt.localX, evt.localY, this.parent);
@@ -84,7 +91,7 @@
             this.rendererData.endPoint.x = pitchCoordinates.x - this.offset.endPointOffsetX;
             this.rendererData.endPoint.y = pitchCoordinates.y - this.offset.endPointOffsetY;
 
-            this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
+            this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_MOVE));
         }, this);
 
     };
@@ -102,44 +109,43 @@
             var numSegments = 30;
             var initX = 0;
             for(var i=0; i<numSegments; i++){
-                var segment = new DribblingLineSegment("#FFFFFF");
+                var segment = new drillEditor.DribblingLineSegment("#FFFFFF");
                 segment.x = initX;
                 this.lineContainer.addChild(segment);
-                initX += DribblingLineSegment.STD_WIDTH + DribblingLine.INTERVAL;
+                initX += drillEditor.DribblingLineSegment.STD_WIDTH + DribblingLine.INTERVAL;
             }
-            this.lineContainer.setBounds(0, 0, numSegments*(DribblingLineSegment.STD_WIDTH) + (numSegments-1)*DribblingLine.INTERVAL, DribblingLineSegment.STD_HEIGHT);
+            this.lineContainer.setBounds(0, 0, numSegments*(drillEditor.DribblingLineSegment.STD_WIDTH) + (numSegments-1)*DribblingLine.INTERVAL, drillEditor.DribblingLineSegment.STD_HEIGHT);
         }
 
         //if(this.rendererData.direction == "rtl"){
-        if(this.rendererData.arrowDirection == ArrowDirection.LEFT){
+        if(this.rendererData.arrowDirection == drillEditor.ArrowDirection.LEFT){
             this.lineContainer.scaleX = 1;
             this.lineContainer.x = 0;
-        } else if(this.rendererData.arrowDirection == ArrowDirection.RIGHT){
+        } else if(this.rendererData.arrowDirection == drillEditor.ArrowDirection.RIGHT){
             this.lineContainer.scaleX = -1;
             this.lineContainer.x = this.rendererData.lineWidth;
         }
 
         this.demoShape.graphics.clear();
         this.demoShape.graphics.beginFill("rgba(0,255,0,0.01)");
-        this.demoShape.graphics.drawRect(0, 0, this.rendererData.lineWidth, DribblingLineSegment.STD_HEIGHT);
+        this.demoShape.graphics.drawRect(0, 0, this.rendererData.lineWidth, drillEditor.DribblingLineSegment.STD_HEIGHT);
 
         this.lineContainerMask.graphics.clear();
-        this.lineContainerMask.graphics.beginFill("#000000").drawRect(0,0,this.rendererData.lineWidth, DribblingLineSegment.STD_HEIGHT);
+        this.lineContainerMask.graphics.beginFill("#000000").drawRect(0,0,this.rendererData.lineWidth, drillEditor.DribblingLineSegment.STD_HEIGHT);
 
         var containerPosition = this.contentRegPoint == "endPoint" ? this.rendererData.endPoint : this.rendererData.startPoint;
         this.container.x = containerPosition.x;
         this.container.y = containerPosition.y;
-        this.container.regY = DribblingLineSegment.STD_HEIGHT / 2;
+        this.container.regY = drillEditor.DribblingLineSegment.STD_HEIGHT / 2;
         this.container.regX = this.contentRegPoint == "endPoint" ? this.rendererData.lineWidth : 0;
 
 
         this.container.rotation = this.rendererData.angle;
         //console.log("Container rotation = ",this.container.rotation);
-        this.container.setBounds(0, 0, this.rendererData.lineWidth, DribblingLineSegment.STD_HEIGHT);
+        this.container.setBounds(0, 0, this.rendererData.lineWidth, drillEditor.DribblingLineSegment.STD_HEIGHT);
     };
 
-    //Make aliases for all superclass methods: SuperClass_methodName
-    window.DribblingLine = createjs.promote(DribblingLine,"BaseComponentRenderer");
+
 
     p.getContentBounds = function(){
         var containerBounds = this.container.getBounds();
@@ -154,7 +160,7 @@
     };
 
     p.getMinimalSize = function(){
-        return new createjs.Point(DribblingLineSegment.STD_WIDTH, DribblingLineSegment.STD_HEIGHT);
+        return new createjs.Point(drillEditor.DribblingLineSegment.STD_WIDTH, drillEditor.DribblingLineSegment.STD_HEIGHT);
     };
 
     p.graphicPropertyChangeHandler = function(event){
@@ -184,4 +190,7 @@
     /******************************************** event handlers *******************************************/
 
 
-}(window));
+        //Make aliases for all superclass methods: SuperClass_methodName
+    drillEditor.DribblingLine = createjs.promote(DribblingLine,"BaseComponentRenderer");
+
+}());

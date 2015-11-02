@@ -34,6 +34,6 @@
         //method body
     };
 
-    window.ClassName = ClassName;
+    drillEditor.ClassName = ClassName;
 
-}(window));
+}());

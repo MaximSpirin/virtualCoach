@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class DribblingLineSegment
  * Created by maxim_000 on 10/5/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     DribblingLineSegment.prototype.color = null;
     DribblingLineSegment.prototype.direction = null;
@@ -67,7 +74,7 @@
     }
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.DribblingLineSegment = createjs.promote(DribblingLineSegment,"Container");
+    drillEditor.DribblingLineSegment = createjs.promote(DribblingLineSegment,"Container");
 
 
-}(window));
+}());

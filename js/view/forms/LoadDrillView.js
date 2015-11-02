@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class LoadDrillView
+ * Class drillEditor.LoadDrillView
  * Created by maxim_000 on 10/17/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
     LoadDrillView.prototype.formHTMLElement = null;
     LoadDrillView.prototype.formDOMElement = null;
@@ -22,7 +29,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(LoadDrillView, Form);
+    var p = createjs.extend(LoadDrillView, drillEditor.Form);
 
     /********************* overridden methods *********************/
     p.constructForm = function(){
@@ -39,7 +46,7 @@
                 thisScope.negativeCallback.call(thisScope.initParams.callbackScope);
             }
 
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.HIDE_CURRENT_FORM));
         });
 
         //add load button listener
@@ -47,22 +54,22 @@
         this.loadButton.click(this, function(evt){
             var thisScope = evt.data;
 
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.LOAD_DRILL_BUTTON_CLICK,
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.HIDE_CURRENT_FORM));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.LOAD_DRILL_BUTTON_CLICK,
                 {drillId:thisScope.selectedPresentationData.drillId}));
 
         });
 
         //populate list of drills
-        //for(var i=0;i<DrillEditorProxy.drillsCollection.length;i++){
-        for(var i=0;i<ApplicationModel.getInstance().savedDrills.length;i++){
-            //var drillShortInfo = DrillEditorProxy.drillsCollection[i];
-            var drillShortInfo = ApplicationModel.getInstance().savedDrills[i];
+        //for(var i=0;i<drillEditor.DrillEditorProxy.drillsCollection.length;i++){
+        for(var i=0;i<drillEditor.ApplicationModel.getInstance().savedDrills.length;i++){
+            //var drillShortInfo = drillEditor.DrillEditorProxy.drillsCollection[i];
+            var drillShortInfo = drillEditor.ApplicationModel.getInstance().savedDrills[i];
             $(".load-pitch-list").append("<a href='#' class='list-group-item'> <div class='media-left'> <img class='media-object load-pitch-form-thumb-image' src=''> </div> <div class='media-body'> <h4 class='list-group-item-heading drill-name-label'></h4> <p class='list-group-item-text load-drill-view-size-label'></p> <p class='list-group-item-text load-drill-view-last-edit-label'></p> </div> </a>");
 
             var lastAddedItem = $($(".load-pitch-list .list-group-item:last")[0]);
             lastAddedItem.find(".drill-name-label").text(drillShortInfo.displayName);
-            lastAddedItem.find(".load-drill-view-size-label").text("Pitch size: " + drillShortInfo.pitchWidth + " x " + drillShortInfo.pitchHeight + " meters");
+            lastAddedItem.find(".load-drill-view-size-label").text("drillEditor.Pitch size: " + drillShortInfo.pitchWidth + " x " + drillShortInfo.pitchHeight + " meters");
             lastAddedItem.find(".load-drill-view-last-edit-label").text("Last modified: " + drillShortInfo.lastModified);
             lastAddedItem.find(".load-pitch-form-thumb-image").attr("src", drillShortInfo.thumbURL);
 
@@ -111,6 +118,6 @@
 
     /******************* public static method ***************/
 
-    window.LoadDrillView = createjs.promote(LoadDrillView,"Form");
+    drillEditor.LoadDrillView = createjs.promote(LoadDrillView,"Form");
 
-}(window));
+}());

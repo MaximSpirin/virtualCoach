@@ -1,13 +1,20 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class MathUtils
+ * Class drillEditor.MathUtils
  * Created by maxim_000 on 10/6/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
-    //MathUtils.prototype.publicVar = "value";
+
 
     /******************* static variables *******************/
-    //MathUtils.staticVar = "value";
+
 
     /********************** constructor *********************/
     function MathUtils() {
@@ -47,9 +54,7 @@
         return 0;
     };
 
-    //Make aliases for all superclass methods: SuperClass_methodName
-    //window.MathUtils = createjs.promote(MathUtils,"SuperClass");
 
-    window.MathUtils = MathUtils;
+    drillEditor.MathUtils = MathUtils;
 
-}(window));
+}());

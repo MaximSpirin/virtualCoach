@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class SizeHint
  * Created by maxim_000 on 9/23/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     SizeHint.prototype.componentWidth;
     SizeHint.prototype.componentHeight;
@@ -97,14 +104,10 @@
 
     };
 
-    //private functions
-    //function privateFunction(param) { }
 
-    //public static method
-    //SizeHint.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.SizeHint = createjs.promote(SizeHint,"Container");
+    drillEditor.SizeHint = createjs.promote(SizeHint,"Container");
 
 
-}(window));
+}());

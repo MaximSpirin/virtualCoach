@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class RectComponent
  * Created by maxim_000 on 9/18/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /**************************************************** public variables *********************************************/
     RectComponent.prototype.outlineShape;
 
@@ -16,7 +23,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(RectComponent, BaseComponentRenderer);
+    var p = createjs.extend(RectComponent, drillEditor.BaseComponentRenderer);
 
     /************************************************* overridden methods ***********************************************/
 
@@ -25,11 +32,11 @@
         this.outlineShape = new createjs.Shape();
         this.addChild(this.outlineShape);
 
-        this.widthRuler = new SizeHint();
+        this.widthRuler = new drillEditor.SizeHint();
         this.widthRuler.y = -14 - 3;
         this.addChild(this.widthRuler);
 
-        this.heightRuler = new SizeHint();
+        this.heightRuler = new drillEditor.SizeHint();
         this.heightRuler.x = -14 - 3;
         this.heightRuler.rotation = -90;
         this.addChild(this.heightRuler);
@@ -47,19 +54,19 @@
         var renderData = this.getRendererData();
         var w = renderData.getWidth();
         var h = renderData.getHeight();
-        DrawingUtils.drawStrictSizeRectangle(this.outlineShape.graphics, 0, 0, renderData.getWidth(), renderData.getHeight(), 4, "#ffffff");
+        drillEditor.DrawingUtils.drawStrictSizeRectangle(this.outlineShape.graphics, 0, 0, renderData.getWidth(), renderData.getHeight(), 4, "#ffffff");
 
-        this.widthRuler.update(w, 14, Math.round(w * ApplicationModel.getInstance().mpp) + " m");
-        this.heightRuler.update(h, 14, Math.round(h * ApplicationModel.getInstance().mpp) + " m");
+        this.widthRuler.update(w, 14, Math.round(w * drillEditor.ApplicationModel.getInstance().mpp) + " m");
+        this.heightRuler.update(h, 14, Math.round(h * drillEditor.ApplicationModel.getInstance().mpp) + " m");
         this.heightRuler.y = h;
     };
 
-    //Make aliases for all superclass methods: SuperClass_methodName
-    window.RectComponent = createjs.promote(RectComponent,"BaseComponentRenderer");
+
 
     p.getMinimalSize = function(){
         return new createjs.Point(RectComponent.MIN_WIDTH, RectComponent.MIN_HEIGH);
     };
 
-
-}(window));
+    //Make aliases for all superclass methods: SuperClass_methodName
+        drillEditor.RectComponent = createjs.promote(RectComponent,"BaseComponentRenderer");
+}());

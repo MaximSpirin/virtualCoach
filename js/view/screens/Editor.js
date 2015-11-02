@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class Editor
  * Created by maxim_000 on 9/14/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     Editor.prototype.backgroundShape = null;
     Editor.prototype.exitButton = null;
@@ -32,24 +39,24 @@
     }
 
     //create inheritance
-    var p = createjs.extend(Editor, AppScreen);
+    var p = createjs.extend(Editor, drillEditor.AppScreen);
 
 
     p.initialize = function(){
-        this.presentationController = PresentationController.getInstance();
+        this.presentationController = drillEditor.PresentationController.getInstance();
 
         //create bg
         this.backgroundShape = new createjs.Shape();
-        this.backgroundShape.graphics.beginLinearGradientFill(["#1E5799", "#7db9e8"],[0,1],0,0,0,ApplicationModel.APP_HEIGHT).drawRect(0, 0, ApplicationModel.APP_WIDTH, ApplicationModel.APP_HEIGHT);
+        this.backgroundShape.graphics.beginLinearGradientFill(["#1E5799", "#7db9e8"],[0,1],0,0,0,drillEditor.ApplicationModel.APP_HEIGHT).drawRect(0, 0, drillEditor.ApplicationModel.APP_WIDTH, drillEditor.ApplicationModel.APP_HEIGHT);
         this.addChild(this.backgroundShape);
 
         if(!this.presentationController.componentsPallete){
           //calculate toolbar bounds
-          this.presentationController.componentsPalleteBounds = new createjs.Rectangle(ApplicationModel.APP_WIDTH - ComponentsPallete.PANEL_STD_WIDTH - Editor.UI_CONTROLS_MARGIN,
+          this.presentationController.componentsPalleteBounds = new createjs.Rectangle(drillEditor.ApplicationModel.APP_WIDTH - drillEditor.ComponentsPallete.PANEL_STD_WIDTH - Editor.UI_CONTROLS_MARGIN,
               Editor.UI_CONTROLS_MARGIN,
-              ComponentsPallete.PANEL_STD_WIDTH,
-              ApplicationModel.APP_HEIGHT - Editor.UI_CONTROLS_MARGIN*2);
-          this.presentationController.componentsPallete = new ComponentsPallete(this.presentationController.componentsPalleteBounds.width, this.presentationController.componentsPalleteBounds.height);
+              drillEditor.ComponentsPallete.PANEL_STD_WIDTH,
+              drillEditor.ApplicationModel.APP_HEIGHT - Editor.UI_CONTROLS_MARGIN*2);
+          this.presentationController.componentsPallete = new drillEditor.ComponentsPallete(this.presentationController.componentsPalleteBounds.width, this.presentationController.componentsPalleteBounds.height);
           this.presentationController.componentsPallete.x = this.presentationController.componentsPalleteBounds.x;
           this.presentationController.componentsPallete.y = this.presentationController.componentsPalleteBounds.y;
           console.warn("components pallete created");
@@ -60,10 +67,10 @@
         if(!this.presentationController.toolsPanel){
               this.presentationController.toolBarBounds = new createjs.Rectangle(Editor.UI_CONTROLS_MARGIN,
               Editor.UI_CONTROLS_MARGIN,
-              ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - ComponentsPallete.PANEL_STD_WIDTH,
-              ToolsPanel.PANEL_STD_HEIGHT);
+              drillEditor.ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - drillEditor.ComponentsPallete.PANEL_STD_WIDTH,
+              drillEditor.ToolsPanel.PANEL_STD_HEIGHT);
 
-              this.presentationController.toolsPanel = new ToolsPanel(this.presentationController.toolBarBounds.width, this.presentationController.toolBarBounds.height);
+              this.presentationController.toolsPanel = new drillEditor.ToolsPanel(this.presentationController.toolBarBounds.width, this.presentationController.toolBarBounds.height);
               this.presentationController.toolsPanel.x = this.presentationController.toolBarBounds.x;
               this.presentationController.toolsPanel.y = this.presentationController.toolBarBounds.y;
               console.warn("tools panel created");
@@ -74,13 +81,13 @@
         //calculate size of pitch viewport area
         this.pitchViewportBounds = new createjs.Rectangle(Editor.UI_CONTROLS_MARGIN,
             this.presentationController.toolBarBounds.y + this.presentationController.toolBarBounds.height + Editor.UI_CONTROLS_MARGIN,
-            ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - ComponentsPallete.PANEL_STD_WIDTH,
-            ApplicationModel.APP_HEIGHT - 3*Editor.UI_CONTROLS_MARGIN - ToolsPanel.PANEL_STD_HEIGHT);
+            drillEditor.ApplicationModel.APP_WIDTH - 3*Editor.UI_CONTROLS_MARGIN - drillEditor.ComponentsPallete.PANEL_STD_WIDTH,
+            drillEditor.ApplicationModel.APP_HEIGHT - 3*Editor.UI_CONTROLS_MARGIN - drillEditor.ToolsPanel.PANEL_STD_HEIGHT);
 
-        this.pitch = new Pitch();
+        this.pitch = new drillEditor.Pitch();
         this.addChild(this.pitch);
 
-        PresentationController.getInstance().setView(this.pitch);
+        drillEditor.PresentationController.getInstance().setView(this.pitch);
 
         //draw pitch outline
         this.pitchOutline = new createjs.Shape();
@@ -95,7 +102,7 @@
 
 
         if(!this.presentationController.presentation.pitchWidth || !this.presentationController.presentation.pitchHeight){
-            this.showForm(PitchSizeInputFormHTML,{
+            this.showForm(drillEditor.PitchSizeInputFormHTML,{
                 positiveCallback:this.sizeInputPositiveCallback,
                 negativeCallback:this.sizeInputNegativeCallback,
                 callbackScope: this
@@ -117,7 +124,8 @@
 
     p.sizeInputNegativeCallback = function(){
         //this.removeForm();
-        window.drillEditorApplication.showAppScreen(AppScreen.MAIN_MENU);
+        //drillEditor.drillEditorApplication.showAppScreen(drillEditor.AppScreen.MAIN_MENU);
+        drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.SHOW_SCREEN,{screenId:drillEditor.AppScreen.MAIN_MENU}));
     };
 
     p.createPitchView = function(){
@@ -142,7 +150,7 @@
             this.pitchDisplayHeight = this.pitchDisplayWidth/(prevW/this.pitchDisplayHeight)
         }
 
-        ApplicationModel.getInstance().mpp = this.presentationController.presentation.pitchWidth/this.pitchDisplayWidth;
+        drillEditor.ApplicationModel.getInstance().mpp = this.presentationController.presentation.pitchWidth/this.pitchDisplayWidth;
 
         this.pitch.setSize(this.pitchDisplayWidth, this.pitchDisplayHeight);
 
@@ -151,7 +159,7 @@
 
         console.warn("pitch size ratio = " + Number(this.pitchDisplayWidth/this.pitchDisplayHeight).toFixed(4));
 
-        Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.PITCH_VIEW_CREATED));
+        drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.PITCH_VIEW_CREATED));
 
 
     };
@@ -170,13 +178,13 @@
           console.log("tools panel removed from screen");
         }
 
-        //TODO: destroy Pitch instance
+        //TODO: destroy drillEditor.Pitch instance
 
         console.log("Editor destroyed");
     };
 
 
 
-    window.Editor = createjs.promote(Editor, "AppScreen");
+    drillEditor.Editor = createjs.promote(Editor, "AppScreen");
 
-}(window));
+}());

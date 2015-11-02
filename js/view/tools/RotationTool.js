@@ -1,20 +1,27 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class RotationTool
+ * ClassRotationTool
  * Created by maxim_000 on 9/30/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
-    RotationTool.prototype.radiusX;
-    RotationTool.prototype.radiusY;
-    RotationTool.prototype.handler;
-    RotationTool.prototype.direction;
-    RotationTool.prototype.mouseAngle;
-    RotationTool.prototype.handlerWidth;
-    RotationTool.prototype.angle = 0;
-    RotationTool.prototype.controlLine;
+   RotationTool.prototype.radiusX;
+   RotationTool.prototype.radiusY;
+   RotationTool.prototype.handler;
+   RotationTool.prototype.direction;
+   RotationTool.prototype.mouseAngle;
+   RotationTool.prototype.handlerWidth;
+   RotationTool.prototype.angle = 0;
+   RotationTool.prototype.controlLine;
 
     //static variable
-    //RotationTool.staticVar = "value";
+    //drillEditor.RotationTool.staticVar = "value";
 
     //constructor
     function RotationTool(radiusX, radiusY, handler, startAngle) {
@@ -108,16 +115,16 @@
     };
 
     // public functions
-    //RotationTool.prototype.publicFunction = function (param1) { };
+    //drillEditor.RotationTool.prototype.publicFunction = function (param1) { };
 
     //private functions
     //function privateFunction(param) { }
 
     //public static method
-    //RotationTool.staticFunctionName = function(param1){ //method body };
+    //drillEditor.RotationTool.staticFunctionName = function(param1){ //method body };
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.RotationTool = createjs.promote(RotationTool,"Container");
+    drillEditor.RotationTool = createjs.promote(RotationTool,"Container");
 
 
-}(window));
+}());

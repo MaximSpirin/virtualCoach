@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class PitchSizeInputFormHTML
  * Created by maxim_000 on 9/16/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     PitchSizeInputFormHTML.prototype.formHTMLElement;
     PitchSizeInputFormHTML.prototype.formDOMElement;
@@ -13,7 +20,7 @@
 
     }
 
-    var p = createjs.extend(PitchSizeInputFormHTML, Form);
+    var p = createjs.extend(PitchSizeInputFormHTML, drillEditor.Form);
 
     p.constructForm = function(){
         this.Form_constructForm();
@@ -28,15 +35,15 @@
                 thisScope.negativeCallback.call(thisScope.initParams.callbackScope);
             }
 
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.HIDE_CURRENT_FORM));
 
         });
 
         $("#pitchInputFormUseDefaultCb").change(function(){
             var checked =  this.checked;
             if(checked){
-                $("#pitch_width_input").val(ApplicationModel.DEFAULT_PITCH_WIDTH_METERS);
-                $("#pitch_height_input").val(ApplicationModel.DEFAULT_PITCH_HEIGHT_METERS);
+                $("#pitch_width_input").val(drillEditor.ApplicationModel.DEFAULT_PITCH_WIDTH_METERS);
+                $("#pitch_height_input").val(drillEditor.ApplicationModel.DEFAULT_PITCH_HEIGHT_METERS);
             }
         });
 
@@ -47,7 +54,7 @@
             if(thisScope.initParams.positiveCallback){
                 thisScope.initParams.positiveCallback.call(thisScope.initParams.callbackScope, pitchW, pitchH);
             }
-            //Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
+            //drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
         });
 
         this.formDOMElement = new createjs.DOMElement(this.formHTMLElement);
@@ -71,7 +78,7 @@
     };
 
 
-    //window.PitchSizeInputFormHTML = createjs.promote(PitchSizeInputFormHTML,"DOMElement");
-    window.PitchSizeInputFormHTML = createjs.promote(PitchSizeInputFormHTML,"Form");
+    //window.drillEditor.PitchSizeInputFormHTML = createjs.extend(PitchSizeInputFormHTML,"DOMElement");
+    drillEditor.PitchSizeInputFormHTML = createjs.promote(PitchSizeInputFormHTML,"Form");
 
-}(window));
+}());

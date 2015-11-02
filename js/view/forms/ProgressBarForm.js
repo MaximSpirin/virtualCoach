@@ -1,3 +1,7 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Created by maxim_000 on 10/13/2015.
  */
@@ -5,7 +9,10 @@
  * Class DrillNameInputForm
  * Created by maxim_000 on 9/16/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     ProgressBarForm.prototype.formHTMLElement;
     ProgressBarForm.prototype.formDOMElement;
@@ -15,7 +22,7 @@
         this.Form_constructor(initParams);
     }
 
-    var p = createjs.extend(ProgressBarForm, Form);
+    var p = createjs.extend(ProgressBarForm, drillEditor.Form);
 
     p.constructForm = function(){
         this.Form_constructForm();
@@ -45,6 +52,6 @@
     };
 
 
-    window.ProgressBarForm = createjs.promote(ProgressBarForm,"Form");
+    drillEditor.ProgressBarForm = createjs.promote(ProgressBarForm,"Form");
 
-}(window));
+}());

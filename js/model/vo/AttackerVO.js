@@ -1,15 +1,19 @@
+//##############################################################################
+// AttackerVO
+//##############################################################################
+
 /**
- * Class AttackerVO
+ * Class drillEditor.AttackerVO
  * Created by maxim_000 on 9/21/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
     "use strict";
     //public variables
     AttackerVO.prototype.radius;
     AttackerVO.prototype.playerNumber;
 
-    //static variable
-    //AttackerVO.staticVar = "value";
 
     //constructor
     /**
@@ -23,25 +27,25 @@
      **/
     function AttackerVO(id, position, radius) {
         //invoke constructor of superclass
-        this.GraphicItemVO_constructor(id, GraphicElementType.ATTACKER, position);
+        this.GraphicItemVO_constructor(id, drillEditor.GraphicElementType.ATTACKER, position);
         this.setWidth(radius*2);
         this.setHeight(radius*2);
         this.radius = radius;
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(AttackerVO,GraphicItemVO);
+    var p = createjs.extend(AttackerVO,drillEditor.GraphicItemVO);
 
     p.setPlayerNumber = function(value){
         this.playerNumber = value;
-        this.dispatchEvent(new ApplicationEvent(ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"playerNumber"}));
+        this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.GRAPHIC_PROPERTY_CHANGED,{name:"playerNumber"}));
     };
 
     //flag for serialization
     p.isPlayer = true;
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.AttackerVO = createjs.promote(AttackerVO,"GraphicItemVO");
+    drillEditor.AttackerVO = createjs.promote(AttackerVO,"GraphicItemVO");
 
 
-}(window));
+}());

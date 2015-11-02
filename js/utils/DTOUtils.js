@@ -1,13 +1,19 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class DTOUtils
  * Created by maxim_000 on 10/14/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
-    //DTOUtils.prototype.publicVar = "value";
+
 
     /******************* static variables *******************/
-    //DTOUtils.staticVar = "value";
 
     /********************** constructor *********************/
     function DTOUtils() {
@@ -27,7 +33,7 @@
     /******************* public static method ***************/
 
     DTOUtils.presentationDTOToVO = function(presentationDTO){
-        var presentation = new Presentation(presentationDTO.id);
+        var presentation = new drillEditor.Presentation(presentationDTO.id);
         presentation.pitchWidth = presentationDTO.pitchWidth;
         presentation.pitchHeight = presentationDTO.pitchHeight;
         presentation.elements = [];
@@ -46,73 +52,73 @@
         var elementPosition = new createjs.Point(elementDTO.position.x, elementDTO.position.y);
 
         switch (elementDTO.type){
-            case GraphicElementType.RECTANGLE:
-                elementVO = new RectVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
+            case drillEditor.GraphicElementType.RECTANGLE:
+                elementVO = new drillEditor.RectVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
                 break;
 
-            case GraphicElementType.SQUARE:
-                elementVO = new SquareVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
+            case drillEditor.GraphicElementType.SQUARE:
+                elementVO = new drillEditor.SquareVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
                 break;
 
-            case GraphicElementType.ATTACKER:
-                elementVO = new AttackerVO(elementDTO.id, elementPosition, elementDTO.width/2);
+            case drillEditor.GraphicElementType.ATTACKER:
+                elementVO = new drillEditor.AttackerVO(elementDTO.id, elementPosition, elementDTO.width/2);
                 elementVO.fillColor = elementDTO.fillColor;
                 break;
 
-            case GraphicElementType.DEFENDER:
-                elementVO = new DefenderVO(elementDTO.id, elementPosition, elementDTO.width/2);
+            case drillEditor.GraphicElementType.DEFENDER:
+                elementVO = new drillEditor.DefenderVO(elementDTO.id, elementPosition, elementDTO.width/2);
                 elementVO.fillColor = elementDTO.fillColor;
                 break;
 
-            case GraphicElementType.EXTRA_TEAM:
-                elementVO = new ExtraTeamVO(elementDTO.id, elementPosition, elementDTO.width/2);
+            case drillEditor.GraphicElementType.EXTRA_TEAM:
+                elementVO = new drillEditor.ExtraTeamVO(elementDTO.id, elementPosition, elementDTO.width/2);
                 elementVO.fillColor = elementDTO.fillColor;
                 break;
 
-            case GraphicElementType.NEUTRAL_PLAYER:
-                elementVO = new NeutralVO(elementDTO.id, elementPosition, elementDTO.width/2);
+            case drillEditor.GraphicElementType.NEUTRAL_PLAYER:
+                elementVO = new drillEditor.NeutralVO(elementDTO.id, elementPosition, elementDTO.width/2);
                 elementVO.fillColor = elementDTO.fillColor;
                 break;
 
-            case GraphicElementType.CONE:
-                elementVO = new ConeVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
+            case drillEditor.GraphicElementType.CONE:
+                elementVO = new drillEditor.ConeVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height);
                 elementVO.fillColor = elementDTO.fillColor;
                 break;
 
-            case GraphicElementType.ARCUATE_MOVEMENT:
-                elementVO = new ArchedArrowVO(elementDTO.id, elementPosition,
+            case drillEditor.GraphicElementType.ARCUATE_MOVEMENT:
+                elementVO = new drillEditor.ArchedArrowVO(elementDTO.id, elementPosition,
                     elementDTO.width, elementDTO.height,
                     elementDTO.arrowDirection, elementDTO.rotation);
                 break;
 
-            case GraphicElementType.GOAL:
-                    elementVO = new GoalVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height, elementDTO.rotation);
+            case drillEditor.GraphicElementType.GOAL:
+                    elementVO = new drillEditor.GoalVO(elementDTO.id, elementPosition, elementDTO.width, elementDTO.height, elementDTO.rotation);
                 break;
 
-            case GraphicElementType.DRIBBLING_PLAYER:
+            case drillEditor.GraphicElementType.DRIBBLING_PLAYER:
                 var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
                 var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
-                elementVO = new DribblingLineVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
+                elementVO = new drillEditor.DribblingLineVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
                 break;
 
-            case GraphicElementType.PLAYER_MOVEMENT:
+            case drillEditor.GraphicElementType.PLAYER_MOVEMENT:
                 var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
                 var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
-                elementVO = new PlayerMovementVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
+                elementVO = new drillEditor.PlayerMovementVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
                 break;
 
-            case GraphicElementType.BALL_MOVEMENT:
+            case drillEditor.GraphicElementType.BALL_MOVEMENT:
                 var startPointCloned = new createjs.Point(elementDTO.startPoint.x, elementDTO.startPoint.y);
                 var endPointCloned = new createjs.Point(elementDTO.endPoint.x, elementDTO.endPoint.y);
-                elementVO = new BallMovementVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
+                elementVO = new drillEditor.BallMovementVO(elementDTO.id, startPointCloned, endPointCloned, elementDTO.arrowDirection);
                 break;
 
-            case GraphicElementType.BALL:
-                elementVO = new BallVO(elementDTO.id, elementPosition);
+            case drillEditor.GraphicElementType.BALL:
+                elementVO = new drillEditor.BallVO(elementDTO.id, elementPosition);
                 break;
 
-            case GraphicElementType.BALLS_SUPPLY:
-                elementVO = new BallSupplyVO(elementDTO.id, elementPosition);
+            case drillEditor.GraphicElementType.BALLS_SUPPLY:
+                elementVO = new drillEditor.BallSupplyVO(elementDTO.id, elementPosition);
                 break;
         }
 
@@ -144,29 +150,29 @@
                 presentationDTO.playersCount +=1 ;
             }else if(elementVO.isEquipment==true){
                 switch (elementVO.type){
-                    case GraphicElementType.CONE:
+                    case drillEditor.GraphicElementType.CONE:
                             presentationDTO.equipmentRequired.cones +=1;
                         break;
 
-                    case GraphicElementType.BALL:
+                    case drillEditor.GraphicElementType.BALL:
                             presentationDTO.equipmentRequired.balls +=1;
                         break;
 
-                    case GraphicElementType.BALLS_SUPPLY:
+                    case drillEditor.GraphicElementType.BALLS_SUPPLY:
                             presentationDTO.equipmentRequired.ballSupply +=1;
                         break
                 }
             }else if(elementVO.isActivity==true){
                 switch(elementVO.type){
-                    case GraphicElementType.PLAYER_MOVEMENT:
-                    case GraphicElementType.ARCUATE_MOVEMENT:
+                    case drillEditor.GraphicElementType.PLAYER_MOVEMENT:
+                    case drillEditor.GraphicElementType.ARCUATE_MOVEMENT:
                             presentationDTO.activitiesRequired.playerMovement +=1;
                         break;
 
-                    case GraphicElementType.BALL_MOVEMENT:
+                    case drillEditor.GraphicElementType.BALL_MOVEMENT:
                             presentationDTO.activitiesRequired.ballMovement +=1;
                         break;
-                    case GraphicElementType.DRIBBLING_PLAYER:
+                    case drillEditor.GraphicElementType.DRIBBLING_PLAYER:
                             presentationDTO.activitiesRequired.playerDribbling +=1;
                         break;
                 }
@@ -175,7 +181,7 @@
 
         return presentationDTO;
     };
-
+    
     DTOUtils.elementVOToDTO = function(elementVO){
         var result = {};
 
@@ -186,32 +192,32 @@
 
 
         switch (elementVO.type){
-            case GraphicElementType.ATTACKER:
-            case GraphicElementType.DEFENDER:
-            case GraphicElementType.EXTRA_TEAM:
-            case GraphicElementType.NEUTRAL_PLAYER:
-            case GraphicElementType.CONE:
+            case drillEditor.GraphicElementType.ATTACKER:
+            case drillEditor.GraphicElementType.DEFENDER:
+            case drillEditor.GraphicElementType.EXTRA_TEAM:
+            case drillEditor.GraphicElementType.NEUTRAL_PLAYER:
+            case drillEditor.GraphicElementType.CONE:
                     result.width = elementVO.width;
                     result.height = elementVO.height;
                     result.fillColor = elementVO.fillColor;
                 break;
 
-            case GraphicElementType.ARCUATE_MOVEMENT:
+            case drillEditor.GraphicElementType.ARCUATE_MOVEMENT:
                     result.width = elementVO.width;
                     result.height = elementVO.height;
                     result.arrowDirection =  elementVO.arrowDirection;
                     result.rotation = elementVO.rotation;
                 break;
 
-            case GraphicElementType.GOAL:
+            case drillEditor.GraphicElementType.GOAL:
                 result.width = elementVO.width;
                 result.height = elementVO.height;
                 result.rotation = elementVO.rotation;
                 break;
 
-            case GraphicElementType.DRIBBLING_PLAYER:
-            case GraphicElementType.PLAYER_MOVEMENT:
-            case GraphicElementType.BALL_MOVEMENT:
+            case drillEditor.GraphicElementType.DRIBBLING_PLAYER:
+            case drillEditor.GraphicElementType.PLAYER_MOVEMENT:
+            case drillEditor.GraphicElementType.BALL_MOVEMENT:
                 result.startPoint = {x:elementVO.startPoint.x, y:elementVO.startPoint.y};
                 result.endPoint = {x:elementVO.endPoint.x, y:elementVO.endPoint.y};
                 result.arrowDirection = elementVO.arrowDirection;
@@ -224,6 +230,6 @@
 
 
 
-    window.DTOUtils = DTOUtils;
+    drillEditor.DTOUtils = DTOUtils;
 
-}(window));
+}());

@@ -1,4 +1,11 @@
-(function(){
+//##############################################################################
+//
+//##############################################################################
+
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     SimpleTextButton.DEFAULT_FONT = "20px Arial";
     SimpleTextButton.DEFAULT_TEXT_COLOR = "#000000";
@@ -29,7 +36,7 @@
         this.overColor = overColor;
         this.buttonWidth = buttonWidth ? buttonWidth : null;
         this.buttonHeight = buttonHeight ? buttonHeight : null;
-        this.applicationModel = ApplicationModel.getInstance();
+        this.applicationModel = drillEditor.ApplicationModel.getInstance();
         this.setup();
     }
     var p = createjs.extend(SimpleTextButton, createjs.Container);
@@ -59,13 +66,6 @@
 
         this.on("click", this.handleClick);
 
-        if(this.applicationModel.platformInfo.mobile){
-
-        }
-
-
-        /*this.on("rollover", this.handleRollOver);
-        this.on("rollout", this.handleRollOut);*/
 
         this.cursor = "pointer";
 
@@ -115,7 +115,7 @@
 
     SimpleTextButton.prototype.setState = function(newState){
         //console.log("button went to state:" + newState);
-        // var bgColor;
+        var bgColor;
           switch (newState){
               case "down":
                     bgColor = this.downColor;
@@ -140,5 +140,5 @@
 
     };
 
-    window.SimpleTextButton = createjs.promote(SimpleTextButton, "Container");
-}(window));
+    drillEditor.SimpleTextButton = createjs.promote(SimpleTextButton, "Container");
+}());

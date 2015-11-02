@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class DrillEditorProxy
  * Created by Max on 10/13/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
 
 
@@ -61,6 +68,6 @@
     };
 
 
-    window.DrillEditorProxy = DrillEditorProxy;
+    drillEditor.DrillEditorProxy = DrillEditorProxy;
 
-}(window));
+}());

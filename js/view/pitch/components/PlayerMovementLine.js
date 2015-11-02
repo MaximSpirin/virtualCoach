@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class PlayerMovementLine
+ * Class drillEditor.PlayerMovementLine
  * Created by maxim_000 on 9/18/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /**************************************************** public variables ********************************************/
     PlayerMovementLine.prototype.demoShape = null;
     PlayerMovementLine.prototype.lineContainer = null;
@@ -20,7 +27,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(PlayerMovementLine, BaseComponentRenderer);
+    var p = createjs.extend(PlayerMovementLine, drillEditor.BaseComponentRenderer);
 
     /************************************************ private functions ***********************************************/
     function initialize() {
@@ -51,7 +58,7 @@
         this.contentRegPoint = "endPoint";
 
         this.mouseDownHandler = this.container.on("mousedown", function(evt){
-            Dispatcher.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_SELECTED,{data:this}));
+            drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_SELECTED,{data:this}));
             //TODO calculate offsets
 
             var pitchCordinates = this.container.localToLocal(evt.localX, evt.localY, this.parent);
@@ -83,7 +90,7 @@
             this.rendererData.endPoint.x = pitchCoordinates.x - this.offset.endPointOffsetX;
             this.rendererData.endPoint.y = pitchCoordinates.y - this.offset.endPointOffsetY;
 
-            this.dispatchEvent(new ApplicationEvent(ApplicationEvent.ELEMENT_MOVE));
+            this.dispatchEvent(new drillEditor.ApplicationEvent(drillEditor.ApplicationEvent.ELEMENT_MOVE));
         }, this);
 
     };
@@ -108,10 +115,10 @@
             this.lineContainer.setBounds(0, 0, 1006 , PlayerMovementLine.STD_HEIGHT);
         }
 
-        if(this.rendererData.arrowDirection == ArrowDirection.LEFT){
+        if(this.rendererData.arrowDirection == drillEditor.ArrowDirection.LEFT){
             this.lineContainer.scaleX = 1;
             this.lineContainer.x = 0;
-        } else if(this.rendererData.arrowDirection == ArrowDirection.RIGHT){
+        } else if(this.rendererData.arrowDirection == drillEditor.ArrowDirection.RIGHT){
             this.lineContainer.scaleX = -1;
             this.lineContainer.x = this.rendererData.lineWidth;
         }
@@ -135,8 +142,7 @@
         this.container.setBounds(0, 0, this.rendererData.lineWidth, PlayerMovementLine.STD_HEIGHT);
     };
 
-    //Make aliases for all superclass methods: SuperClass_methodName
-    window.PlayerMovementLine = createjs.promote(PlayerMovementLine,"BaseComponentRenderer");
+
 
     p.getContentBounds = function(){
         var containerBounds = this.container.getBounds();
@@ -151,7 +157,7 @@
     };
 
     p.getMinimalSize = function(){
-        return new createjs.Point(DribblingLineSegment.STD_WIDTH, PlayerMovementLine.STD_HEIGHT);
+        return new createjs.Point(drillEditor.DribblingLineSegment.STD_WIDTH, PlayerMovementLine.STD_HEIGHT);
     };
 
     p.graphicPropertyChangeHandler = function(event){
@@ -176,5 +182,6 @@
     p.isInteractiveLine = true;
     /******************************************** event handlers *******************************************/
 
-
-}(window));
+    //Make aliases for all superclass methods: SuperClass_methodName
+    drillEditor.PlayerMovementLine = createjs.promote(PlayerMovementLine,"BaseComponentRenderer");
+}());

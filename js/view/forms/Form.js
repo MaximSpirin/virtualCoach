@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
- * Class Form
+ * Class drillEditor.Form
  * Created by maxim_000 on 9/15/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     //public variables
     Form.prototype.initParams;
     Form.prototype.positiveCallback;
@@ -39,15 +46,6 @@
     };
 
 
-    // public functions
-    //Form.prototype.publicFunction = function (param1) { };
+    drillEditor.Form = createjs.promote(Form, "Container");
 
-    //private functions
-    //function privateFunction(param) { }
-
-    //public static method
-    //Form.staticFunctionName = function(param1){ //method body };
-
-    window.Form = createjs.promote(Form, "Container");
-
-}(window));
+}());

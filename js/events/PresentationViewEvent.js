@@ -1,8 +1,15 @@
-/**
- * PresentationViewEvent
- */
-(function (window) {
+//##############################################################################
+// PresentationViewEvent
+//##############################################################################
 
+/**
+ * drillEditor.PresentationViewEvent
+ */
+
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     PresentationViewEvent.CREATE_RECTANGLE_CLICK = "create_rectangle_click";
     PresentationViewEvent.CREATE_SQUARE_CLICK = "create_square_click";
     PresentationViewEvent.CREATE_ATTACKER_CLICK = "create_attacker_click";
@@ -42,6 +49,6 @@
 
     var p = createjs.extend(PresentationViewEvent, createjs.Event);
 
-    window.PresentationViewEvent = createjs.promote(PresentationViewEvent, "Event");
+    drillEditor.PresentationViewEvent = createjs.promote(PresentationViewEvent, "Event");
 
-}(window));
+}());

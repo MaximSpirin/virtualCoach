@@ -1,8 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class ErrorDialogForm
  * Created by maxim_000 on 10/25/2015.
  */
-(function (window) {
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
     /******************* public variables *******************/
     ErrorDialogForm.prototype.formHTMLElement = null;
     ErrorDialogForm.prototype.formDOMElement = null;
@@ -18,7 +25,7 @@
     }
 
     //extend this class from a superclass
-    var p = createjs.extend(ErrorDialogForm, Form);
+    var p = createjs.extend(ErrorDialogForm, drillEditor.Form);
 
     /******************* overridden methods *****************/
 
@@ -30,7 +37,7 @@
 
         //create createjs.DOMElement
         this.formDOMElement = new createjs.DOMElement(this.formHTMLElement);
-    }
+    };
 
     p.destroy = function(){
         this.Form_destroy();
@@ -39,7 +46,7 @@
 
         this.removeChild(this.formDOMElement);
         this.formDOMElement = null;
-    }
+    };
 
 
     /******************** private methods *******************/
@@ -51,6 +58,6 @@
     /******************* public static method ***************/
 
     //Make aliases for all superclass methods: SuperClass_methodName
-    window.ErrorDialogForm = createjs.promote(ErrorDialogForm,"Form");
+    drillEditor.ErrorDialogForm = createjs.promote(ErrorDialogForm,"Form");
 
-}(window));
+}());

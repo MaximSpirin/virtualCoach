@@ -1,10 +1,15 @@
+//##############################################################################
+//
+//##############################################################################
+
 /**
  * Class Clipboard
  * Created by maxim_000 on 10/2/2015.
  */
-(function (window) {
-    //public variables
-    //Clipboard.prototype.publicVar = "value";
+this.drillEditor = this.drillEditor || {};
+
+(function () {
+    "use strict";
 
     //static variable
     Clipboard.instance = null;
@@ -26,9 +31,7 @@
 
     Clipboard.data = null;
 
-    //Make aliases for all superclass methods: SuperClass_methodName
-    //window.Clipboard = createjs.promote(Clipboard,"SuperClass");
 
-    window.Clipboard = Clipboard;
+    drillEditor.Clipboard = Clipboard;
 
-}(window));
+}());
