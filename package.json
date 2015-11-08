@@ -1,0 +1,46 @@
+{
+  "name": "virtual_coach",
+  "version": "0.1.9",
+  "description": "football drill editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaximSpirin/virtualCoach.git"
+  },
+  "keywords": [
+    "drill-editor"
+  ],
+  "author": "Maxim Spirin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaximSpirin/virtualCoach/issues"
+  },
+  "homepage": "https://github.com/MaximSpirin/virtualCoach#readme",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "browser-sync": "^2.2.3",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-rigger": "^0.5.8",
+
+    "gulp-uglify": "^1.1.0",
+    "gulp-watch": "^4.1.1",
+    "imagemin-pngquant": "^4.0.0",
+    "jquery": "^2.1.4",
+    "rimraf": "^2.3.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.12",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-rigger": "^0.5.8",
+    "gulp-sass": "^2.1.0",
+
+    "gulp-uglify": "^1.4.2",
+    "gulp-watch": "^4.3.5",
+    "rimraf": "^2.4.3"
+  }
+}

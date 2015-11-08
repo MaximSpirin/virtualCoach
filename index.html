@@ -15,18 +15,21 @@
     <!-- Load bootstrap -->
     <script src="external/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
+
+    <script src="build/js/drillEditor.js"></script>
+
     <!------------------------- Load createjs libs --------------------->
     <!--<script  src="external/createjs/easeljs-0.8.1.combined.js"></script>-->
-   <!-- <script  src="external/createjs/easeljs-0.8.1.min.js" onload="console.log('easeljs loaded')"></script>-->
+    <!-- <script  src="external/createjs/easeljs-0.8.1.min.js" onload="console.log('easeljs loaded')"></script>-->
     <!--<script  src="external/createjs/preloadjs-0.6.1.combined.js"></script>-->
     <!--<script  src="external/createjs/preloadjs-0.6.1.min.js"></script>-->
-    <script  src="production/drillEditor-0.1.8.min.js"></script>
+    <!--<script  src="build/drillEditor-0.1.8.js"></script>-->
 
 
-    <!--<script  src="js/DrillEditorApplication.js"></script>
 
 
-    <script  src="js/events/ApplicationEvent.js"></script>
+
+    <!--<script  src="js/events/ApplicationEvent.js"></script>
     <script  src="js/events/PresentationViewEvent.js"></script>
 
 
@@ -38,16 +41,16 @@
     <script src="js/utils/CanvasUtils.js"></script>
 
 
-    <script  src="js/view/screens/AppScreen.js"></script>
-    <script  src="js/view/screens/MainMenuScreen.js"></script>
-    <script  src="js/view/screens/Editor.js"></script>
-    <script  src="js/view/ui/SimpleTextButton.js"></script>
-    <script  src="js/view/forms/Form.js"></script>
-    <script  src="js/view/forms/LoadDrillView.js"></script>
-    <script  src="js/view/forms/PitchSizeInputFormHTML.js"></script>
-    <script  src="js/view/forms/ProgressBarForm.js"></script>
-    <script  src="js/view/forms/ErrorDialogForm.js"></script>
-    <script  src="js/view/ui/ToolsPanel.js"></script>
+    <script src="js/view/screens/AppScreen.js"></script>
+    <script src="js/view/screens/MainMenuScreen.js"></script>
+    <script src="js/view/screens/Editor.js"></script>
+    <script src="js/view/ui/SimpleTextButton.js"></script>
+    <script src="js/view/forms/Form.js"></script>
+    <script src="js/view/forms/LoadDrillView.js"></script>
+    <script src="js/view/forms/PitchSizeInputFormHTML.js"></script>
+    <script src="js/view/forms/ProgressBarForm.js"></script>
+    <script src="js/view/forms/ErrorDialogForm.js"></script>
+    <script src="js/view/ui/ToolsPanel.js"></script>
     <script src="js/view/tools/TransformTool.js"></script>
     <script src="js/view/tools/RotationTool.js"></script>
     <script src="js/view/ui/ComponentsPallete.js"></script>
@@ -67,10 +70,10 @@
     <script src="js/view/pitch/components/Goal.js"></script>
 
 
-    <script  src="js/model/vo/Presentation.js"></script>
-    <script  src="js/model/vo/GraphicItemVO.js"></script>
-    <script  src="js/model/vo/RectVO.js"></script>
-    <script  src="js/model/constants/GraphicElementType.js"></script>
+    <script src="js/model/vo/Presentation.js"></script>
+    <script src="js/model/vo/GraphicItemVO.js"></script>
+    <script src="js/model/vo/RectVO.js"></script>
+    <script src="js/model/constants/GraphicElementType.js"></script>
     <script src="js/model/vo/SquareVO.js"></script>
     <script src="js/model/vo/AttackerVO.js"></script>
     <script src="js/model/vo/DefenderVO.js"></script>
@@ -85,18 +88,11 @@
     <script src="js/model/vo/BallSupplyVO.js"></script>
     <script src="js/model/vo/GoalVO.js"></script>
     <script src="js/model/constants/ArrowDirection.js"></script>
-
-
     <script src="js/dispatcher/Dispatcher.js"></script>
-
     <script src="js/model/ApplicationModel.js"></script>
     <script src="js/controller/PresentationController.js"></script>
-
-
     <script src="js/utils/DrillEditorProxy.js"></script>
-
-
-    <script  src="js/DrillEditorApplication.js"></script>-->
+    <script src="js/DrillEditorApplication.js"></script>-->
 
     <script >
         $(document).ready(function(){
@@ -224,7 +220,7 @@
                         lastModified:"15 Oct 2015",
                         pitchWidth: 101,
                         pitchHeight: 201,
-                        thumbURL:"img/dummy_thumb_1.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
                     },
                     {
                         drillId:"0000002",
@@ -232,7 +228,7 @@
                         lastModified:"12 Sep 2015",
                         pitchWidth: 102,
                         pitchHeight: 202,
-                        thumbURL:"img/dummy_thumb_2.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
                     },
                     {
                         drillId:"0000003",
@@ -240,7 +236,7 @@
                         lastModified:"01 May 2014",
                         pitchWidth: 103,
                         pitchHeight: 203,
-                        thumbURL:"img/dummy_thumb_1.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
                     },
                     {
                         drillId:"0000004",
@@ -248,7 +244,7 @@
                         lastModified:"14 Feb 2015",
                         pitchWidth: 104,
                         pitchHeight: 204,
-                        thumbURL:"img/dummy_thumb_2.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
                     },
                     {
                         drillId:"0000005",
@@ -256,7 +252,7 @@
                         lastModified:"06 Apr 2014",
                         pitchWidth: 105,
                         pitchHeight: 205,
-                        thumbURL:"img/dummy_thumb_1.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
                     },
                     {
                         drillId:"0000006",
@@ -264,7 +260,7 @@
                         lastModified:"01 Oct 2013",
                         pitchWidth: 106,
                         pitchHeight: 206,
-                        thumbURL:"img/dummy_thumb_2.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
                     },
                     {
                         drillId:"0000007",
@@ -272,7 +268,7 @@
                         lastModified:"21 Jun 2014",
                         pitchWidth: 107,
                         pitchHeight: 207,
-                        thumbURL:"img/dummy_thumb_1.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
                     },
                     {
                         drillId:"0000008",
@@ -280,7 +276,7 @@
                         lastModified:"21 Jun 2014",
                         pitchWidth: 107,
                         pitchHeight: 207,
-                        thumbURL:"img/dummy_thumb_2.jpg"
+                        thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
                     }
 
                 ];

@@ -12,7 +12,7 @@ this.drillEditor = this.drillEditor || {};
     "use strict";
 
     PitchSizeInputFormHTML.prototype.formHTMLElement;
-    PitchSizeInputFormHTML.prototype.formDOMElement;
+    //PitchSizeInputFormHTML.prototype.formDOMElement;
 
     //constructor
     function PitchSizeInputFormHTML(initParams) {
@@ -25,7 +25,7 @@ this.drillEditor = this.drillEditor || {};
     p.constructForm = function(){
         this.Form_constructForm();
 
-        this.formHTMLElement = jQuery.parseHTML("<div id='pitchSizeInputFormHTML' style='position:absolute;left:0px;top:0px;width: 800px;height: 600px;background: #ffffff;'> <div style='position: absolute; padding-top: 10px; padding-left: 10px '> <button id='pitchInputFormBackButton' type='button' class='btn btn-default'> <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>Back </button> </div><div class='outer'> <div class='middle'> <div class='inner'> <div class='container' style='width: inherit; height: 290px; background: #cccccc'> <h2 style='text-align: center'>Enter pitch size</h2> <form role='form'> <div class='form-group'> <label>Width:</label> <input class='form-control' id='pitch_width_input' placeholder='Enter width in meters'> </div><div class='form-group'> <label>Height:</label> <input type='height' id='pitch_height_input' class='form-control' placeholder='Enter height in meters'> </div><div class='checkbox'> <label> <input id='pitchInputFormUseDefaultCb' type='checkbox'>Use default size - 105 by 68 metres </label> </div><button id='pitchInputFormProceedButton' type='button' class='btn btn-primary btn-block'>Apply and proceed</button> </form> </div></div></div></div></div>")[0];
+        this.formHTMLElement = jQuery.parseHTML("<div id='pitchSizeInputFormHTML' class='drill-editor-app-form'> <div style='position: absolute; padding-top: 10px; padding-left: 10px '> <button id='pitchInputFormBackButton' type='button' class='btn btn-default'> <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>Back </button> </div><div class='outer'> <div class='middle'> <div class='inner'> <div class='container' style='width: inherit; height: 290px; background: #cccccc'> <h2 style='text-align: center'>Enter pitch size</h2> <form role='form'> <div class='form-group'> <label>Width:</label> <input class='form-control' id='pitch_width_input' placeholder='Enter width in meters'> </div><div class='form-group'> <label>Height:</label> <input type='height' id='pitch_height_input' class='form-control' placeholder='Enter height in meters'> </div><div class='checkbox'> <label> <input id='pitchInputFormUseDefaultCb' type='checkbox'>Use default size - 105 by 68 metres </label> </div><button id='pitchInputFormProceedButton' type='button' class='btn btn-primary btn-block'>Apply and proceed</button> </form> </div></div></div></div></div>")[0];
         $("#appContainer").append(this.formHTMLElement);
 
         $("#pitchInputFormBackButton").click(this,function(evt){
@@ -57,7 +57,7 @@ this.drillEditor = this.drillEditor || {};
             //drillEditor.Dispatcher.getInstance().dispatchEvent(new drillEditor.ApplicationEvent(ApplicationEvent.HIDE_CURRENT_FORM));
         });
 
-        this.formDOMElement = new createjs.DOMElement(this.formHTMLElement);
+        //this.formDOMElement = new createjs.DOMElement(this.formHTMLElement);
 
     };
 
@@ -73,7 +73,7 @@ this.drillEditor = this.drillEditor || {};
         $("#pitchSizeInputFormHTML").remove();
 
         //remove DOMElement object from DL
-        this.removeChild(this.formDOMElement);
+        //this.removeChild(this.formDOMElement);
         this.formDOMElement = null;
     };
 

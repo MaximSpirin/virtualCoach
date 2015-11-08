@@ -1,5 +1,5 @@
 //##############################################################################
-//
+// AppScreen
 //##############################################################################
 
 /**
@@ -52,7 +52,6 @@ this.drillEditor = this.drillEditor || {};
 
 
     //private functions
-
     function hideCurrentFormHandler(applicationEvent){
         removeCurrentForm(this);
     }
@@ -60,9 +59,9 @@ this.drillEditor = this.drillEditor || {};
     function removeCurrentForm(thisScope) {
         if(thisScope.form){
             thisScope.form.destroy();
-            if(thisScope.contains(thisScope.form)){
+            /*if(thisScope.contains(thisScope.form)){
                 thisScope.removeChild(thisScope.form);
-            }
+            }*/
         }
         thisScope.form = null;
     }
@@ -73,7 +72,7 @@ this.drillEditor = this.drillEditor || {};
         //2.create instance of form object
         scope.form = new formClass(initParams);
         //3. add new form to the top of DL
-        scope.addChild(scope.form);
+      //  scope.addChild(scope.form);
     }
 
 

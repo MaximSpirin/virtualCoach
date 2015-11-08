@@ -1,5 +1,5 @@
 //##############################################################################
-//
+//  ApplicationModel
 //##############################################################################
 
 /**
@@ -18,7 +18,7 @@ this.drillEditor = this.drillEditor || {};
 
 
     //static variables and constants
-   ApplicationModel.VERSION = "0.1.8";
+   ApplicationModel.VERSION = "0.1.9";
    ApplicationModel.debugVersion = false;
    ApplicationModel.instance = null;
    ApplicationModel.APP_WIDTH = 800;

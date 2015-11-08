@@ -1,5 +1,5 @@
 //##############################################################################
-//
+// DrillEditorApplication
 //##############################################################################
 
 /**
@@ -189,11 +189,11 @@ this.drillEditor = this.drillEditor || {};
     p.loadExternalAssets = function(){
         //load all external files required by app
         var manifest = [
-            {id:"main-menu-background", src:"img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE},
-            {id:"rotation-icon", src:"img/rotating22.png", type:createjs.AbstractLoader.IMAGE},
-            {id:"soccer-ball-icon", src:"img/soccer-ball-icon-32.png", type:createjs.AbstractLoader.IMAGE},
-            {id:"ball-supply-icon", src:"img/ball-supply-icon-26.png", type:createjs.AbstractLoader.IMAGE},
-            {id:"goal-component-icon", src:"img/goal_65_47.png", type:createjs.AbstractLoader.IMAGE}
+            {id:"main-menu-background", src:"Content/DrillEditor/img/background_2_800_600.jpg", type:createjs.AbstractLoader.IMAGE},
+            {id:"rotation-icon", src:"Content/DrillEditor/img/rotating22.png", type:createjs.AbstractLoader.IMAGE},
+            {id:"soccer-ball-icon", src:"Content/DrillEditor/img/soccer-ball-icon-32.png", type:createjs.AbstractLoader.IMAGE},
+            {id:"ball-supply-icon", src:"Content/DrillEditor/img/ball-supply-icon-26.png", type:createjs.AbstractLoader.IMAGE},
+            {id:"goal-component-icon", src:"Content/DrillEditor/img/goal_65_47.png", type:createjs.AbstractLoader.IMAGE}
         ];
 
         DrillEditorApplication.loadQueue = new createjs.LoadQueue(false, null, true);
