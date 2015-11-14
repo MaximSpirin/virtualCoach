@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Football drills</title>
+    <link rel="stylesheet" type="text/css" href="css/drillEditor.css"/>
+    <link rel="stylesheet" href="external/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Load jQuery -->
+<script  src="external/jquery/jquery.js" onload="console.log('jquery loaded')"></script>
+
+<!-- Load bootstrap -->
+<script src="external/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+
+<!------------------------- Load application  ------------------------->
+
+<script src="js/drillEditor.js"></script>
+
+
+<script >
+    $(document).ready(function(){
+
+        drillEditor.DrillEditorProxy.getDrillByIdCallback = function(id, onSuccess, onFailure, scope){
+            //look for the drill data and call onSuccess or onFailure
+            var emulatedData = {
+                drillId : "12ss",
+                pitchWidth : 105,
+                pitchHeight : 68,
+                elements :
+                        [
+                            {
+                                id:94,
+                                position:{x:33, y:192},
+                                type:14,
+                                width:65,
+                                height:47,
+                                rotation:-90
+                            },
+                            {
+                                id:95,
+                                position:{x:616, y:199},
+                                type:14,
+                                width:65,
+                                height:47,
+                                rotation:90
+                            },
+                            {
+                                id:96,
+                                position:{x:0, y:0},
+                                arrowDirection:"left",
+                                type:8,
+                                startPoint:{x:84, y:204},
+                                endPoint:{x:580, y:203}
+                            },
+                            {
+                                id:232,
+                                position:{x:314, y:165},
+                                type:14,
+                                width:65,
+                                height:47,
+                                rotation:0
+                            }
+                        ]
+            };
+
+            /*var emulatedData =  {
+             drillId : "00000",
+             pitchWidth : 50,
+             pitchHeight : 50,
+             elements:[
+             {
+             fillColor:"#382CBF",
+             id:"91",
+             type:3,
+             width:40,
+             height:40,
+             position:{x:47, y:47}
+             },
+             {
+             fillColor:"#382CBF",
+             id:"95",
+             type:3,
+             width:40,
+             height:40,
+             position:{x:473, y:63}
+             },
+             {
+             fillColor:"#382CBF",
+             id:"99",
+             type:3,
+             width:40,
+             height:40,
+             position:{x:34, y:489}
+             },
+             {
+             fillColor:"#382CBF",
+             id:"103",
+             type:3,
+             width:40,
+             height:40,
+             position:{x:491, y:491}
+             },
+             {
+             fillColor:"#F21818",
+             id:"107",
+             type:4,
+             width:40,
+             height:40,
+             position:{x:216, y:275}
+             },
+             {
+             fillColor:"#085429",
+             id:"111",
+             type:6,
+             width:40,
+             height:40,
+             position:{x:278, y:275}
+             }
+
+
+             ]
+             };*/
+
+            setTimeout(function(){
+                if(onSuccess){
+                    onSuccess.call(scope, emulatedData);
+                }
+
+                /*if(onFailure){
+                 onFailure.call(scope);
+                 }*/
+
+            }, Math.random()*3000);
+        };
+
+        drillEditor.DrillEditorProxy.drillStartupData = null;
+
+        drillEditor.DrillEditorProxy.getSavedDrillsCallback = function(onSuccess, onFailure, scope){
+            var emulatedData = [
+                {
+                    drillId:"0000001",
+                    displayName: "Manchester United's 'Boxes' Drill",
+                    lastModified:"15 Oct 2015",
+                    pitchWidth: 101,
+                    pitchHeight: 201,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
+                },
+                {
+                    drillId:"0000002",
+                    displayName: "United practise Van Gaal passing drills",
+                    lastModified:"12 Sep 2015",
+                    pitchWidth: 102,
+                    pitchHeight: 202,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
+                },
+                {
+                    drillId:"0000003",
+                    displayName: "FC Dacia drill",
+                    lastModified:"01 May 2014",
+                    pitchWidth: 103,
+                    pitchHeight: 203,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
+                },
+                {
+                    drillId:"0000004",
+                    displayName: "School football drill 1",
+                    lastModified:"14 Feb 2015",
+                    pitchWidth: 104,
+                    pitchHeight: 204,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
+                },
+                {
+                    drillId:"0000005",
+                    displayName: "My cool drill 5",
+                    lastModified:"06 Apr 2014",
+                    pitchWidth: 105,
+                    pitchHeight: 205,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
+                },
+                {
+                    drillId:"0000006",
+                    displayName: "My cool drill 6",
+                    lastModified:"01 Oct 2013",
+                    pitchWidth: 106,
+                    pitchHeight: 206,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
+                },
+                {
+                    drillId:"0000007",
+                    displayName: "My cool drill 7",
+                    lastModified:"21 Jun 2014",
+                    pitchWidth: 107,
+                    pitchHeight: 207,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_1.jpg"
+                },
+                {
+                    drillId:"0000008",
+                    displayName: "My cool drill 7",
+                    lastModified:"21 Jun 2014",
+                    pitchWidth: 107,
+                    pitchHeight: 207,
+                    thumbURL:"Content/DrillEditor/img/dummy_thumb_2.jpg"
+                }
+
+            ];
+
+            var errorMessage = "Error getting saved drills";
+
+            setTimeout(function(){
+                if(onSuccess){
+                    onSuccess.call(scope, emulatedData);
+                };
+
+                /*if(onFailure){
+                 //console.log("TTYL:",scope, errorMessage);
+                 onFailure.call(scope, errorMessage);
+
+                 }*/
+
+            }, Math.random()*3000);
+
+        };
+
+        window.drillEditorApplication = new drillEditor.DrillEditorApplication();
+    });
+</script>
+
+
+<!-- app container -->
+<div id="appContainer">
+    <canvas id="appCanvas" width="800" height="600">
+
+    </canvas>
+</div>
+
+
+</body>
+</html>

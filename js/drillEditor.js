@@ -5,7 +5,7 @@
 //= ../external/createjs/preloadjs-0.6.1.min.js
 
 /*
- *  Custom
+ *  DrillEditor minified
  */
 
 //= DrillEditorApplication.js

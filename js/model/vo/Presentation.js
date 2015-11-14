@@ -1,5 +1,5 @@
 //##############################################################################
-//
+// Presentation
 //##############################################################################
 
 /**
@@ -13,7 +13,7 @@ this.drillEditor = this.drillEditor || {};
     Presentation.prototype.id = null;
     Presentation.prototype.pitchWidth;
     Presentation.prototype.pitchHeight;
-    Presentation.prototype.elements; //array that stores vo of the presentation items
+    Presentation.prototype.elements; //array that stores vo's of the presentation items
 
     //static variable
     Presentation.DEFAULT_ID = "0000";

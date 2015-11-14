@@ -22,7 +22,6 @@ this.drillEditor = this.drillEditor || {};
 
     var p = createjs.extend(PitchSizeInputFormHTML, drillEditor.Form);
 
-
     p.updateApplyButtonState = function(){
         var widthInputValue = Number($("#pitch_width_input").val());
         var heightInputValue = Number($("#pitch_height_input").val());

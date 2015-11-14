@@ -1,5 +1,5 @@
 //##############################################################################
-//
+// TransformTool
 //##############################################################################
 
 /**
@@ -23,7 +23,6 @@ this.drillEditor = this.drillEditor || {};
     //static variable
     TransformTool.OUTLINE_STROKE_SIZE = 2;
     TransformTool.OUTLINE_STROKE_COLOR = "#FF0000";
-    //TransformTool.SCALE_CONTROL_SIZE = 20;
     TransformTool.SCALE_CONTROL_SIZE = 16;
     TransformTool.LINE_CONTROL_SIZE = 18;
 
@@ -71,7 +70,6 @@ this.drillEditor = this.drillEditor || {};
             this.scaleControl.visible = true;
 
             var targetBounds = this.target.getContentBounds();
-
             var pointOnTool = this.globalToLocal(evt.stageX, evt.stageY);
             var minAllowedSize = this.target.getMinimalSize();
             var newW = pointOnTool.x - this.scaleControlOffsetX + TransformTool.SCALE_CONTROL_SIZE/2 - targetBounds.x;
@@ -95,7 +93,7 @@ this.drillEditor = this.drillEditor || {};
             this.target.rendererData.resize(newW, newH);
             this.redraw();
             //console.log("Stage point=",evt.stageX, evt.stageY,"Tool point=",pointOnTool.x, pointOnTool.y);
-        },this);
+        }, this);
 
         this.scaleControl.visible = false;
         this.addChild(this.scaleControl);

@@ -93,17 +93,17 @@ this.drillEditor = this.drillEditor || {};
     p.graphicPropertyChangeHandler = function(evt){
         switch(evt.payload.name){
             case "playerNumber":
-                    this.textField.text = this.rendererData.playerNumber;
-                    var tfBounds = this.textField.getBounds();
-                    this.textField.x = -tfBounds.width / 2;
-                    this.textField.y = -tfBounds.height / 2;
-                break;
+                var tfBounds = null;
+                this.textField.text = this.rendererData.playerNumber;
+                tfBounds = this.textField.getBounds();
+                this.textField.x = - tfBounds.width / 2;
+                this.textField.y = - tfBounds.height / 2;
+            break;
         }
     };
 
-
     //Make aliases for all superclass methods: SuperClass_methodName
-    drillEditor.PrimitiveShapeRenderer = createjs.promote(PrimitiveShapeRenderer,"BaseComponentRenderer");
+    drillEditor.PrimitiveShapeRenderer = createjs.promote(PrimitiveShapeRenderer, "BaseComponentRenderer");
 
 
 }());

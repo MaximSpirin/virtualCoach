@@ -300,10 +300,15 @@ this.drillEditor = this.drillEditor || {};
         return clonedElementData
     };
 
+    function sortItemsByDepth(elemA, elemB){
+        var result = parseInt(elemA.depth) - parseInt(elemB.depth);
+        return result;
+    }
 
 
     PresentationController.prototype.actualizePlayerNumbers = function(){
-        this.presentation.elements.sort(drillEditor.MathUtils.compareNumeric);
+        //this.presentation.elements.sort(drillEditor.MathUtils.compareNumeric);
+        this.presentation.elements.sort(sortItemsByDepth);
 
         var atackersCount = 0;
         var defendersCount = 0;
