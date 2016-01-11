@@ -14,8 +14,10 @@ this.drillEditor = this.drillEditor || {};
     //BallSupplyVO.prototype.publicVar = "value";
 
     /******************* static variables *******************/
-    BallSupplyVO.STD_WIDTH = 78;
-    BallSupplyVO.STD_HEIGHT = 26;
+    //BallSupplyVO.STD_WIDTH = 78;
+    BallSupplyVO.STD_WIDTH = Math.floor(78*0.8);
+    //BallSupplyVO.STD_HEIGHT = 26;
+    BallSupplyVO.STD_HEIGHT = Math.floor(26*0.8);
 
     /********************** constructor *********************/
     function BallSupplyVO(id, position) {

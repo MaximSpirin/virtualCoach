@@ -14,8 +14,10 @@ this.drillEditor = this.drillEditor || {};
     BallComponent.prototype.ballIcon = null;
 
     /******************* static variables *******************/
-    BallComponent.STD_WIDTH = 32;
-    BallComponent.STD_HEIGHT = 32;
+    //BallComponent.STD_WIDTH = 32;
+    BallComponent.STD_WIDTH = 24;
+    //BallComponent.STD_HEIGHT = 32;
+    BallComponent.STD_HEIGHT = 24;
 
     /********************** constructor *********************/
     function BallComponent() {
@@ -34,6 +36,10 @@ this.drillEditor = this.drillEditor || {};
         this.addChild(this.container);
 
         this.ballIcon = new createjs.Bitmap(drillEditor.DrillEditorApplication.loadQueue.getResult("soccer-ball-icon"));
+
+        var rdata = this.getRendererData();
+
+        this.ballIcon.setTransform(0,0,0.75,0.75);
         this.container.addChild(this.ballIcon);
     };
 

@@ -57,9 +57,7 @@ this.drillEditor = this.drillEditor || {};
      */
     PresentationController.prototype.loadPresentation = function (presentationDTO) {
         this.presentation = drillEditor.DTOUtils.presentationDTOToVO(presentationDTO);
-
         this.selectedElement = null;
-
     };
 
     /**
@@ -416,7 +414,7 @@ this.drillEditor = this.drillEditor || {};
     }
 
     function createDefenderClickHandler(presentationViewEvent) {
-        var defaultRadius = 20;
+        var defaultRadius = drillEditor.PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS;;
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new drillEditor.DefenderVO(elemId, elemPosition, defaultRadius);
@@ -425,7 +423,7 @@ this.drillEditor = this.drillEditor || {};
     }
 
     function createExtraClickHandler(presentationViewEvent) {
-        var defaultRadius = 20;
+        var defaultRadius = drillEditor.PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS;;
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new drillEditor.ExtraTeamVO(elemId, elemPosition, defaultRadius);
@@ -434,7 +432,7 @@ this.drillEditor = this.drillEditor || {};
     }
 
     function createNeutralPlayerClickHandler(presentationViewEvent) {
-        var defaultRadius = 20;
+        var defaultRadius = drillEditor.PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS;;
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultRadius*2, defaultRadius*2);
         var elementRendererData = new drillEditor.NeutralVO(elemId, elemPosition, defaultRadius);
@@ -443,8 +441,8 @@ this.drillEditor = this.drillEditor || {};
     }
 
     function createConeClickHandler(presentationViewEvent) {
-        var defaultTriangleWidth = 30;
-        var defaultTriangleHeight = 35;
+        var defaultTriangleWidth = 30*0.75;
+        var defaultTriangleHeight = Math.floor(35*0.75);
         var elemId = createjs.UID.get();
         var elemPosition = getElementDefaultPosition.call(this, defaultTriangleWidth, defaultTriangleHeight);
         var elementRendererData = new drillEditor.ConeVO(elemId, elemPosition, defaultTriangleWidth, defaultTriangleHeight);
@@ -564,14 +562,14 @@ this.drillEditor = this.drillEditor || {};
         return PresentationController.instance;
     };
 
-    PresentationController.createEmptyPresentation = function(){
+    /*PresentationController.createEmptyPresentation = function(){
         var id = "000000";
         var presentation = new drillEditor.Presentation(id);
 
         console.log("Created a new presentation with id= " + id);
 
         return presentation;
-    };
+    };*/
 
     drillEditor.PresentationController = PresentationController;
 

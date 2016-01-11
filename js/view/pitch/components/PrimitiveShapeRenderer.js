@@ -16,7 +16,8 @@ this.drillEditor = this.drillEditor || {};
 
 
     //static variable
-    PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS = 20;
+    //PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS = 20;
+    PrimitiveShapeRenderer.CIRCLE_COMPONENT_MIN_RADIUS = 15;
 
     //constructor
     function PrimitiveShapeRenderer() {

@@ -14,8 +14,8 @@ this.drillEditor = this.drillEditor || {};
     //drillEditor.Goal.prototype.publicVar = "value";
 
     /******************* static variables *******************/
-    Goal.STD_WIDTH = 65;
-    Goal.STD_HEIGHT = 47;
+    Goal.STD_WIDTH = 65*0.75;
+    Goal.STD_HEIGHT = 47*0.75;
 
     /********************** constructor *********************/
     function Goal() {
@@ -34,6 +34,7 @@ this.drillEditor = this.drillEditor || {};
         this.addChild(this.container);
 
         this.goalIcon = new createjs.Bitmap(drillEditor.DrillEditorApplication.loadQueue.getResult("goal-component-icon"));
+        this.goalIcon.setTransform(0, 0, 0.75, 0.75);
         this.goalIcon.x = -Goal.STD_WIDTH / 2;
         this.goalIcon.y = -Goal.STD_HEIGHT / 2;
         this.container.addChild(this.goalIcon);

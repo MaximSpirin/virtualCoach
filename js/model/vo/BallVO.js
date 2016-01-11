@@ -14,8 +14,10 @@ this.drillEditor = this.drillEditor || {};
 
 
     /******************* static variables *******************/
-    BallVO.STD_WIDTH = 32;
-    BallVO.STD_HEIGHT = 32;
+    BallVO.STD_WIDTH = 24;
+    //BallVO.STD_WIDTH = 32;
+    BallVO.STD_HEIGHT = 24;
+    //BallVO.STD_HEIGHT = 32;
 
     /********************** constructor *********************/
     function BallVO(id, position) {
