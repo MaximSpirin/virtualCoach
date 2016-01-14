@@ -18,7 +18,7 @@ this.drillEditor = this.drillEditor || {};
 
 
     //static variables and constants
-   ApplicationModel.VERSION = "0.1.9";
+   ApplicationModel.VERSION = "0.2.0";
    ApplicationModel.debugVersion = false;
    ApplicationModel.instance = null;
    ApplicationModel.APP_WIDTH = 800;
